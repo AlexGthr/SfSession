@@ -1,0 +1,12 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 20% 80%);
+}
+
+.nav {
+    background-color: blue;
+}
+
+.content {
+    background-color: brown;
+}
