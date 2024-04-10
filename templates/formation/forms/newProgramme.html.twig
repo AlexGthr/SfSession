@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Programme{% endblock %}
+
+{% block body %}
+
+    {% if edit %}
+        <h1>Edit Programme</h1>
+    {% else %}
+        <h1>Add Programme</h1>
+    {% endif %}
+
+    {{ form_start(formAddProgramme) }}
+
+        {{ form_row(formAddProgramme) }}
+
+{{ form_end(formAddProgramme) }}
+
+{% endblock %}

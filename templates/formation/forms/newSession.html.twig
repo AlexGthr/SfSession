@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add session{% endblock %}
+
+{% block body %}
+
+    {% if edit %}
+        <h1>Edit session</h1>
+    {% else %}
+        <h1>Add session</h1>
+    {% endif %}
+
+    {{ form_start(formAddSession) }}
+
+        {{ form_row(formAddSession.valider) }}
+
+{{ form_end(formAddSession) }}
+
+{% endblock %}

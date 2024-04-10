@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lists Modules{% endblock %}
+
+
+{% block body %}
+
+{% if modules %}
+    
+{% for module in modules %}
+
+
+    <p> {{ module.name }} </p>
+    <p> {{ module.description|replace({'%strong%' : '<strong>', '%/strong%' : '</strong>', '%list%' : '•', '%br%' : '<br>'})|raw }} </p>
+
+{% endfor %}
+
+{% else %}
+
+<p> no module currently</p>
+{% endif %}
+
+
+{% endblock %}

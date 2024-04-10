@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Student{% endblock %}
+
+{% block body %}
+
+    {% if edit %}
+        <h1>Edit Student</h1>
+    {% else %}
+        <h1>Add Student</h1>
+    {% endif %}
+
+    {{ form_start(formAddStudent) }}
+
+        <div class="row">
+            <div class="col-sm">
+                {{ form_row(formAddStudent.name) }}
+            </div>
+            <div class="col-sm">
+                {{ form_row(formAddStudent.lastName) }}
+            </div>
+        </div>
+
+        {{ form_row(formAddStudent.birthday) }}
+
+        <div class="row">
+            <div class="col-sm">
+                {{ form_row(formAddStudent.city) }}
+            </div>
+            <div class="col-sm">
+                {{ form_row(formAddStudent.sexe) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                {{ form_row(formAddStudent.email) }}
+            </div>
+            <div class="col-sm">
+                {{ form_row(formAddStudent.phoneNumber) }}
+            </div>
+        </div>
+
+        {{ form_row(formAddStudent.valider) }}
+
+{{ form_end(formAddStudent) }}
+
+{% endblock %}

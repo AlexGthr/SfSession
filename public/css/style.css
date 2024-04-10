@@ -1,12 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lexend", sans-serif;
+}
+
+body {
+ 
+    --first-color: #000000;
+    --second-color: #FFFFFF;
+    --btn-color: #0F7CB9;
+    --btn-color-hover: rgb(32, 114, 158);
+    --bg-white: #FFFFFF;
+    --bg-cards: #FBFBFB;
+    --bg-cards-module: #CEEBFB;
+    --color-titleSeparator: #0080C8;
+    --bg-border: #838181;
+    --bg-content: #DDE4F4;
+
+
+ --ExtraLight: 200;
+ --Light: 300;
+ --Regular: 400;
+ --Medium: 500;
+ --SemiBold: 600;
+ --Bold: 700;
+ --ExtraBold: 800;
+ --Black: 900;
+
+}
+
+body.dark-theme {
+
+    --first-color: #FFFFFF;
+    --second-color: #000000;
+    --btn-color: #4B98C2;
+    --bg-white: #1C1C1C;
+    --bg-cards: #242424;
+    --bg-cards-module: #CEEBFB;
+    --color-titleSeparator: #0080C8;
+    --bg-border: #838181;
+    --bg-content: #5F6061;
+}
+
+.green {
+    color: #017121;
+}
+
+.red {
+    color: #BB0000;
+}
+
+
+/* *********************************************
+********************TEMPLATE*******************
+********************************************* */
+
 .wrapper {
     display: grid;
-    grid-template-columns: repeat(2, 20% 80%);
+    grid-template-columns: 230px max-content;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }
 
 .nav {
-    background-color: blue;
+    padding: 20px 0;
+    height: 100vh;
+    background-color: var(--bg-white);
+    border-right: solid 1px var(--bg-border);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0px;
 }
 
 .content {
-    background-color: brown;
+
+    background-color: var(--bg-white);
+}
+
+.button {
+    padding: 40px 0;
+}
+
+.button a {
+    padding: 10px 15px;
+    border-radius: 50px;
+    background-color: var(--btn-color);
+    color: var(--second-color);
+    text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+}
+
+.button a:hover {
+    background-color: var(--btn-color-hover);
+    transition: all 0.3s;
+}
+
+.menu_nav i {
+    font-size: 1.5em;
+    padding: 10px 10px;
+    color: var(--btn-color);
+}
+
+.dashboard,
+.ajouts {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+.dashboard p,
+.ajouts p {
+    font-size: 1.5em;
+}
+
+.dashbord_liste li,
+.ajouts_liste li {
+    padding: 8px 0;
+    list-style: inside;
+}
+
+.dashbord_liste a,
+.ajouts_liste a {
+    color: var(--first-color);
+    text-decoration: none;
 }

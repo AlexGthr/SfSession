@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lists Catégorie{% endblock %}
+
+
+{% block body %}
+
+{% if categorys %}
+    
+{% for categ in categorys %}
+
+    <p> {{ categ.name }} </p>
+
+{% endfor %}
+
+{% else %}
+
+<p> No category currently.</p>
+{% endif %}
+
+
+{% endblock %}

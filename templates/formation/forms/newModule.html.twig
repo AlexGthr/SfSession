@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Module{% endblock %}
+
+{% block body %}
+
+    {% if edit %}
+        <h1>Edit module</h1>
+    {% else %}
+        <h1>Add module</h1>
+    {% endif %}
+
+    {{ form_start(formAddModule) }}
+
+        {{ form_row(formAddModule.name) }}
+        <br> <strong>Balise autorisé : &lt;strong&gt; / &lt;list&gt;  (•) / &lt;br&gt; </strong>
+        {{ form_row(formAddModule.description) }}
+        {{ form_row(formAddModule.category) }}
+        {{ form_row(formAddModule.valider) }}
+
+{{ form_end(formAddModule) }}
+
+{% endblock %}

@@ -4,8 +4,12 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        
         {% block stylesheets %}
-
+        
+        
+        <script src="https://kit.fontawesome.com/a34c2ac31d.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% endblock %}
     </head>
@@ -13,10 +17,58 @@
 
             <div class="wrapper">
                 <div class="nav">
-                    
+                    <h1>SESSION</h1>
+                    <span class="button"><a href="#">Creat Formation</a></span>
+
+                    <div class="menu_nav">
+
+                        <div class="dashboard">
+                            <i class="fa-solid fa-chart-line"></i>
+                                <p>Dashboard</p>
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </div>
+
+                        <div class="dashbord_liste">
+                            <ul>
+                                <li><a href="{{ path('app_formation') }}">Formation</a></li>
+                                <li><a href="{{ path('app_listSession') }}">Session</a></li>
+                                <li><a href="{{ path('app_listModule') }}">Module</a></li>
+                                <li><a href="{{ path('app_listCategory') }}">Category</a></li>
+                                <li><a href="{{ path('app_listStudent') }}">Student</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="ajouts">
+                            <i class="fa-solid fa-chart-line"></i>
+                                <p>Add form</p>
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </div>
+    
+                        <div class="ajouts_liste">
+                            <ul>
+                                <li><a href="{{ path('new_formation') }}">Formation</a></li>
+                                <li><a href="{{ path('new_session') }}">Session</a></li>
+                                <li><a href="{{ path('new_module') }}">Module</a></li>
+                                <li><a href="{{ path('new_programme') }}">Programme</a></li>
+                                <li><a href="{{ path('new_category') }}">Category</a></li>
+                                <li><a href="{{ path('new_student') }}">Student</a></li>
+                            </ul>
+                        </div>
+
+                        {% if app.user %}
+                            <a href="{{ path('app_logout') }}">Logout</a>
+
+                            {% else %}
+
+                            <a href="{{ path('app_register') }}">Register</a>
+                            <a href="{{ path('app_login') }}">Login</a>
+                        {% endif %}
+                    </div>
+
                 </div>
                 <div class="content">
 
+                    
                     {% block body %}{% endblock %}
 
                 </div>

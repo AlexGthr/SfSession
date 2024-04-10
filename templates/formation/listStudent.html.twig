@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lists Stagiaire{% endblock %}
+
+
+{% block body %}
+
+{% if students %}
+    
+{% for student in students %}
+
+    <p> {{ student.name }} </p>
+    <p> {{ student.lastName }} </p>
+    <p> {{ student.birthday|date("d/m/Y") }} </p>
+    <p> {{ student.city }} </p>
+    <p> {{ student.sexe }} </p>
+    <p> {{ student.email }} </p>
+    <p> {{ student.phoneNumber }} </p>
+
+{% endfor %}
+
+{% else %}
+
+<p> no student currently</p>
+{% endif %}
+
+
+{% endblock %}
