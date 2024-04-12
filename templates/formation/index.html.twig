@@ -4,4 +4,34 @@
 
 {% block body %}
 
+    {% if sessions %}
+    
+        {% for session in sessions %}
+
+            <h2>{{ session.formation.name }}</h2>
+            <p>Date de début : {{ session.startDate|date("d/m/Y") }} </p>
+            <p>Date de fin : {{ session.endDate|date("d/m/Y") }} </p>
+            <p>Nombre de place : {{ session.nbPlace }} / {{ session.nbPlace }}</p>
+
+            {% if session.closed %}
+                <p><span class="red"> Fermée à l'inscription </span></p>
+                {% else %}
+                <p><span class="green"> Ouvert à l'inscription </span></p>
+            {% endif %}
+
+            <h3>Modules</h3>
+            <ul>
+                {% for programme in programmes %}
+                    {% if programme.session.id == session.id %}
+                        <li>{{ programme.module.name }}</li>                    
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
+
+    {% else %}
+
+    {% endif %}
+
+
 {% endblock %}

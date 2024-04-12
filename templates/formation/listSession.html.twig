@@ -5,19 +5,7 @@
 
 {% block body %}
 
-{% if sessions %}
-    
 
-{% for session in sessions %}
-
-<p> {{ session.formation.name }} </p>
-
-{% endfor %}
-
-{% else %}
-
-<p> No Session currently.</p>
-{% endif %}
 
 
 {% endblock %}
