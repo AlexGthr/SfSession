@@ -4,34 +4,56 @@
 
 {% block body %}
 
+<div class="contentListFormation">
+
+    <div class="title_page">
+        <h1> Liste des formations </h1>
+        <hr class="after_title" />
+    </div>
+
     {% if sessions %}
     
-        {% for session in sessions %}
-
+    {% for session in sessions %}
+    
+    <div class="listFormation">
             <h2>{{ session.formation.name }}</h2>
-            <p>Date de début : {{ session.startDate|date("d/m/Y") }} </p>
-            <p>Date de fin : {{ session.endDate|date("d/m/Y") }} </p>
-            <p>Nombre de place : {{ session.nbPlace }} / {{ session.nbPlace }}</p>
+            <p><u>Date de début :</u> <span class="blue"> {{ session.startDate|date("d/m/Y") }} </span></p>
+            <p><u>Date de fin :</u> <span class="blue"> {{ session.endDate|date("d/m/Y") }} </span></p>
+            
+            <p><u>Nombre de place :</u>
+                {% if session.nbPlace == 0 %}
+                    <span class="red"> {{ session.nbPlace }} / {{ session.nbPlace }} </span></p>
+                    {% else %}
+                    <span class="green"> {{ session.nbPlace }} / {{ session.nbPlace }} </span></p>
+                {% endif %} 
 
+            <div class="closeOpen">
             {% if session.closed %}
                 <p><span class="red"> Fermée à l'inscription </span></p>
+
                 {% else %}
                 <p><span class="green"> Ouvert à l'inscription </span></p>
-            {% endif %}
+                {% endif %}
+            </div>
 
-            <h3>Modules</h3>
-            <ul>
-                {% for programme in programmes %}
-                    {% if programme.session.id == session.id %}
-                        <li>{{ programme.module.name }}</li>                    
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            <div class="module">
+                <h3>Modules</h3>
+                <ul>
+                    {% for programme in programmes %}
+                        {% if programme.session.id == session.id %}
+                            <li>{{ programme.module.name }}</li>                    
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+
+                <span class="detailModule"><a href="#">Détails du module</a></span>
+            </div>
+    </div>
         {% endfor %}
 
     {% else %}
 
     {% endif %}
 
-
+</div>
 {% endblock %}

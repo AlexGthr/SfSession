@@ -11,6 +11,7 @@
         <script src="https://kit.fontawesome.com/a34c2ac31d.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/listFormation.css') }}">
         {% endblock %}
     </head>
     <body>
@@ -68,11 +69,46 @@
                 </div>
                 <div class="content">
 
+                    <div class="topScreen">
+                        <h1>Formation</h1>
+
+                        <div class="searchBar">
+
+                            <form action="#" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
+
+    
+                                <input type="search" class="research" name="research" placeholder="Research">
+                                <button type="submit" name="submit" class="fa-mobile"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+                            </form>
+
+                        </div>
+
+                        <div class="topScreenUser">
+                            <i class="fa-regular fa-bell"></i>
+                            {% if app.user %}
+                                <div class="userNameRole">
+                                    <p> {{ app.user.name }} </p>
+                                    <p>   {{ app.user.roles[0]|replace({'ROLE_' : ''}) }} </p>
+                                       
+                                </div>
+                                    <figure>
+                                        <img src="{{ absolute_url(asset('img/default.webp')) }}" alt="user avatar">
+                                    </figure>
+                                        
+                                {% else %}
+
+                                <p>Hello visiteur !</p>
+                            {% endif %}
+                        </div>
+                    </div>
                     
                     {% block body %}{% endblock %}
 
                 </div>
             </div>
-
+            {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+            {% endblock %}
     </body>
 </html>
