@@ -16,6 +16,11 @@
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
+.listFormation:hover {
+    transform: translateY(-0.3rem);
+    transition: all 0.5s;
+}
+
 .listFormation h2 {
     font-weight: 600;
     padding-bottom: 30px;
@@ -25,8 +30,18 @@
     line-height: 1;
 }
 
+.listFormation a {
+    text-decoration: none;
+    color: var(--first-color);
+}
+
+.listFormation a:hover {
+    text-decoration: underline;
+}
+
 .closeOpen {
     text-align: center;
+    font-weight: 600;
 }
 
 .module {

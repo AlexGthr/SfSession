@@ -11,8 +11,7 @@
 
 
     <p> {{ module.name }} </p>
-    <p> {{ module.description|replace({'%strong%' : '<strong>', '%/strong%' : '</strong>', '%list%' : '•', '%br%' : '<br>'})|raw }} </p>
-
+    
 {% endfor %}
 
 {% else %}

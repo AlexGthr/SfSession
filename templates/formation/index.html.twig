@@ -16,19 +16,19 @@
     {% for session in sessions %}
     
     <div class="listFormation">
-            <h2>{{ session.formation.name }}</h2>
+            <a href="{{ path('show_formation', {id: session.id}) }}"> <h2>{{ session.formation.name }}</h2> </a>
             <p><u>Date de début :</u> <span class="blue"> {{ session.startDate|date("d/m/Y") }} </span></p>
             <p><u>Date de fin :</u> <span class="blue"> {{ session.endDate|date("d/m/Y") }} </span></p>
             
             <p><u>Nombre de place :</u>
-                {% if session.nbPlace == 0 %}
-                    <span class="red"> {{ session.nbPlace }} / {{ session.nbPlace }} </span></p>
+                {% if session.nbAvailable == 0 %}
+                    <span class="red"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
                     {% else %}
-                    <span class="green"> {{ session.nbPlace }} / {{ session.nbPlace }} </span></p>
+                    <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
                 {% endif %} 
 
             <div class="closeOpen">
-            {% if session.closed %}
+            {% if session.nbAvailable == 0 %}
                 <p><span class="red"> Fermée à l'inscription </span></p>
 
                 {% else %}
@@ -41,12 +41,12 @@
                 <ul>
                     {% for programme in programmes %}
                         {% if programme.session.id == session.id %}
-                            <li>{{ programme.module.name }}</li>                    
+                            <li><a href="{{ path('show_module', {id: programme.module.id}) }}">{{ programme.module.name }}</a></li>                    
                         {% endif %}
                     {% endfor %}
                 </ul>
 
-                <span class="detailModule"><a href="#">Détails du module</a></span>
+                <span class="detailModule"><a href="#">Détails des modules</a></span>
             </div>
     </div>
         {% endfor %}

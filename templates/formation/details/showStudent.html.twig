@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail Formation{% endblock %}
+
+
+
+{% block body %}
+
+<div class="contentDetStudent">
+
+<div class="title_page">
+    <h1> {{ student.lastName|upper }} {{ student.name }} </h1>
+    <hr class="after_title" />
+</div>
+
+<div class="cardStudent">
+
+    <div class="boxStudent">
+        <div class="title">
+            <p class="information"><u><strong>Information</strong></u></p>
+            <a href="#"> Modifier </a>
+        </div>
+
+        <div class="infoStudent">
+            <p><strong>Sexe : </strong> {{ student.sexe }} </p>
+            <p><strong>Date de naissance : </strong> {{ student.birthday|date("d/m/Y") }} ({{ student.Age }} ans)</p>
+            <p><strong>Ville : </strong> {{ student.city }} </p>
+            <p><strong>Email : </strong> {{ student.email }} </p>
+            <p><strong>Téléphone : </strong> {{ student.phoneNumber }} </p>
+        </div>
+    </div>
+
+</div>
+
+</div>
+{% endblock %}

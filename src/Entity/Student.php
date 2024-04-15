@@ -35,7 +35,7 @@ class Student
     private ?string $email = null;
 
     #[ORM\Column]
-    private ?int $phoneNumber = null;
+    private ?string $phoneNumber = null;
 
     /**
      * @var Collection<int, Session>
@@ -125,12 +125,12 @@ class Student
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(int $phoneNumber): static
+    public function setPhoneNumber(string $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
 
@@ -162,5 +162,12 @@ class Student
         }
 
         return $this;
+    }
+
+    public function getAge(): ?string 
+    {
+        $now = new \DateTime();
+        $interval = $this->birthday->diff($now);
+        return $interval->format("%Y");
     }
 }

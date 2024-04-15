@@ -32,6 +32,7 @@ class FormationController extends AbstractController
     #[Route('/formation', name: 'app_formation')]
     public function index(ProgrammeRepository $programmeRepository, SessionRepository $sessionRepository): Response
     {
+
         $programmes = $programmeRepository->findBy([], ['id' => 'ASC']);
         $sessions = $sessionRepository->findBy([], ['id' => 'ASC']);
 
@@ -40,6 +41,28 @@ class FormationController extends AbstractController
             'programmes' => $programmes,
             'sessions' => $sessions
         ]);
+    }
+
+    // Method pour afficher le detail d'une formation
+    #[Route('/formation/{id}', name: 'show_formation')]
+    public function showFormation(SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
+    {
+        
+        $session = $sessionRepository->find($id);
+
+        if ($session) {
+
+            $programmes = $programmeRepository->findBy(['session' => $id]);
+    
+            return $this->render('formation/details/showFormation.html.twig', [
+                'session' => $session,
+                'programmes' => $programmes
+            ]);
+
+        } else {
+            return $this->redirectToRoute('app_home');
+        }
+
     }
 
             // LISTE DES SESSIONS
@@ -65,6 +88,15 @@ class FormationController extends AbstractController
         return $this->render('formation/listModule.html.twig', [
             'controller_name' => 'FormationController',
             'modules' => $modules
+        ]);
+    }
+
+    // Method pour afficher le detail d'un module
+    #[Route('/module/{id}', name: 'show_module')]
+    public function showModule(Module $module): Response 
+    {
+        return $this->render('formation/details/showModule.html.twig', [
+            'module' => $module
         ]);
     }
 

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail Formation{% endblock %}
+
+
+
+{% block body %}
+
+<p>Detail du module {{ module.name }}</p>
+<p> {{ module.description|replace({'%strong%' : '<strong>', '%/strong%' : '</strong>', '%list%' : '•', '%br%' : '<br>'})|raw }} </p>
+<p> Catégorie : {{ module.category.name }} </p>
+{% endblock %}

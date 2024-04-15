@@ -56,6 +56,13 @@ class StudentType extends AbstractType
                 ]
             ])
             ->add('phoneNumber', IntegerType::class, [
+                'constraints' => [
+                    new Regex('^[0-9]*$'),
+                    new Length([
+                        'min' => 10,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                    ]),
+                ],
                 'attr' => [
                     'class' => 'form-control'
                 ]

@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail Formation{% endblock %}
+
+
+
+{% block body %}
+
+<div class="contentDetFormation">
+
+    <div class="title_page">
+        <h1> Detail {{ session.formation }} </h1>
+        <hr class="after_title" />
+    </div>
+
+{% for programme in programmes %}
+    <div class="cardModule">
+        <div class="nameModule">
+            <p> {{ programme.module}} </p>
+        </div>
+        <div class="joursArrow">
+            <p> {{ programme.nbDay }} jours</p>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+    </div>
+
+    <div class="description">
+        <div class="descriptionModule">
+            <p><strong>Categorie :</strong> {{ programme.module.category }}</p>
+            <p> {{ programme.module.description|replace({'<strong>' : '<strong>', '</strong>' : '</strong>', '<list>' : '•', '<br>' : '<br>'})|raw }} </p>
+        </div>
+    </div>
+{% endfor %}
+
+<p class="nbPlace">Nombre de place :
+    {% if session.nbAvailable == 0 %}
+        <span class="red"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
+        {% else %}
+        <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
+    {% endif %}
+
+    <div class="tableStagiaire">
+
+        <a href="#" class="addStagiaire"> Ajouter un stagiaire </a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nom - Prénom</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Email</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if session.inscription|length > 0 %}
+                {% for student in session.inscription %}
+                    <tr>
+                        <td scope="row"><a href="{{ path('show_student', {id: student.id}) }}"> {{ student.lastName|upper }} {{ student.name }} </a> </td>
+                        <td>{{ student.city }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.phoneNumber }}</td>
+                        <td><i class="fa-solid fa-x red"></i></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            
+            {% for i in 1..(10 - session.inscription|length) %}
+                <tr>
+                    <td scope="row"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<p class="nbDay">Durée de la formation : du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} </p>
+</div>
+{% endblock %}
