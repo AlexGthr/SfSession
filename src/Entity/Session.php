@@ -28,6 +28,9 @@ class Session
     #[ORM\Column]
     private ?bool $closed = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $name = null;
+
     /**
      * @var Collection<int, Student>
      */
@@ -43,8 +46,6 @@ class Session
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     private ?Formation $formation = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $name = null;
 
     public function __construct()
     {
@@ -103,6 +104,22 @@ class Session
         $this->closed = $closed;
 
         return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 
     /**
@@ -182,17 +199,5 @@ class Session
         $nbSlot = $this->nbPlace - $student;
 
         return $nbSlot;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
     }
 }

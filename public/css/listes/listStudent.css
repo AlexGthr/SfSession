@@ -1,0 +1,55 @@
+.contentListSession {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    gap: 35px;
+}
+
+.boxListStudent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+}
+
+table i {
+    cursor: pointer;
+}
+
+.tableStudent {
+    height: 30vh;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--second-color);
+    border-radius: 14px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+}
+
+.tableStudent h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.addStudent {
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1.3em;
+    text-decoration: none;
+    color: var(--btn-color);
+    background-color: var(--second-color);
+    border: solid 1px var(--btn-color);
+}
+
+.addStudent:hover {
+    color: var(--second-color);
+    background-color: var(--btn-color);
+    border: solid 1px var(--second-color);
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    transition: all 0.5s;
+}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Detail Formation{% endblock %}
+{% block title %}Detail Session{% endblock %}
 
 
 
@@ -9,13 +9,9 @@
 <div class="contentDetFormation">
 
     <div class="title_page">
-        <h1> Detail {{ session.formation }} </h1>
+        <h1> Detail {{ session }} </h1>
         <hr class="after_title" />
     </div>
-
-    {% if formation %}
-        
-
 
 {% for programme in programmes %}
     <div class="cardModule">
@@ -36,16 +32,11 @@
     </div>
 {% endfor %}
 
-<p class="nbPlace">Nombre de place :
-    {% if session.nbAvailable == 0 %}
-        <span class="red"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
-        {% else %}
-        <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
-    {% endif %}
+<p class="nbPlace">Nombre de place : <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
 
     <div class="tableStagiaire">
 
-        <a href="#" class="addStagiaire"> Ajouter un stagiaire </a>
+        <a href="#" class="addStagiaire"> Pas de formation en cours </a>
 
     <table class="table table-striped">
         <thead>
@@ -86,6 +77,4 @@
 
 <p class="nbDay">Durée de la formation : du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} </p>
 </div>
-
-{% endif %}
 {% endblock %}

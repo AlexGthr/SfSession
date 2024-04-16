@@ -1,0 +1,87 @@
+.contentDetStudent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px 0 50px;
+    gap: 1px;
+}
+
+.cardStudent {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+ 
+.boxStudent {
+    width: 50%;
+    padding: 10px 20px;
+    border-radius: 14px;
+    background-color: var(--second-color);
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.infoStudent {
+    padding: 20px 0;
+    line-height: 0.8em;
+}
+
+.boxStudent h3 {
+    padding: 30px 0;
+}
+
+.infoStudent li {
+    font-size: 1.5em;
+    line-height: 1.2em;
+    font-weight: 700;
+}
+
+.dateFormation {
+    font-weight: 300;
+}
+
+.infoStudent a {
+    text-decoration: none;
+    color: var(--first-color);
+}
+
+.infoStudent a:hover {
+    text-decoration: underline;
+}
+
+.actionStudent {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.actionStudent a {
+    text-align: center;
+    width: 100px;
+    padding: 5px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.actionStudent a:hover {
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    transition: all 0.7s;
+}
+
+.editStudent {
+    background-color: rgba(235, 235, 235, 0.856);
+    border: solid 2px rgb(228, 167, 0);
+    color: rgb(170, 132, 27);
+}
+
+.deleteStudent {
+    background-color: red;
+    border: solid 2px rgb(255, 255, 255);
+    color: white;
+}

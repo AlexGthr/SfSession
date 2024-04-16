@@ -1,12 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Detail Formation{% endblock %}
+{% block title %}Detail Module{% endblock %}
 
 
 
 {% block body %}
 
-<p>Detail du module {{ module.name }}</p>
-<p> {{ module.description|replace({'%strong%' : '<strong>', '%/strong%' : '</strong>', '%list%' : '•', '%br%' : '<br>'})|raw }} </p>
-<p> Catégorie : {{ module.category.name }} </p>
+<div class="contentDetModule">
+
+    <div class="title_page">
+        <h1>Detail du module {{ module.name }}</h1>
+        <hr class="after_title" />
+    </div>
+    
+    <div class="cardDetModule">
+        <div class="detModule">
+            <p> {{ module.description|replace({'<strong>' : '<strong>', '</strong>' : '</strong>', '<list>' : '•', '<br>' : '<br>'})|raw }} </p>
+            <p><strong> Catégorie : </strong>{{ module.category.name }} </p>
+        </div>
+    </div>
+
+    <div class="actionModule">
+        <a href="#" class="editModule"> Edit </a>
+        <a href="#" class="deleteModule"> Delete </a>
+    </div>
+
+
+</div>
+
 {% endblock %}

@@ -30,31 +30,34 @@ class FormationController extends AbstractController
 {
         // LISTE DES FORMATIONS
     #[Route('/formation', name: 'app_formation')]
-    public function index(ProgrammeRepository $programmeRepository, SessionRepository $sessionRepository): Response
+    public function listFormation(FormationRepository $formationRepository, ProgrammeRepository $programmeRepository): Response
     {
 
         $programmes = $programmeRepository->findBy([], ['id' => 'ASC']);
-        $sessions = $sessionRepository->findBy([], ['id' => 'ASC']);
+        $formation = $formationRepository->findBy([], ['id' => 'ASC']);
 
-        return $this->render('formation/index.html.twig', [
+
+        return $this->render('formation/listFormation.html.twig', [
             'controller_name' => 'FormationController',
             'programmes' => $programmes,
-            'sessions' => $sessions
+            'formations' => $formation
         ]);
     }
 
     // Method pour afficher le detail d'une formation
     #[Route('/formation/{id}', name: 'show_formation')]
-    public function showFormation(SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
+    public function showFormation(FormationRepository $formationRepository, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
     {
         
-        $session = $sessionRepository->find($id);
+        $formation = $formationRepository->find($id);
 
-        if ($session) {
+        if ($formation) {
 
+            $session = $sessionRepository->find($id);
             $programmes = $programmeRepository->findBy(['session' => $id]);
     
             return $this->render('formation/details/showFormation.html.twig', [
+                'formation' => $formation,
                 'session' => $session,
                 'programmes' => $programmes
             ]);
@@ -67,15 +70,63 @@ class FormationController extends AbstractController
 
             // LISTE DES SESSIONS
     #[Route('/session', name: 'app_listSession')]
-    public function listSession(ProgrammeRepository $programmeRepository): Response
+    public function listSession(SessionRepository $sessionRepository): Response
     {
 
-        $sessions = $programmeRepository->findBy([], ['id' => 'ASC']);
+        $sessions = $sessionRepository->findBy([], ['id' => 'ASC']);
 
         return $this->render('formation/listSession.html.twig', [
             'controller_name' => 'FormationController',
             'sessions' => $sessions
         ]);
+    }
+
+    // Method pour afficher le detail d'une session
+    #[Route('/session/{id}', name: 'show_session')]
+    public function showSession(SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
+    {
+        // Je vérifie qu'une session existe
+        $session = $sessionRepository->find($id);
+
+        // Si la session existe, je passe à la suite, sinon je redirige sur l'index
+        if ($session) {
+
+            // Je vérifie si la session est déjà relié à une formation, si oui elle à sa page de détail déjà prête
+            $formationExist = $sessionRepository->findOneBy(['id' => $id]);
+            $formation = $formationExist->getFormation() ? true : false;
+            
+            // Si la session à déjà une formation :
+            if ($formation) {
+
+                // Je récupère le programme de la session
+                $programmes = $programmeRepository->findBy(['session' => $id]);
+                $formation = true;
+        
+                // Et j'affiche le detail de la formation
+                return $this->render('formation/details/showFormation.html.twig', [
+                    'session' => $session,
+                    'formation' => $formation,
+                    'programmes' => $programmes
+                ]);
+
+            // Si la session n'as pas encore de formation
+            } else {
+
+                // Je récupère le programme de la session
+                $programmes = $programmeRepository->findBy(['session' => $id]);
+        
+                // Et je renvoi sur le detail de la session non commencés
+                return $this->render('formation/details/showSession.html.twig', [
+                    'session' => $session,
+                    'programmes' => $programmes
+                ]);
+
+            }
+
+        } else {
+            return $this->redirectToRoute('app_home');
+        }
+
     }
 
             // LISTE DES MODULES

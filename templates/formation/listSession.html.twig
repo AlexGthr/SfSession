@@ -1,11 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Lists Session{% endblock %}
+{% block title %}Liste Session{% endblock %}
 
 
 {% block body %}
 
 
+<div class="contentListSession">
+
+    <div class="title_page">
+        <h1> Liste des sessions </h1>
+        <hr class="after_title" />
+    </div>
+        
+        {% for session in sessions %}
+        <div class="listSession">
+            <h2><a href="{{ path('show_session', {id: session.id}) }}">{{ session }}</a></h2>
+        
+            <p> <strong>Nombre de module :</strong> {{ session.programmes|length }}<br>
+                
+                <strong>Durée : </strong>
+
+                {% if session.startDate or session.endDate %}
+
+                du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} <br>
+
+                {% else %}
+
+                Pas de jours défini <br>
+
+                {% endif %}
+
+                <strong>Nombre de place : </strong> {{ session.nbPlace }} <br>
+
+                <strong>Etat : </strong>
+                {% if session.closed == 1 %}
+                    <span class="red"> Fermée </span>
+                    {% else %}
+                    <span class="green"> Ouverte </span>
+                {% endif %}
+            </p>
+
+            <div class="actionListModule">
+                <a href="#" class="editListModule"> Edit </a>
+                <a href="#" class="deleteListModule"> Delete </a>
+            </div>
+        </div>
+        {% endfor %}
+
+</div>
 
 
 {% endblock %}

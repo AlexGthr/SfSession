@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello formation!{% endblock %}
+{% block title %}Formation{% endblock %}
 
 {% block body %}
 
@@ -11,12 +11,13 @@
         <hr class="after_title" />
     </div>
 
-    {% if sessions %}
+    {% if formations %}
     
-    {% for session in sessions %}
-    
+    {% for formation in formations %}
+        {% for session in formation.sessions %}
+
     <div class="listFormation">
-            <a href="{{ path('show_formation', {id: session.id}) }}"> <h2>{{ session.formation.name }}</h2> </a>
+            <a href="{{ path('show_formation', {id: formation.id}) }}"> <h2>{{ session.formation }}</h2> </a>
             <p><u>Date de début :</u> <span class="blue"> {{ session.startDate|date("d/m/Y") }} </span></p>
             <p><u>Date de fin :</u> <span class="blue"> {{ session.endDate|date("d/m/Y") }} </span></p>
             
@@ -28,7 +29,7 @@
                 {% endif %} 
 
             <div class="closeOpen">
-            {% if session.nbAvailable == 0 %}
+            {% if session.nbAvailable == 0 or session.closed == 1 %}
                 <p><span class="red"> Fermée à l'inscription </span></p>
 
                 {% else %}
@@ -46,9 +47,10 @@
                     {% endfor %}
                 </ul>
 
-                <span class="detailModule"><a href="#">Détails des modules</a></span>
+                <span class="detailModule"><a href="{{ path('show_formation', {id: session.id}) }}">Détails des modules</a></span>
             </div>
     </div>
+    {% endfor %}
         {% endfor %}
 
     {% else %}

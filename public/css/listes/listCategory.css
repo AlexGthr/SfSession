@@ -1,0 +1,98 @@
+.contentCategory {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px 0 50px;
+    gap: 1px;
+}
+
+.boxCategory {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    justify-items: center;
+}
+
+.infoCategory {
+    background-color: white;
+    border-radius: 14px;
+    width: 80%;
+    height: 270px;
+    margin: 10px 0px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+
+}
+
+.infoCategory h2 {
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 700;
+}
+
+.listModuleCategory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.moduleCateg {
+    width: 90%;
+    height: 120px;
+    background-color: var(--bg-cards-module);
+    border-radius: 8px;
+    overflow-y: scroll;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+}
+
+.moduleCateg a {
+    text-decoration: none;
+    color: var(--first-color);
+}
+
+.moduleCateg a:hover {
+    text-decoration: underline;
+}
+
+.moduleCateg li {
+    margin-top: 15px;
+    font-size: 1.1em;
+}
+
+.remove {
+    margin-left: 50px;
+}
+
+.actionListCateg {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 50px;
+}
+
+.actionListCateg a {
+    text-align: center;
+    width: 150px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.actionListCateg a:hover {
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    transition: all 0.7s;
+}
+
+.editListCateg {
+    background-color: rgba(235, 235, 235, 0.856);
+    border: solid 2px rgb(228, 167, 0);
+    color: rgb(170, 132, 27);
+}
+
+.deleteListCateg {
+    background-color: red;
+    border: solid 2px rgb(255, 255, 255);
+    color: white;
+}
+

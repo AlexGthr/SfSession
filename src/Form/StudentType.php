@@ -7,6 +7,8 @@ use App\Entity\Student;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -55,13 +57,13 @@ class StudentType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('phoneNumber', IntegerType::class, [
+            ->add('phoneNumber', TextType::class, [
                 'constraints' => [
                     new Regex('^[0-9]*$'),
                     new Length([
                         'min' => 10,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                    ]),
+                    ])
                 ],
                 'attr' => [
                     'class' => 'form-control'

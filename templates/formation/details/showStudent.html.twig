@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Detail Formation{% endblock %}
+{% block title %}Detail Stagiaire{% endblock %}
 
 
 
@@ -17,8 +17,11 @@
 
     <div class="boxStudent">
         <div class="title">
-            <p class="information"><u><strong>Information</strong></u></p>
-            <a href="#"> Modifier </a>
+            <h3><u><strong>Information</strong></u></h3>
+            <div class="actionStudent">
+                <a href="#" class="editStudent"> Edit </a>
+                <a href="#" class="deleteStudent"> Delete </a>
+            </div>
         </div>
 
         <div class="infoStudent">
@@ -27,8 +30,17 @@
             <p><strong>Ville : </strong> {{ student.city }} </p>
             <p><strong>Email : </strong> {{ student.email }} </p>
             <p><strong>Téléphone : </strong> {{ student.phoneNumber }} </p>
+
+            <h3><u><strong>Formation prévues / en cours</strong></u></h3>
+
+            <ul>
+                {% for session in student.Sessions %}
+                    <li><a href="{{ path('show_formation', {id: session.id}) }}">{{ session.formation.name }} </a><br> <span class="dateFormation">(du {{ session.startDate|date('Y-m-d') }} au {{ session.endDate|date('Y-m-d') }})</span></li><br>
+                {% endfor %}
+            </ul>
         </div>
     </div>
+
 
 </div>
 

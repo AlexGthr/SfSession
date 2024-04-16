@@ -1,22 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Lists Catégorie{% endblock %}
+{% block title %}Catégorie{% endblock %}
 
 
 {% block body %}
 
-{% if categorys %}
+<div class="contentCategory">
+
+    <div class="title_page">
+        <h1> Liste des catégories </h1>
+        <hr class="after_title" />
+    </div>
+        
+
+    {% if categorys %}
+    <div class="boxCategory">
+        
+    {% for categ in categorys %}
     
-{% for categ in categorys %}
+            <div class="infoCategory">
+                <h2>{{ categ.name }}</h2>
+                <div class="listModuleCategory">
+                    <div class="moduleCateg">
+                        <ul>
+                            {% for module in categ.modules %}
+                                <li><a href="{{ path('show_module', {id: module.id}) }}"> {{ module }} </a> </li>
+                            {% endfor %}
+                        </ul>
 
-    <p> {{ categ.name }} </p>
+                    </div>
+                    <div class="actionListCateg">
+                        <a href="#" class="editListCateg"> Edit </a>
+                        <a href="#" class="deleteListCateg"> Delete </a>
+                    </div>
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+    
+    {% else %}
+    
+    <p> No category currently.</p>
+    {% endif %}
 
-{% endfor %}
+</div>
 
-{% else %}
-
-<p> No category currently.</p>
-{% endif %}
 
 
 {% endblock %}
+
+
+            {# <div class="actionListModule">
+                <a href="#" class="editListModule"> Edit </a>
+                <a href="#" class="deleteListModule"> Delete </a>
+            </div> #}

@@ -1,0 +1,63 @@
+.contentDetModule {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px 0 50px;
+    gap: 1px;
+}
+
+.cardDetModule {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.detModule {
+    padding: 10px 10px;
+    width: 85%;
+    background-color: var(--second-color);
+    line-height: 2.5em;
+    border-radius: 14px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+
+}
+
+.detModule p {
+    width: 90%;
+    text-align: justify;
+    font-size: 1.1em;
+}
+
+.actionModule {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 50px;
+}
+
+.actionModule a {
+    text-align: center;
+    width: 150px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.actionModule a:hover {
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    transition: all 0.7s;
+}
+
+.editModule {
+    background-color: rgba(235, 235, 235, 0.856);
+    border: solid 2px rgb(228, 167, 0);
+    color: rgb(170, 132, 27);
+}
+
+.deleteModule {
+    background-color: red;
+    border: solid 2px rgb(255, 255, 255);
+    color: white;
+}

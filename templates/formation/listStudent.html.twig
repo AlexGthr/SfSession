@@ -1,23 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Lists Stagiaire{% endblock %}
+{% block title %}Liste Stagiaires{% endblock %}
 
 
 {% block body %}
 
+<div class="contentListStudent">
+
+    <div class="title_page">
+        <h1> Liste des stagiaires </h1>
+        <hr class="after_title" />
+    </div>
+        
 {% if students %}
     
-{% for student in students %}
+<div class="boxListStudent">
+<div class="tableStudent">
+<h2>Stagiaires</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Nom - Prénom</th>
+            <th scope="col">Ville</th>
+            <th scope="col">Email</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for student in students %}
+                <tr>
+                    <td scope="row"><a href="{{ path('show_student', {id: student.id}) }}"> {{ student.lastName|upper }} {{ student.name }} </a> </td>
+                    <td>{{ student.city }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.phoneNumber }}</td>
+                    <td><i class="fa-solid fa-x red"></i></td>
+                </tr>
+            {% endfor %}
+        
+            <tr>
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
 
-    <p> {{ student.name }} </p>
-    <p> {{ student.lastName }} </p>
-    <p> {{ student.birthday|date("d/m/Y") }} </p>
-    <p> {{ student.city }} </p>
-    <p> {{ student.sexe }} </p>
-    <p> {{ student.email }} </p>
-    <p> {{ student.phoneNumber }} </p>
+    </tbody>
+</table>
 
-{% endfor %}
+<a href="#" class="addStudent"> Ajouter un stagiaire </a>
+
+</div>
+</div>
 
 {% else %}
 
