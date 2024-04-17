@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
 use App\Repository\ProgrammeRepository;
@@ -9,7 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SessionController extends AbstractController
@@ -24,6 +24,45 @@ class SessionController extends AbstractController
             'controller_name' => 'SessionController',
             'sessions' => $sessions
         ]);
+    }
+
+    // Method pour AJOUTER ou EDIT une SESSION
+    #[Route('/session/new', name: 'new_session')]
+    #[Route('/session/{id}/edit', name: 'edit_session')]
+    public function new_EditSession(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response 
+    {
+        // Si il n'y a pas de SESSION,
+        if (!$session) {
+            // On crée un nouvel objet SESSION
+            $session = new Session();
+        }
+            
+            
+        // On crée le formulaire pour la SESSION
+        $form = $this->createForm(SessionType::class, $session);
+                    
+        $form->handleRequest($request);
+                    
+            
+        // Si le formulaire est submit
+        if ($form->isSubmitted() && $form->isValid()) {
+                        
+            // On recupère les données du formulaire
+            $session = $form->getData();
+            
+            // PREPARE PDO
+            $entityManager->persist($session);
+            // EXECUTE PDO
+            $entityManager->flush();
+            
+            // Puis on redirige l'user vers la liste des SESSION
+            return $this->redirectToRoute('app_session');
+            }
+                    
+        return $this->render('session/newSession.html.twig', [
+            'formAddSession' => $form,
+            'edit' => $session->getId()
+            ]);
     }
 
     // Method pour afficher le detail d'une session
@@ -72,44 +111,5 @@ class SessionController extends AbstractController
             return $this->redirectToRoute('app_session');
         }
 
-    }
-
-    // Method pour AJOUTER ou EDIT une SESSION
-    #[Route('/session/new', name: 'new_session')]
-    #[Route('/session/{id}/edit', name: 'edit_session')]
-    public function new_editSession(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response 
-    {
-        // Si il n'y a pas de SESSION,
-        if (!$session) {
-            // On crée un nouvel objet SESSION
-            $session = new Session();
-        }
-            
-            
-        // On crée le formulaire pour la SESSION
-        $form = $this->createForm(SessionType::class, $session);
-                    
-        $form->handleRequest($request);
-                    
-            
-        // Si le formulaire est submit
-        if ($form->isSubmitted() && $form->isValid()) {
-                        
-            // On recupère les données du formulaire
-            $session = $form->getData();
-            
-            // PREPARE PDO
-            $entityManager->persist($session);
-            // EXECUTE PDO
-            $entityManager->flush();
-            
-            // Puis on redirige l'user vers la liste des SESSION
-            return $this->redirectToRoute('app_session');
-            }
-                    
-        return $this->render('session/newSession.html.twig', [
-            'formAddSession' => $form,
-            'edit' => $session->getId()
-            ]);
-    }
+    }    
 }

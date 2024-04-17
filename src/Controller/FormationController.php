@@ -44,30 +44,6 @@ class FormationController extends AbstractController
         ]);
     }
 
-    // Method pour afficher le detail d'une formation
-    #[Route('/formation/{id}', name: 'show_formation')]
-    public function showFormation(FormationRepository $formationRepository, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
-    {
-        
-        $formation = $formationRepository->find($id);
-
-        if ($formation) {
-
-            $session = $sessionRepository->find($id);
-            $programmes = $programmeRepository->findBy(['session' => $id]);
-    
-            return $this->render('formation/showFormation.html.twig', [
-                'formation' => $formation,
-                'session' => $session,
-                'programmes' => $programmes
-            ]);
-
-        } else {
-            return $this->redirectToRoute('app_formation');
-        }
-
-    }
-
 
     // Method pour AJOUTER ou EDIT une FORMATION
     #[Route('/formation/new', name: 'new_formation')]
@@ -102,7 +78,7 @@ class FormationController extends AbstractController
             return $this->redirectToRoute('app_formation');
             }
                     
-        return $this->render('formation/forms/newFormation.html.twig', [
+        return $this->render('formation/newFormation.html.twig', [
             'formAddFormation' => $form,
             'edit' => $formation->getId()
             ]);
@@ -145,5 +121,29 @@ class FormationController extends AbstractController
             'formAddProgramme' => $form,
             'edit' => $programme->getId()
             ]);
+    }
+
+    // Method pour afficher le detail d'une formation
+    #[Route('/formation/{id}', name: 'show_formation')]
+    public function showFormation(FormationRepository $formationRepository, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
+    {
+        
+        $formation = $formationRepository->find($id);
+
+        if ($formation) {
+
+            $session = $sessionRepository->find($id);
+            $programmes = $programmeRepository->findBy(['session' => $id]);
+    
+            return $this->render('formation/showFormation.html.twig', [
+                'formation' => $formation,
+                'session' => $session,
+                'programmes' => $programmes
+            ]);
+
+        } else {
+            return $this->redirectToRoute('app_formation');
+        }
+
     }
 }

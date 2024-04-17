@@ -25,34 +25,19 @@ class ModuleController extends AbstractController
         ]);
     }
 
-    // Method pour afficher le detail d'un module
-    #[Route('/module/{id}', name: 'show_module')]
-    public function showModule(ModuleRepository $moduleRepository, $id): Response 
-    {
-        $module = $moduleRepository->find($id);
-
-        if ($module) {
-
-        return $this->render('module/showModule.html.twig', [
-            'module' => $module
-        ]);
-
-        } else {
-            return $this->redirectToRoute('app_module');
-    }
-    }
+   
 
     // Method pour AJOUTER ou EDIT un MODULE
     #[Route('/module/new', name: 'new_module')]
     #[Route('/module/{id}/edit', name: 'edit_module')]
     public function new_editModule(Module $module = null, Request $request, EntityManagerInterface $entityManager): Response 
     {
+
         // Si il n'y a pas MODULE,
         if (!$module) {
             // On crée un nouvel objet MODULE
             $module = new Module();
         }
-            
             
         // On crée le formulaire pour le MODULE
         $form = $this->createForm(ModuleType::class, $module);
@@ -80,4 +65,21 @@ class ModuleController extends AbstractController
             'edit' => $module->getId()
             ]);
     }
+
+     // Method pour afficher le detail d'un module
+     #[Route('/module/{id}', name: 'show_module')]
+     public function showModule(ModuleRepository $moduleRepository, $id): Response 
+     {
+         $module = $moduleRepository->find($id);
+ 
+         if ($module) {
+ 
+         return $this->render('module/showModule.html.twig', [
+             'module' => $module
+         ]);
+ 
+         } else {
+             return $this->redirectToRoute('app_module');
+     }
+     }
 }

@@ -45,8 +45,8 @@ class PersonneController extends AbstractController
     }
 
 // Method pour AJOUTER ou EDIT un STAGIAIRE
-    #[Route('/student/new', name: 'new_student')]
-    #[Route('/student/{id}/edit', name: 'edit_student')]
+    #[Route('/personne/new', name: 'new_student')]
+    #[Route('/personne/{id}/edit', name: 'edit_student')]
     public function new_editStudent(Student $student = null, Request $request, EntityManagerInterface $entityManager): Response 
     {
         // Si il n'y a pas de STAGIAIRE,
