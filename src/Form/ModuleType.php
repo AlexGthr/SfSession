@@ -25,14 +25,14 @@ class ModuleType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ]                
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [

@@ -1,20 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PersonneController!{% endblock %}
+{% block title %}Liste Stagiaires{% endblock %}
+
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="contentListStudent">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/laragon/www/symfony/SfSession/src/Controller/PersonneController.php</code></li>
-        <li>Your template at <code>C:/laragon/www/symfony/SfSession/templates/personne/index.html.twig</code></li>
-    </ul>
+    <div class="title_page">
+        <h1> Liste des stagiaires </h1>
+        <hr class="after_title" />
+    </div>
+        
+{% if students %}
+    
+<div class="boxListStudent">
+<div class="tableStudent">
+<h2>Stagiaires</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Nom - Prénom</th>
+            <th scope="col">Ville</th>
+            <th scope="col">Email</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for student in students %}
+                <tr>
+                    <td scope="row"><a href="{{ path('show_student', {id: student.id}) }}"> {{ student.lastName|upper }} {{ student.name }} </a> </td>
+                    <td>{{ student.city }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.phoneNumber }}</td>
+                    <td><i class="fa-solid fa-x red"></i></td>
+                </tr>
+            {% endfor %}
+        
+            <tr>
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+    </tbody>
+</table>
+
+<a href="#" class="addStudent"> Ajouter un stagiaire </a>
+
 </div>
+</div>
+
+{% else %}
+
+<p> no student currently</p>
+{% endif %}
+
+
 {% endblock %}

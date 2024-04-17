@@ -30,14 +30,14 @@ class FormationController extends AbstractController
 {
         // LISTE DES FORMATIONS
     #[Route('/formation', name: 'app_formation')]
-    public function listFormation(FormationRepository $formationRepository, ProgrammeRepository $programmeRepository): Response
+    public function index(FormationRepository $formationRepository, ProgrammeRepository $programmeRepository): Response
     {
 
         $programmes = $programmeRepository->findBy([], ['id' => 'ASC']);
         $formation = $formationRepository->findBy([], ['id' => 'ASC']);
 
 
-        return $this->render('formation/listFormation.html.twig', [
+        return $this->render('formation/index.html.twig', [
             'controller_name' => 'FormationController',
             'programmes' => $programmes,
             'formations' => $formation
@@ -56,282 +56,18 @@ class FormationController extends AbstractController
             $session = $sessionRepository->find($id);
             $programmes = $programmeRepository->findBy(['session' => $id]);
     
-            return $this->render('formation/details/showFormation.html.twig', [
+            return $this->render('formation/showFormation.html.twig', [
                 'formation' => $formation,
                 'session' => $session,
                 'programmes' => $programmes
             ]);
 
         } else {
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_formation');
         }
 
     }
 
-            // LISTE DES SESSIONS
-    #[Route('/session', name: 'app_listSession')]
-    public function listSession(SessionRepository $sessionRepository): Response
-    {
-
-        $sessions = $sessionRepository->findBy([], ['id' => 'ASC']);
-
-        return $this->render('formation/listSession.html.twig', [
-            'controller_name' => 'FormationController',
-            'sessions' => $sessions
-        ]);
-    }
-
-    // Method pour afficher le detail d'une session
-    #[Route('/session/{id}', name: 'show_session')]
-    public function showSession(SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
-    {
-        // Je vérifie qu'une session existe
-        $session = $sessionRepository->find($id);
-
-        // Si la session existe, je passe à la suite, sinon je redirige sur l'index
-        if ($session) {
-
-            // Je vérifie si la session est déjà relié à une formation, si oui elle à sa page de détail déjà prête
-            $formationExist = $sessionRepository->findOneBy(['id' => $id]);
-            $formation = $formationExist->getFormation() ? true : false;
-            
-            // Si la session à déjà une formation :
-            if ($formation) {
-
-                // Je récupère le programme de la session
-                $programmes = $programmeRepository->findBy(['session' => $id]);
-                $formation = true;
-        
-                // Et j'affiche le detail de la formation
-                return $this->render('formation/details/showFormation.html.twig', [
-                    'session' => $session,
-                    'formation' => $formation,
-                    'programmes' => $programmes
-                ]);
-
-            // Si la session n'as pas encore de formation
-            } else {
-
-                // Je récupère le programme de la session
-                $programmes = $programmeRepository->findBy(['session' => $id]);
-        
-                // Et je renvoi sur le detail de la session non commencés
-                return $this->render('formation/details/showSession.html.twig', [
-                    'session' => $session,
-                    'programmes' => $programmes
-                ]);
-
-            }
-
-        } else {
-            return $this->redirectToRoute('app_home');
-        }
-
-    }
-
-            // LISTE DES MODULES
-    #[Route('/module', name: 'app_listModule')]
-    public function listModule(ModuleRepository $moduleRepository): Response
-    {
-
-        $modules = $moduleRepository->findBy([], ['name' => 'ASC']);
-
-        return $this->render('formation/listModule.html.twig', [
-            'controller_name' => 'FormationController',
-            'modules' => $modules
-        ]);
-    }
-
-    // Method pour afficher le detail d'un module
-    #[Route('/module/{id}', name: 'show_module')]
-    public function showModule(Module $module): Response 
-    {
-        return $this->render('formation/details/showModule.html.twig', [
-            'module' => $module
-        ]);
-    }
-
-            // LISTE DES CATEGORIES
-    #[Route('/category', name: 'app_listCategory')]
-    public function listCategory(CategoryRepository $categoryRepository): Response
-    {
-
-        $categorys = $categoryRepository->findBy([], ['name' => 'ASC']);
-
-        return $this->render('formation/listCategory.html.twig', [
-            'controller_name' => 'FormationController',
-            'categorys' => $categorys
-        ]);
-    }
-
-            // LISTE DES STAGIAIRE
-    #[Route('/student', name: 'app_listStudent')]
-    public function listStudent(StudentRepository $studentRepository): Response
-    {
-
-        $students = $studentRepository->findBy([], ['name' => 'ASC']);
-
-        return $this->render('formation/listStudent.html.twig', [
-            'controller_name' => 'FormationController',
-            'students' => $students
-        ]);
-    }
-
-    // Method pour AJOUTER ou EDIT une CATEGORIE
-    #[Route('/category/new', name: 'new_category')]
-    #[Route('/category/{id}/edit', name: 'edit_category')]
-    public function new_editCategory(Category $category = null, Request $request, EntityManagerInterface $entityManager): Response 
-    {
-        // Si il n'y a pas CATEGORIE,
-        if (!$category) {
-            // On crée un nouvel objet CATEGORIE
-            $category = new Category();
-        }
-
-
-        // On crée le formulaire pour la CATEGORIE
-        $form = $this->createForm(CategoryType::class, $category);
-        
-        $form->handleRequest($request);
-        
-
-        // Si le formulaire est submit
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            // On recupère les données du formulaire
-            $category = $form->getData();
-
-            // PREPARE PDO
-            $entityManager->persist($category);
-            // EXECUTE PDO
-            $entityManager->flush();
-
-            // Puis on redirige l'user vers la liste des CATEGORIE
-            return $this->redirectToRoute('app_listCategory');
-        }
-        
-        return $this->render('formation/forms/newCateg.html.twig', [
-            'formAddCategory' => $form,
-            'edit' => $category->getId()
-        ]);
-    }
-
-    // Method pour AJOUTER ou EDIT un STAGIAIRE
-    #[Route('/student/new', name: 'new_student')]
-    #[Route('/student/{id}/edit', name: 'edit_student')]
-    public function new_editStudent(Student $student = null, Request $request, EntityManagerInterface $entityManager): Response 
-    {
-        // Si il n'y a pas de STAGIAIRE,
-        if (!$student) {
-            // On crée un nouvel objet STAGIAIRE
-            $student = new Student();
-        }
-    
-    
-        // On crée le formulaire pour le STAGIAIRE
-        $form = $this->createForm(StudentType::class, $student);
-            
-        $form->handleRequest($request);
-            
-    
-        // Si le formulaire est submit
-        if ($form->isSubmitted() && $form->isValid()) {
-                
-            // On recupère les données du formulaire
-            $student = $form->getData();
-    
-            // PREPARE PDO
-            $entityManager->persist($student);
-            // EXECUTE PDO
-            $entityManager->flush();
-    
-            // Puis on redirige l'user vers la liste des STAGIAIRE
-            return $this->redirectToRoute('app_listStudent');
-        }
-            
-        return $this->render('formation/forms/newStudent.html.twig', [
-            'formAddStudent' => $form,
-            'edit' => $student->getId()
-        ]);
-    }
-
-    // Method pour AJOUTER ou EDIT un MODULE
-    #[Route('/module/new', name: 'new_module')]
-    #[Route('/module/{id}/edit', name: 'edit_module')]
-    public function new_editModule(Module $module = null, Request $request, EntityManagerInterface $entityManager): Response 
-    {
-        // Si il n'y a pas MODULE,
-        if (!$module) {
-            // On crée un nouvel objet MODULE
-            $module = new Module();
-        }
-            
-            
-        // On crée le formulaire pour le MODULE
-        $form = $this->createForm(ModuleType::class, $module);
-                    
-        $form->handleRequest($request);
-                    
-            
-        // Si le formulaire est submit
-        if ($form->isSubmitted() && $form->isValid()) {
-                        
-            // On recupère les données du formulaire
-            $module = $form->getData();
-            
-            // PREPARE PDO
-            $entityManager->persist($module);
-            // EXECUTE PDO
-            $entityManager->flush();
-            
-            // Puis on redirige l'user vers la liste des MODULE
-            return $this->redirectToRoute('app_listModule');
-            }
-                    
-        return $this->render('formation/forms/newModule.html.twig', [
-            'formAddModule' => $form,
-            'edit' => $module->getId()
-            ]);
-    }
-
-    // Method pour AJOUTER ou EDIT une SESSION
-    #[Route('/session/new', name: 'new_session')]
-    #[Route('/session/{id}/edit', name: 'edit_session')]
-    public function new_editSession(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response 
-    {
-        // Si il n'y a pas de SESSION,
-        if (!$session) {
-            // On crée un nouvel objet SESSION
-            $session = new Session();
-        }
-            
-            
-        // On crée le formulaire pour la SESSION
-        $form = $this->createForm(SessionType::class, $session);
-                    
-        $form->handleRequest($request);
-                    
-            
-        // Si le formulaire est submit
-        if ($form->isSubmitted() && $form->isValid()) {
-                        
-            // On recupère les données du formulaire
-            $session = $form->getData();
-            
-            // PREPARE PDO
-            $entityManager->persist($session);
-            // EXECUTE PDO
-            $entityManager->flush();
-            
-            // Puis on redirige l'user vers la liste des SESSION
-            return $this->redirectToRoute('app_listSession');
-            }
-                    
-        return $this->render('formation/forms/newSession.html.twig', [
-            'formAddSession' => $form,
-            'edit' => $session->getId()
-            ]);
-    }
 
     // Method pour AJOUTER ou EDIT une FORMATION
     #[Route('/formation/new', name: 'new_formation')]
@@ -405,7 +141,7 @@ class FormationController extends AbstractController
             return $this->redirectToRoute('new_programme');
             }
                     
-        return $this->render('formation/forms/newProgramme.html.twig', [
+        return $this->render('formation/newProgramme.html.twig', [
             'formAddProgramme' => $form,
             'edit' => $programme->getId()
             ]);
