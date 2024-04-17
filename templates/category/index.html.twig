@@ -28,7 +28,7 @@
 
                         {% if categ.modules|length == 0 %}
 
-                            <p><strong>Aucun module dans cette catégorie.</strong></p>
+                            <p class="center"><strong>Aucun module dans cette catégorie.</strong></p>
 
                         {% else %}
 
@@ -46,7 +46,7 @@
                         <a href="{{ path('edit_category', {id: categ.id}) }}" class="editListCateg"> Edit </a>
                         <a href="#" class="deleteListCateg"> Delete </a>
                     </div>
-                    
+
                 </div>
             </div>
             

@@ -28,12 +28,14 @@ class CategoryController extends AbstractController
     // Method pour AJOUTER ou EDIT une CATEGORIE
     #[Route('/category/new', name: 'new_category')]
     #[Route('/category/{id}/edit', name: 'edit_category')]
-    public function new_editCategory(Category $category = null, Request $request, EntityManagerInterface $entityManager): Response 
+    public function new_editCategory(CategoryRepository $categoryRepository, Category $category = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
         // Si il n'y a pas CATEGORIE,
         if (!$category) {
             // On crée un nouvel objet CATEGORIE
             $category = new Category();
+        } else {
+            $category = $categoryRepository->find($id);
         }
 
 
@@ -42,7 +44,6 @@ class CategoryController extends AbstractController
         
         $form->handleRequest($request);
         
-
         // Si le formulaire est submit
         if ($form->isSubmitted() && $form->isValid()) {
             
@@ -60,6 +61,7 @@ class CategoryController extends AbstractController
         
         return $this->render('category/newCateg.html.twig', [
             'formAddCategory' => $form,
+            'category' => $category,
             'edit' => $category->getId()
         ]);
     }

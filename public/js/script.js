@@ -5,3 +5,9 @@ $(document).ready(function() {
         $(this).find('.description').slideToggle(); // Trouve la description à l'intérieur de la cardModule cliquée et fait le slideToggle
     })
 });
+
+$(document).ready(function() {
+    $('.dashboard').click(function() {
+        $('.dashbord_liste').slideToggle("slow");
+    })
+});

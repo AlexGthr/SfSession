@@ -107,7 +107,7 @@ body.dark-theme {
 }
 
 .button {
-    padding: 40px 0;
+    padding: 30px 0;
 }
 
 .button a {
@@ -124,6 +124,10 @@ body.dark-theme {
     transition: all 0.3s;
 }
 
+.menu_nav {
+    max-height: 500px;
+}
+
 .menu_nav i {
     font-size: 1.5em;
     padding: 10px 10px;
@@ -135,20 +139,32 @@ body.dark-theme {
     display: flex;
     width: 100%;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 40px;
+    align-items: baseline;
     cursor: pointer;
 }
 
 .dashboard p,
 .ajouts p {
-    font-size: 1.5em;
+    display: flex;
+    
+    font-size: 1.2em;
 }
 
-.dashbord_liste li,
-.ajouts_liste li {
+.dashbord_liste li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 8px 0;
-    list-style: inside;
+    list-style: none;
+}
+
+
+.ajouts_liste li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 0;
+    list-style: none;
 }
 
 .dashbord_liste a,
@@ -179,12 +195,37 @@ body.dark-theme {
     height: 40px;
 }
 
+.topScreenUser figure {
+    margin: 0;
+}
+
 .userNameRole {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    line-height: 1.2;
     justify-content: center;
-    line-height: 0.2;
     padding: 0 10px;
 }
+
+.userNameRole p {
+    margin: 0;
+    font-weight: 400;
+}
+
+@media only screen and (max-height: 800px) {
+    .dashbord_liste li {
+        padding: 6px 0;
+    }
+    
+    
+    .ajouts_liste li {
+        padding: 6px 0;
+    }
+
+    .button {
+        padding: 20px 0;
+    }
+}
+

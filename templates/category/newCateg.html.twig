@@ -4,10 +4,18 @@
 
 {% block body %}
 
+<div class="contentCategory">
+
     {% if edit %}
-        <h1>Edit category</h1>
+        <div class="title_page">
+            <h1> Edit catégorie {{ category }} </h1>
+            <hr class="after_title" />
+        </div>
     {% else %}
-        <h1>Add category</h1>
+        <div class="title_page">
+            <h1> Ajout catégorie </h1>
+            <hr class="after_title" />
+        </div>
     {% endif %}
 
     {{ form_start(formAddCategory) }}

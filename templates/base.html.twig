@@ -25,6 +25,8 @@
         <link rel="stylesheet" href="{{ asset('css/details/detFormation.css') }}">
         <link rel="stylesheet" href="{{ asset('css/details/detStudent.css') }}">
         <link rel="stylesheet" href="{{ asset('css/details/detModule.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('css/form/newCategory.css') }}">
         {% endblock %}
     </head>
     <body>
@@ -39,33 +41,33 @@
                         <div class="dashboard">
                             <i class="fa-solid fa-chart-line"></i>
                                 <p>Dashboard</p>
-                            <i class="fa-solid fa-arrow-up"></i>
+                            <i class="fa-solid fa-arrow-down"></i>
                         </div>
 
                         <div class="dashbord_liste">
                             <ul>
-                                <li><a href="{{ path('app_formation') }}">Formation</a></li>
-                                <li><a href="{{ path('app_session') }}">Session</a></li>
-                                <li><a href="{{ path('app_module') }}">Module</a></li>
-                                <li><a href="{{ path('app_category') }}">Category</a></li>
-                                <li><a href="{{ path('app_personne') }}">Student</a></li>
+                                <li><a href="{{ path('app_formation') }}">• Formation</a></li>
+                                <li><a href="{{ path('app_session') }}">• Session</a></li>
+                                <li><a href="{{ path('app_module') }}">• Module</a></li>
+                                <li><a href="{{ path('app_category') }}">• Category</a></li>
+                                <li><a href="{{ path('app_personne') }}">• Student</a></li>
                             </ul>
                         </div>
 
                         <div class="ajouts">
                             <i class="fa-solid fa-chart-line"></i>
                                 <p>Add form</p>
-                            <i class="fa-solid fa-arrow-up"></i>
+                            <i class="fa-solid fa-arrow-down"></i>
                         </div>
     
                         <div class="ajouts_liste">
                             <ul>
-                                <li><a href="{{ path('new_formation') }}">Formation</a></li>
-                                <li><a href="{{ path('new_session') }}">Session</a></li>
-                                <li><a href="{{ path('new_module') }}">Module</a></li>
-                                <li><a href="{{ path('new_programme') }}">Programme</a></li>
-                                <li><a href="{{ path('new_category') }}">Category</a></li>
-                                <li><a href="{{ path('new_student') }}">Student</a></li>
+                                <li><a href="{{ path('new_formation') }}">• Formation</a></li>
+                                <li><a href="{{ path('new_session') }}">• Session</a></li>
+                                <li><a href="{{ path('new_module') }}">• Module</a></li>
+                                <li><a href="{{ path('new_programme') }}">• Programme</a></li>
+                                <li><a href="{{ path('new_category') }}">• Category</a></li>
+                                <li><a href="{{ path('new_student') }}">• Student</a></li>
                             </ul>
                         </div>
 
