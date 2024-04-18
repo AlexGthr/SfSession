@@ -48,12 +48,13 @@ class FormationController extends AbstractController
     // Method pour AJOUTER ou EDIT une FORMATION
     #[Route('/formation/new', name: 'new_formation')]
     #[Route('/formation/{id}/edit', name: 'edit_formation')]
-    public function new_editFormation(Formation $formation = null, Request $request, EntityManagerInterface $entityManager): Response 
+    public function new_editFormation(Formation $formation = null, SessionRepository $sessionRepository, Request $request, EntityManagerInterface $entityManager): Response 
     {
         // Si il n'y a pas de FORMATION,
         if (!$formation) {
             // On crée un nouvel objet FORMATION
             $formation = new Formation();
+            $session = $sessionRepository->findAll();
         }
             
             

@@ -200,4 +200,8 @@ class Session
 
         return $nbSlot;
     }
+
+    public function getNameSession() {
+        return $this->name;
+    }
 }
