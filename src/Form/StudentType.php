@@ -23,27 +23,32 @@ class StudentType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => 'Prénom',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('lastName', TextType::class, [
+                'label' => 'Nom',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('birthday', null, [
                 'widget' => 'single_text',
+                'label' => 'Date de naissance',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ], DateType::class)
             ->add('city', TextType::class, [
+                'label' => 'Ville',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('sexe', ChoiceType::class, [
+                'label' => 'Genre',
                 'choices' => [
                     'M' => 'M',
                     'F' => 'F'
@@ -53,16 +58,18 @@ class StudentType extends AbstractType
                 ]
             ])
             ->add('email', EmailType::class, [
+                'label' => 'E-mail',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('phoneNumber', TextType::class, [
+                'label' => 'Numéro de téléphone',
                 'constraints' => [
                     new Regex('/^[0-9]*$/'),
                     new Length([
                         'min' => 10,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Erreur avec votre numéro de téléphone.',
                     ])
                 ],
                 'attr' => [
@@ -78,7 +85,7 @@ class StudentType extends AbstractType
             
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-success'
+                    'class' => 'buttonFormStudent'
                 ] 
             ])
         ;

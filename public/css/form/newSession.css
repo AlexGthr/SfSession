@@ -1,4 +1,4 @@
-.contentFormStudent {
+.contentFormSession {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -6,12 +6,12 @@
     gap: 1px;
 }
 
-.formStudent {
+.formSession {
     display: flex;
     justify-content: center;
 }
 
-.boxFormStudent {
+.boxFormSession {
     width: 80%;
     padding: 60px;
     border-radius: 14px;
@@ -21,26 +21,25 @@
     font-size: 1.2em;
 }
 
-.boxFormStudent h1 {
+.boxFormSession h1 {
     font-weight: 700;
 }
 
-.boxFormStudent select,
-.boxFormStudent input {
+.boxFormSession input {
     text-align: center;
     border: 1px solid var(--first-color);
 }
 
-.boxFormStudent label {
+.boxFormSession label {
     margin-top: 20px;
     font-weight: 600;
 }
 
-.boxFormStudent button {
+.boxFormSession button {
     margin-top: 40px;
 }
 
-.buttonFormStudent {
+.buttonFormSession {
     padding: 10px 25px;
     border-radius: 8px;
     font-weight: 700;
@@ -51,7 +50,7 @@
     border: solid 1px var(--btn-color);
 }
 
-.buttonFormStudent:hover {
+.buttonFormSession:hover {
     color: var(--second-color);
     background-color: var(--btn-color);
     border: solid 1px var(--second-color);

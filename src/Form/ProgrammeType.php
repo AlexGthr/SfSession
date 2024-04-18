@@ -19,11 +19,13 @@ class ProgrammeType extends AbstractType
     {
         $builder
             ->add('nbDay', IntegerType::class, [
+                'label' => 'Nombre de jours',
                 'attr' => [
                     'class' => 'form-control'
                 ]
                 ])
             ->add('module', EntityType::class, [
+                'label' => 'Choix du module',
                 'class' => Module::class,
                 'choice_label' => 'name',
                 'attr' => [
@@ -31,6 +33,7 @@ class ProgrammeType extends AbstractType
                 ]
             ])
             ->add('session', EntityType::class, [
+                'label' => 'Choix de la session',
                 'class' => Session::class,
                 'choice_label' => 'formation',
                 'attr' => [
@@ -39,7 +42,7 @@ class ProgrammeType extends AbstractType
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-success'
+                    'class' => 'buttonFormProgramme'
                 ] 
             ])
         ;

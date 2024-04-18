@@ -21,11 +21,6 @@ class FormationType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('nameSession', EntityType::class, [
-                'class' => Session::class,
-                'placeholder' => 'Sélectionner une session',
-                'mapped' => false
-            ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success'

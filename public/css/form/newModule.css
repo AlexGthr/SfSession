@@ -1,17 +1,17 @@
-.contentFormStudent {
+.contentModule {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px 50px 0 50px;
+    padding: 20px 50px 20px 50px;
     gap: 1px;
 }
 
-.formStudent {
+.formModule {
     display: flex;
     justify-content: center;
 }
 
-.boxFormStudent {
+.boxFormModule {
     width: 80%;
     padding: 60px;
     border-radius: 14px;
@@ -21,26 +21,32 @@
     font-size: 1.2em;
 }
 
-.boxFormStudent h1 {
+.boxFormModule h1 {
     font-weight: 700;
 }
 
-.boxFormStudent select,
-.boxFormStudent input {
+.boxFormModule input,
+.boxFormModule select {
     text-align: center;
     border: 1px solid var(--first-color);
 }
 
-.boxFormStudent label {
+.boxFormModule textarea {
+    height: 400px;
+    resize: none;
+    border: 1px solid var(--first-color);
+}
+
+.boxFormModule label {
     margin-top: 20px;
     font-weight: 600;
 }
 
-.boxFormStudent button {
+.boxFormModule button {
     margin-top: 40px;
 }
 
-.buttonFormStudent {
+.buttonFormModule {
     padding: 10px 25px;
     border-radius: 8px;
     font-weight: 700;
@@ -51,7 +57,7 @@
     border: solid 1px var(--btn-color);
 }
 
-.buttonFormStudent:hover {
+.buttonFormModule:hover {
     color: var(--second-color);
     background-color: var(--btn-color);
     border: solid 1px var(--second-color);

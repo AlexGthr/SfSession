@@ -4,13 +4,26 @@
 
 {% block body %}
 
+<div class="contentFormStudent">
+
+
     {% if edit %}
-        <h1>Edit Student</h1>
+    <div class="title_page">
+        <h1> Edit {{ student }} </h1>
+        <hr class="after_title" />
+    </div>
     {% else %}
-        <h1>Add Student</h1>
+    <div class="title_page">
+        <h1> Ajout Stagiaire </h1>
+        <hr class="after_title" />
+    </div>
     {% endif %}
 
+    <div class="formStudent">
+        <div class="boxFormStudent">
+            <h1><span class="blue">STAGIAIRE</span></h1>
     {{ form_start(formAddStudent) }}
+
 
         <div class="row">
             <div class="col-sm">
@@ -42,7 +55,11 @@
         </div>
 
         {{ form_row(formAddStudent.valider) }}
+        </div>
+    </div>
 
 {{ form_end(formAddStudent) }}
 
+
+</div>
 {% endblock %}

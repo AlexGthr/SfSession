@@ -4,16 +4,35 @@
 
 {% block body %}
 
+<div class="contentProgramme">
+
     {% if edit %}
-        <h1>Edit Programme</h1>
+    <div class="title_page">
+        <h1> Edit Programme </h1>
+        <hr class="after_title" />
+    </div>
     {% else %}
-        <h1>Add Programme</h1>
+    <div class="title_page">
+        <h1> Ajout Programme </h1>
+        <hr class="after_title" />
+    </div>
     {% endif %}
+
+    <div class="formProgramme">
+        <div class="boxFormProgramme">
+            <h1><span class="blue">PROGRAMME</span></h1>
 
     {{ form_start(formAddProgramme) }}
 
-        {{ form_row(formAddProgramme) }}
+        {{ form_row(formAddProgramme.nbDay) }}
+        {{ form_row(formAddProgramme.session) }}
+        {{ form_row(formAddProgramme.module) }}
+        {{ form_row(formAddProgramme.valider) }}
 
-{{ form_end(formAddProgramme) }}
+    {{ form_end(formAddProgramme) }}
+
+        </div>
+    </div>
+</div>
 
 {% endblock %}

@@ -4,20 +4,35 @@
 
 {% block body %}
 
+<div class="contentModule">
+
     {% if edit %}
-        <h1>Edit module</h1>
+    <div class="title_page">
+        <h1> Edit Module : {{ module }} </h1>
+        <hr class="after_title" />
+    </div>
     {% else %}
-        <h1>Add module</h1>
+    <div class="title_page">
+        <h1> Ajout Module </h1>
+        <hr class="after_title" />
+    </div>
     {% endif %}
+
+    <div class="formModule">
+        <div class="boxFormModule">
+            <h1><span class="blue">MODULE</span></h1>
 
     {{ form_start(formAddModule) }}
 
         {{ form_row(formAddModule.name) }}
-        <br> <strong>Balise autorisé : &lt;strong&gt; / &lt;list&gt;  (•) / &lt;br&gt; </strong>
         {{ form_row(formAddModule.description) }}
+        <p>Balise autorisé : &lt;strong&gt; / &lt;list&gt;  (•) / &lt;br&gt; </p>
         {{ form_row(formAddModule.category) }}
         {{ form_row(formAddModule.valider) }}
 
     {{ form_end(formAddModule) }}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

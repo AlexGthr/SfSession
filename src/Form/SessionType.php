@@ -37,7 +37,7 @@ class SessionType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('closed', CheckboxType::class)
+            // ->add('closed', CheckboxType::class)
 
             ->add('name', TextType::class, [
                 'attr' => [
@@ -45,24 +45,24 @@ class SessionType extends AbstractType
                 ]
                 ])
 
-            ->add('inscription', EntityType::class, [
-                'class' => Student::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
-            ->add('formation', EntityType::class, [
-                'class' => Formation::class,
-                'choice_label' => 'name',
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+            // ->add('inscription', EntityType::class, [
+            //     'class' => Student::class,
+            //     'choice_label' => 'name',
+            //     'multiple' => true,
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ]
+            //     ], CheckboxType::class)
+            // ->add('formation', EntityType::class, [
+            //     'class' => Formation::class,
+            //     'choice_label' => 'name',
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ]
+            // ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-success'
+                    'class' => 'buttonFormSession'
                 ] 
             ])
         ;

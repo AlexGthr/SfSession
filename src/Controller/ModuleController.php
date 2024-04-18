@@ -30,13 +30,15 @@ class ModuleController extends AbstractController
     // Method pour AJOUTER ou EDIT un MODULE
     #[Route('/module/new', name: 'new_module')]
     #[Route('/module/{id}/edit', name: 'edit_module')]
-    public function new_editModule(Module $module = null, Request $request, EntityManagerInterface $entityManager): Response 
+    public function new_editModule(ModuleRepository $moduleRepository, Module $module = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
 
         // Si il n'y a pas MODULE,
         if (!$module) {
             // On crée un nouvel objet MODULE
             $module = new Module();
+        } else {
+            $module = $moduleRepository->find($id);
         }
             
         // On crée le formulaire pour le MODULE
@@ -62,6 +64,7 @@ class ModuleController extends AbstractController
                     
         return $this->render('module/newModule.html.twig', [
             'formAddModule' => $form,
+            'module' => $module,
             'edit' => $module->getId()
             ]);
     }

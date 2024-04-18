@@ -4,23 +4,35 @@
 
 {% block body %}
 
+<div class="contentFormSession">
+
     {% if edit %}
-        <h1>Edit session</h1>
+    <div class="title_page">
+        <h1> Edit {{ session }} </h1>
+        <hr class="after_title" />
+    </div>
     {% else %}
-        <h1>Add session</h1>
+    <div class="title_page">
+        <h1> Ajout Session </h1>
+        <hr class="after_title" />
+    </div>
     {% endif %}
+
+    <div class="formSession">
+        <div class="boxFormSession">
+            <h1><span class="blue">SESSION</span></h1>
 
     {{ form_start(formAddSession) }}
 
 
+        {{ form_row(formAddSession.name) }}
         {{ form_row(formAddSession.startDate) }}
         {{ form_row(formAddSession.endDate) }}
         {{ form_row(formAddSession.nbPlace) }}
-        {{ form_row(formAddSession.closed) }}
-        {{ form_row(formAddSession.formation) }}
-        {{ form_row(formAddSession.inscription) }}
         {{ form_row(formAddSession.valider) }}
 
 {{ form_end(formAddSession) }}
-
+        </div>
+    </div>
+</div>
 {% endblock %}

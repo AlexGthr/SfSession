@@ -29,12 +29,14 @@ class SessionController extends AbstractController
     // Method pour AJOUTER ou EDIT une SESSION
     #[Route('/session/new', name: 'new_session')]
     #[Route('/session/{id}/edit', name: 'edit_session')]
-    public function new_EditSession(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response 
+    public function new_EditSession(SessionRepository $sessionRepository, Session $session = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
         // Si il n'y a pas de SESSION,
         if (!$session) {
             // On crée un nouvel objet SESSION
             $session = new Session();
+        } else {
+            $session = $sessionRepository->find($id);
         }
             
             
@@ -61,6 +63,7 @@ class SessionController extends AbstractController
                     
         return $this->render('session/newSession.html.twig', [
             'formAddSession' => $form,
+            'session' => $session,
             'edit' => $session->getId()
             ]);
     }

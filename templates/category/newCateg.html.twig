@@ -8,7 +8,7 @@
 
     {% if edit %}
         <div class="title_page">
-            <h1> Edit catégorie {{ category }} </h1>
+            <h1> Edit {{ category }} </h1>
             <hr class="after_title" />
         </div>
     {% else %}
@@ -18,11 +18,18 @@
         </div>
     {% endif %}
 
+    <div class="formCategory">
+        <div class="boxFormCategory">
+            <h1><span class="blue">CATÉGORIE</span></h1>
+
     {{ form_start(formAddCategory) }}
 
         {{ form_row(formAddCategory.name) }}
         {{ form_row(formAddCategory.valider) }}
 
 {{ form_end(formAddCategory) }}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
