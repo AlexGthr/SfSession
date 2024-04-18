@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Form\SessionType;
+use App\Form\AddModuleType;
 use App\Repository\SessionRepository;
 use App\Repository\ProgrammeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,6 +66,47 @@ class SessionController extends AbstractController
             'formAddSession' => $form,
             'session' => $session,
             'edit' => $session->getId()
+            ]);
+    }
+
+    #[Route('/session/{id}/addModule', name: 'new_Modulesession')]
+    public function new_AddModuleSession(SessionRepository $sessionRepository, Session $session = null, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    {
+        // Si il n'y a pas de SESSION,
+        if (!$session) {
+            // On redirige vers la liste des sessions
+            return $this->redirectToRoute('app_session');
+        } else {
+            $session = $sessionRepository->find($id);
+        }
+            
+            
+        // On crée le formulaire pour la SESSION
+        $form = $this->createForm(AddModuleType::class, $programme);
+        
+        $form->handleRequest($request);
+        
+        
+        // Si le formulaire est submit
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            // On recupère les données du formulaire
+            $programme = $form->getData();
+
+            $programme->setSession($session);
+            // PREPARE PDO
+            $entityManager->persist($programme);
+            // EXECUTE PDO
+            $entityManager->flush();
+            
+            // Puis on redirige l'user vers la liste des SESSION
+            return $this->redirectToRoute('app_session');
+            }
+                    
+        return $this->render('session/addModule.html.twig', [
+            'formAddModuleSession' => $form,
+            'session' => $session,
+            'programme' => $programme
             ]);
     }
 

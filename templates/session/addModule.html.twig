@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Module{% endblock %}
+
+{% block body %}
+
+<div class="contentFormSession">
+
+    <div class="title_page">
+        <h1> Ajouter module </h1>
+        <hr class="after_title" />
+    </div>
+
+    <div class="formSession">
+        <div class="boxFormSession">
+            <h1><span class="blue">SESSION</span></h1>
+
+    {{ form_start(formAddModuleSession) }}
+
+
+    {{ form_row(formAddModuleSession.nbDay) }}
+    {{ form_row(formAddModuleSession.module) }}
+    {{ form_row(formAddModuleSession.valider) }}
+
+{{ form_end(formAddModuleSession) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
