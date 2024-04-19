@@ -30,16 +30,14 @@ class FormationController extends AbstractController
 {
         // LISTE DES FORMATIONS
     #[Route('/formation', name: 'app_formation')]
-    public function index(FormationRepository $formationRepository, ProgrammeRepository $programmeRepository): Response
+    public function index(FormationRepository $formationRepository): Response
     {
 
-        $programmes = $programmeRepository->findBy([], ['id' => 'ASC']);
         $formation = $formationRepository->findBy([], ['id' => 'ASC']);
 
 
         return $this->render('formation/index.html.twig', [
             'controller_name' => 'FormationController',
-            'programmes' => $programmes,
             'formations' => $formation
         ]);
     }
@@ -128,20 +126,16 @@ class FormationController extends AbstractController
 
     // Method pour afficher le detail d'une formation
     #[Route('/formation/{id}', name: 'show_formation')]
-    public function showFormation(FormationRepository $formationRepository, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
+    public function showFormation(Formation $formation = null, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository): Response 
     {
-        
-        $formation = $formationRepository->find($id);
 
         if ($formation) {
 
-            $session = $sessionRepository->find($id);
-            $programmes = $programmeRepository->findBy(['session' => $id]);
+            $sessions = $sessionRepository->findBy(['formation' => $formation]);
     
             return $this->render('formation/showFormation.html.twig', [
                 'formation' => $formation,
-                'session' => $session,
-                'programmes' => $programmes
+                'sessions' => $sessions
             ]);
 
         } else {

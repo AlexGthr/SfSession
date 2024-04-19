@@ -34,13 +34,13 @@ class StudentType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('birthday', null, [
+            ->add('birthday', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de naissance',
                 'attr' => [
                     'class' => 'form-control'
                 ]
-            ], DateType::class)
+            ])
             ->add('city', TextType::class, [
                 'label' => 'Ville',
                 'attr' => [
@@ -54,7 +54,7 @@ class StudentType extends AbstractType
                     'F' => 'F'
                 ],
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-select'
                 ]
             ])
             ->add('email', EmailType::class, [
@@ -73,7 +73,8 @@ class StudentType extends AbstractType
                     ])
                 ],
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => 'Ex : 0388775544'
                 ]
             ])
 

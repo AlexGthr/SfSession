@@ -32,11 +32,6 @@ class AddModuleType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            // ->add('session', EntityType::class, [
-            //     'class' => Session::class,
-            //     'disabled' => true,
-
-            // ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
                     'class' => 'buttonFormProgramme'

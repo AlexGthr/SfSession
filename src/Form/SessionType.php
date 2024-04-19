@@ -8,8 +8,8 @@ use App\Entity\Formation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -20,18 +20,18 @@ class SessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('startDate', null, [
+            ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'form-control'
                 ]
-                ], DateTime::class)
-            ->add('endDate', null, [
+                ])
+            ->add('endDate', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'form-control'
                 ]
-                ], DateTime::class)
+                ])
             ->add('nbPlace', IntegerType::class, [
                 'attr' => [
                     'class' => 'form-control'
@@ -53,13 +53,13 @@ class SessionType extends AbstractType
             //         'class' => 'form-control'
             //     ]
             //     ], CheckboxType::class)
-            // ->add('formation', EntityType::class, [
-            //     'class' => Formation::class,
-            //     'choice_label' => 'name',
-            //     'attr' => [
-            //         'class' => 'form-control'
-            //     ]
-            // ])
+            ->add('formation', EntityType::class, [
+                'class' => Formation::class,
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
                     'class' => 'buttonFormSession'

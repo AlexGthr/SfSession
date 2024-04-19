@@ -29,6 +29,10 @@
     text-align: center;
     border: 1px solid var(--first-color);
 }
+.boxFormSession select {
+    text-align: center;
+    border: 1px solid var(--first-color);
+}
 
 .boxFormSession label {
     margin-top: 20px;

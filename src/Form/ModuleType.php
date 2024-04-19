@@ -31,7 +31,7 @@ class ModuleType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-select'
                 ],
             ])
             ->add('valider', SubmitType::class, [

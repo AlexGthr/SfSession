@@ -112,47 +112,22 @@ class SessionController extends AbstractController
 
     // Method pour afficher le detail d'une session
     #[Route('/session/{id}', name: 'show_session')]
-    public function showSession(SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
+    public function showSession(Session $session = null, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
     {
-        // Je vérifie qu'une session existe
-        $session = $sessionRepository->find($id);
 
         // Si la session existe, je passe à la suite, sinon je redirige sur l'index
         if ($session) {
 
-            // Je vérifie si la session est déjà relié à une formation, si oui elle à sa page de détail déjà prête
-            $formationExist = $sessionRepository->findOneBy(['id' => $id]);
-            $formation = $formationExist->getFormation() ? true : false;
-            
-            // Si la session à déjà une formation :
-            if ($formation) {
-
-                // Je récupère le programme de la session
-                $programmes = $programmeRepository->findBy(['session' => $id]);
-                $formation = true;
+            // Je récupère le programme de la session
+            $programmes = $programmeRepository->findBy(['session' => $id]);
         
-                // Et j'affiche le detail de la formation
-                return $this->render('formation/showFormation.html.twig', [
-                    'session' => $session,
-                    'formation' => $formation,
-                    'programmes' => $programmes
-                ]);
+            // Et je renvoi sur le detail de la session non commencés
+            return $this->render('session/showSession.html.twig', [
+                'session' => $session,
+                'programmes' => $programmes
+            ]);
 
-            // Si la session n'as pas encore de formation
             } else {
-
-                // Je récupère le programme de la session
-                $programmes = $programmeRepository->findBy(['session' => $id]);
-        
-                // Et je renvoi sur le detail de la session non commencés
-                return $this->render('session/showSession.html.twig', [
-                    'session' => $session,
-                    'programmes' => $programmes
-                ]);
-
-            }
-
-        } else {
             return $this->redirectToRoute('app_session');
         }
 

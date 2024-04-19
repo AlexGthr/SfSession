@@ -12,73 +12,91 @@
         <h1> Detail {{ session }} </h1>
         <hr class="after_title" />
     </div>
-{% if programmes %}
-{% for programme in programmes %}
-    <div class="cardModule">
-        <div class="nameModule">
-                <p> {{ programme.module}} </p>
+
+    {% if programmes %}
+        {% for programme in programmes %}
+
+            <div class="cardModule">
+                <div class="nameModule">
+
+                    <p> {{ programme.module}} </p>
+
+                </div>
+
+                <div class="joursArrow">
+
+                    <p> {{ programme.nbDay }} jours</p>
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </div>
             </div>
-            <div class="joursArrow">
-                <p> {{ programme.nbDay }} jours</p>
-                <i class="fa-solid fa-arrow-right"></i>
-        </div>
-    </div>
 
-    <div class="description">
-        <div class="descriptionModule">
-            <p><strong>Categorie :</strong> {{ programme.module.category }}</p>
-            <p> {{ programme.module.description|replace({'<strong>' : '<strong>', '</strong>' : '</strong>', '<list>' : '•', '<br>' : '<br>'})|raw }} </p>
-        </div>
-    </div>
-{% endfor %}
-{% else %}
-<p> Aucun module actuellement. </p>
-<a href="{{ path('new_Modulesession', {id: session.id}) }}">Ajouter des modules</a>    
-{% endif %}
+            <div class="description">
+                <div class="descriptionModule">
 
-<p class="nbPlace">Nombre de place : <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
+                    <p><strong>Categorie :</strong> {{ programme.module.category }}</p>
+                    <p> {{ programme.module.description|replace({'<strong>' : '<strong>', '</strong>' : '</strong>', '<list>' : '•', '<br>' : '<br>'})|raw }} </p>
+
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if session.getSessionStart() > 0 %}
+                <a href="{{ path('new_Modulesession', {id: session.id}) }}">Ajouter des modules</a>    
+            {% else %}
+                <p><span class="red"> La formation à commencée, l'ajout de Module n'est plus possible.</span></p>
+                {% endif %}
+    {% else %}
+
+        <p> Aucun module actuellement. </p>
+        <a href="{{ path('new_Modulesession', {id: session.id}) }}">Ajouter des modules</a>
+
+    {% endif %}
+
+    <p class="nbPlace">Nombre de place : <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
 
     <div class="tableStagiaire">
 
         <a href="#" class="addStagiaire"> Pas de formation en cours </a>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Nom - Prénom</th>
-                <th scope="col">Ville</th>
-                <th scope="col">Email</th>
-                <th scope="col">Téléphone</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if session.inscription|length > 0 %}
-                {% for student in session.inscription %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nom - Prénom</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if session.inscription|length > 0 %}
+                    {% for student in session.inscription %}
+                        <tr>
+                            <td scope="row"><a href="{{ path('show_student', {id: student.id}) }}"> {{ student.lastName|upper }} {{ student.name }} </a> </td>
+                            <td>{{ student.city }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ student.phoneNumber }}</td>
+                            <td><i class="fa-solid fa-x red"></i></td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                
+                {% for i in 1..(10 - session.inscription|length) %}
                     <tr>
-                        <td scope="row"><a href="{{ path('show_student', {id: student.id}) }}"> {{ student.lastName|upper }} {{ student.name }} </a> </td>
-                        <td>{{ student.city }}</td>
-                        <td>{{ student.email }}</td>
-                        <td>{{ student.phoneNumber }}</td>
-                        <td><i class="fa-solid fa-x red"></i></td>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 {% endfor %}
-            {% endif %}
-            
-            {% for i in 1..(10 - session.inscription|length) %}
-                <tr>
-                    <td scope="row"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
+    </div>
+
+    <p class="nbDay">Durée de la formation : du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} </p>
 </div>
 
-<p class="nbDay">Durée de la formation : du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} </p>
-</div>
 {% endblock %}

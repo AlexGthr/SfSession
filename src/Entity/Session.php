@@ -200,4 +200,10 @@ class Session
 
         return $nbSlot;
     }
+
+    public function getSessionStart() {
+        $now = new \DateTime();
+        $interval = $this->startDate->diff($now);
+        return $interval->format("%Y%m%d");
+    }
 }

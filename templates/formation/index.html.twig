@@ -14,46 +14,30 @@
     {% if formations %}
     
     {% for formation in formations %}
-        {% for session in formation.sessions %}
 
     <div class="listFormation">
-            <a href="{{ path('show_formation', {id: formation.id}) }}"> <h2>{{ session.formation }}</h2> </a>
-            <p><u>Date de début :</u> <span class="blue"> {{ session.startDate|date("d/m/Y") }} </span></p>
-            <p><u>Date de fin :</u> <span class="blue"> {{ session.endDate|date("d/m/Y") }} </span></p>
+            <a href="{{ path('show_formation', {id: formation.id}) }}"> <h2>{{ formation }}</h2> </a>
             
-            <p><u>Nombre de place :</u>
-                {% if session.nbAvailable == 0 %}
-                    <span class="red"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
-                    {% else %}
-                    <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
-                {% endif %} 
+            <p><strong>Sessions prévues : </strong> 
+                {% set count = 0 %}
+                {% for session in formation.getSessions() %}
+                    {% if session.closed == 0 %}
+                        {% set count = count + 1 %}
+                    {% endif %}
+                {% endfor %} {{ count }}</p>
+            <p><strong>Sessions close : </strong>
+                 {% set count = formation.getSessions()|length - count %} 
+                 {{ count }} </p> 
+            <p><strong>Nombre de sessions :</strong> {{ formation.getSessions()|length }} </p>
 
-            <div class="closeOpen">
-            {% if session.nbAvailable == 0 or session.closed == 1 %}
-                <p><span class="red"> Fermée à l'inscription </span></p>
+            <a href="{{ path('show_formation', {id: formation.id}) }}" class="viewDetFormation">Voir le detail</a>
 
-                {% else %}
-                <p><span class="green"> Ouvert à l'inscription </span></p>
-                {% endif %}
-            </div>
-
-            <div class="module">
-                <h3>Modules</h3>
-                <ul>
-                    {% for programme in programmes %}
-                        {% if programme.session.id == session.id %}
-                            <li><a href="{{ path('show_module', {id: programme.module.id}) }}">{{ programme.module.name }}</a></li>                    
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-
-                <span class="detailModule"><a href="{{ path('show_formation', {id: session.id}) }}">Détails des modules</a></span>
+            <div class="actionModule">
+                <a href="{{ path('edit_formation', {id: formation.id}) }}" class="editModule"> Edit </a>
+                <a href="#" class="deleteModule"> Delete </a>
             </div>
     </div>
     {% endfor %}
-        {% endfor %}
-
-    {% else %}
 
     {% endif %}
 
