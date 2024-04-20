@@ -102,6 +102,10 @@ body.dark-theme {
     top: 0px;
 }
 
+.nav h1{
+    color: var(--first-color);
+}
+
 .content {
     background-color: var(--bg-content);
 }
@@ -146,7 +150,7 @@ body.dark-theme {
 .dashboard p,
 .ajouts p {
     display: flex;
-    
+    color: var(--first-color);
     font-size: 1.2em;
 }
 
@@ -183,11 +187,19 @@ body.dark-theme {
     background-color: var(--bg-white);
 }
 
+.topScreen h1 {
+    color: var(--first-color);
+}
+
 .topScreenUser {
     display: flex;
     height: 100%;
     justify-content: space-between;
     align-items: center;
+}
+
+.topScreenUser p {
+    color: var(--first-color);
 }
 
 .topScreenUser img {

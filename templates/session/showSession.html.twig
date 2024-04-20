@@ -42,7 +42,7 @@
             {% endfor %}
 
             {% if session.getSessionStart() > 0 %}
-                <a href="{{ path('new_Modulesession', {id: session.id}) }}">Ajouter des modules</a>    
+                <a href="{{ path('new_Modulesession', {id: session.id}) }}">Ajouter des modules</a> 
             {% else %}
                 <p><span class="red"> La formation à commencée, l'ajout de Module n'est plus possible.</span></p>
                 {% endif %}
