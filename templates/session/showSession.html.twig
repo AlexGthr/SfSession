@@ -2,6 +2,8 @@
 
 {% block title %}Detail Session{% endblock %}
 
+{% block titlePage %} <h1> SESSION </h1> {% endblock %}
+
 
 
 {% block body %}
@@ -53,9 +55,10 @@
 
     {% endif %}
 
-    <p class="nbPlace">Nombre de place : <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
-
+    <p class="nbDay">Durée de la formation : du <u>{{ session.startDate|date("d/m/Y") }}</u> au <u>{{ session.endDate|date("d/m/Y") }}</u> </p>
+    
     <div class="tableStagiaire">
+        <p class="nbPlace">Nombre de place : <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
 
         <a href="#" class="addStagiaire"> Pas de formation en cours </a>
 
@@ -96,7 +99,6 @@
 
     </div>
 
-    <p class="nbDay">Durée de la formation : du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} </p>
 </div>
 
 {% endblock %}

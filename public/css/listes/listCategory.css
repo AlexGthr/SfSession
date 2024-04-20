@@ -14,7 +14,7 @@
 }
 
 .infoCategory {
-    background-color: white;
+    background-color: var(--bg-cards);
     border-radius: 14px;
     width: 80%;
     height: 270px;
@@ -27,6 +27,7 @@
     text-align: center;
     padding: 10px 0;
     font-weight: 700;
+    color: var(--first-color);
 }
 
 .listModuleCategory {
@@ -46,7 +47,7 @@
 
 .moduleCateg a {
     text-decoration: none;
-    color: var(--first-color);
+    color: black;
 }
 
 .moduleCateg a:hover {
@@ -77,10 +78,11 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1em;
+    color: black;
 }
 
 .actionListCateg a:hover {
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    box-shadow: rgba(148, 148, 148, 0.45) 0px 5px 5px;
     transition: all 0.7s;
 }
 

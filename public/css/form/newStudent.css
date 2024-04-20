@@ -15,7 +15,7 @@
     width: 80%;
     padding: 60px;
     border-radius: 14px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--bg-cards);
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
     text-align: center;
     font-size: 1.2em;
@@ -28,12 +28,20 @@
 .boxFormStudent select,
 .boxFormStudent input {
     text-align: center;
-    border: 1px solid var(--first-color);
+    border: 1px solid black;
+    background-color: var(--bg-input);
+    font-weight: 700;
+    color: black;
+}
+
+.boxFormStudent input:focus {
+    background-color: var(--bg-input);
 }
 
 .boxFormStudent label {
     margin-top: 20px;
     font-weight: 600;
+    color: var(--first-color);
 }
 
 .boxFormStudent button {

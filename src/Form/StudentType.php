@@ -54,7 +54,7 @@ class StudentType extends AbstractType
                     'F' => 'F'
                 ],
                 'attr' => [
-                    'class' => 'form-select'
+                    'class' => 'form-select',
                 ]
             ])
             ->add('email', EmailType::class, [

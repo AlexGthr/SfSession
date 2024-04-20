@@ -16,7 +16,7 @@
     width: 70%;
     padding: 10px 20px;
     border-radius: 14px;
-    background-color: var(--second-color);
+    background-color: var(--bg-cards);
 }
 
 .title {
@@ -32,12 +32,18 @@
 
 .boxStudent h3 {
     padding: 30px 0;
+    color: var(--first-color);
+}
+
+.infoStudent p {
+    color: var(--first-color);
 }
 
 .infoStudent li {
     font-size: 1.5em;
     line-height: 1.2em;
     font-weight: 700;
+    color: var(--first-color);
 }
 
 .dateFormation {
@@ -67,10 +73,11 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1em;
+    color: black;
 }
 
 .actionStudent a:hover {
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    box-shadow: rgba(148, 148, 148, 0.45) 0px 5px 5px;
     transition: all 0.7s;
 }
 

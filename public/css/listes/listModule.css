@@ -20,6 +20,10 @@
     text-align: center;
 }
 
+.listModule p {
+    color: var(--first-color);
+}
+
 .listModule h2 a {
     text-decoration: none;
     color: var(--first-color);
@@ -46,7 +50,7 @@
 }
 
 .actionListModule a:hover {
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    box-shadow: rgba(148, 148, 148, 0.45) 0px 5px 5px;
     transition: all 0.7s;
 }
 

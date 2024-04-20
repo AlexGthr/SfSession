@@ -29,6 +29,10 @@
     text-decoration: underline;
 }
 
+.listSession p {
+    color: var(--first-color);
+}
+
 .actionListModule {
     display: flex;
     justify-content: center;
@@ -43,10 +47,11 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1em;
+    color: black;
 }
 
 .actionListModule a:hover {
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    box-shadow: rgba(148, 148, 148, 0.45) 0px 5px 5px;
     transition: all 0.7s;
 }
 

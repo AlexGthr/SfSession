@@ -19,6 +19,7 @@ body {
     --bg-border: #838181;
     --bg-module: #a3d8f5;
     --bg-content: #DDE4F4;
+    --bg-input: #FFFFFF;
 
 
  --ExtraLight: 200;
@@ -40,21 +41,25 @@ body.dark-theme {
     --bg-white: #1C1C1C;
     --bg-cards: #242424;
     --bg-cards-module: #CEEBFB;
-    --color-titleSeparator: #0080C8;
+    --color-titleSeparator: #010405;
     --bg-border: #838181;
     --bg-content: #5F6061;
+    --bg-input: #9c9c9c;
 }
 
 .green {
     color: #017121;
+    font-weight: 700;
 }
 
 .red {
     color: #BB0000;
+    font-weight: 700;
 }
 
 .blue {
     color: var(--btn-color);
+    font-weight: 700;
 }
 
 

@@ -29,7 +29,7 @@ class ProgrammeType extends AbstractType
                 'class' => Module::class,
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-select'
                 ]
             ])
             ->add('session', EntityType::class, [
@@ -37,7 +37,7 @@ class ProgrammeType extends AbstractType
                 'class' => Session::class,
                 'choice_label' => 'formation',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-select'
                 ]
             ])
             ->add('valider', SubmitType::class, [

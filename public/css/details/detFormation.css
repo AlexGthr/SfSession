@@ -30,6 +30,7 @@
 
 .listDetFormation p {
     line-height: 1;
+    color: var(--first-color);
 }
 
 .listDetFormation a {
@@ -67,6 +68,10 @@
     margin-top: 20px;
     font-weight: 600;
     text-decoration: underline;
+}
+
+.DetSessionModule li a {
+    color: black;
 }
 
 .detailBtnModule {

@@ -15,7 +15,7 @@
 .detModule {
     padding: 10px 10px;
     width: 85%;
-    background-color: var(--second-color);
+    background-color: var(--bg-cards);
     line-height: 2.5em;
     border-radius: 14px;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
@@ -26,6 +26,12 @@
     width: 90%;
     text-align: justify;
     font-size: 1.1em;
+    color: var(--first-color);
+    font-weight: 400;
+}
+
+.detModule strong {
+    font-weight: 700;
 }
 
 .actionModule {
@@ -43,10 +49,11 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1em;
+    color: black;
 }
 
 .actionModule a:hover {
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    box-shadow: rgba(148, 148, 148, 0.45) 0px 5px 5px;
     transition: all 0.7s;
 }
 
