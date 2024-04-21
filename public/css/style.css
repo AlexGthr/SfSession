@@ -4,10 +4,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Lexend", sans-serif;
+    transition: 0.5s;
 }
 
 body {
- 
+
     --first-color: #000000;
     --second-color: #FFFFFF;
     --btn-color: #0F7CB9;
@@ -22,14 +23,14 @@ body {
     --bg-input: #FFFFFF;
 
 
- --ExtraLight: 200;
- --Light: 300;
- --Regular: 400;
- --Medium: 500;
- --SemiBold: 600;
- --Bold: 700;
- --ExtraBold: 800;
- --Black: 900;
+    --ExtraLight: 200;
+    --Light: 300;
+    --Regular: 400;
+    --Medium: 500;
+    --SemiBold: 600;
+    --Bold: 700;
+    --ExtraBold: 800;
+    --Black: 900;
 
 }
 
@@ -194,6 +195,7 @@ body.dark-theme {
 
 .topScreen h1 {
     color: var(--first-color);
+    width: 270px;
 }
 
 .topScreenUser {
@@ -201,6 +203,10 @@ body.dark-theme {
     height: 100%;
     justify-content: space-between;
     align-items: center;
+}
+
+.topScreenUser {
+    color: var(--first-color);
 }
 
 .topScreenUser p {
@@ -230,6 +236,80 @@ body.dark-theme {
     margin: 0;
     font-weight: 400;
 }
+
+.darkmode_button label {
+    width: 100px;
+    height: 40px;
+    position: relative;
+    display: block;
+    background: #ebebeb;
+    border-radius: 200px;
+    box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px 15px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.darkmode_button label:after {
+    content: "";
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: linear-gradient(180deg, #ffcc89, #d8860b);
+    border-radius: 180px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.darkmode_button input {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.darkmode_button input:checked + label {
+    background: #242424;
+}
+
+.darkmode_button input:checked + label:after {
+    left: 98px;
+    transform: translateX(-100%);
+    background: linear-gradient(180deg, #777, #3a3a3a);
+}
+
+.darkmode_button label:active:after {
+    width: 52px;
+}
+
+.darkmode_button label i {
+    position: absolute;
+    width: 24px;
+    top: 12px;
+    z-index: 100;
+}
+
+.darkmode_button label i.sun {
+    left: 10px; 
+    color: #693f00;
+    transition: 0.3s;
+}
+
+.darkmode_button label i.moon {
+    left: 75px; 
+    color: #7e7e7e;
+    transition: 0.3s;
+}
+
+.darkmode_button input:checked + label i.sun {
+    color: #7e7e7e;
+}
+
+.darkmode_button input:checked + label i.moon {
+    color: #bbb4b4;
+}
+
 
 @media only screen and (max-height: 800px) {
     .dashbord_liste li {

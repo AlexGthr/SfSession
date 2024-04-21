@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const btnToggleTheme = document.querySelector(".btn-toggle");
+
+    const btnToggleTheme = document.getElementById("darkmode-toggle");
 
     if (!localStorage.getItem("theme")) {
         document.body.classList.add("dark-theme");
@@ -7,22 +7,25 @@ document.addEventListener("DOMContentLoaded", function () {
   
     // Vérifier que l'élément .btn-toggle existe avant d'attacher l'événement
     const currentTheme = localStorage.getItem("theme");
+    const body = document.querySelector('body');
+
     if (currentTheme == "dark") {
-        document.body.classList.add("dark-theme");
+        body.classList.add("dark-theme");
+        btnToggleTheme.checked = true;
     } 
     
     if (btnToggleTheme) {
       btnToggleTheme.addEventListener("click", function () {
-        document.body.classList.toggle("dark-theme");
+        body.classList.toggle("dark-theme");
   
         let theme = "light";
-        if (document.body.classList.contains("dark-theme")) {
+        if (body.classList.contains("dark-theme")) {
           theme = "dark";
         }
         localStorage.setItem("theme", theme);
         })
     }
-});
+
 
 $(document).ready(function() {
     $('.cardModule').click(function() {
