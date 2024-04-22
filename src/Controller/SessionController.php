@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\Programme;
 use App\Form\SessionType;
 use App\Form\AddModuleType;
+use App\Repository\ModuleRepository;
 use App\Repository\SessionRepository;
 use App\Repository\ProgrammeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,7 +72,7 @@ class SessionController extends AbstractController
     }
 
     #[Route('/session/{id}/addModule', name: 'new_Modulesession')]
-    public function new_AddModuleSession(SessionRepository $sessionRepository, Session $session = null, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_AddModuleSession(SessionRepository $sessionRepository, Session $session = null, ModuleRepository $moduleRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
         // Si il n'y a pas de SESSION,
         if (!$session) {
@@ -80,27 +82,33 @@ class SessionController extends AbstractController
             $session = $sessionRepository->find($id);
         }
             
-            
-        // On crée le formulaire pour la SESSION
-        $form = $this->createForm(AddModuleType::class, $programme);
-        
-        $form->handleRequest($request);
-        
-        
-        // Si le formulaire est submit
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            // On recupère les données du formulaire
-            $programme = $form->getData();
 
-            $programme->setSession($session);
-            // PREPARE PDO
-            $entityManager->persist($programme);
-            // EXECUTE PDO
-            $entityManager->flush();
+
+        // Si le formulaire est submit
+        if ($_POST['submit']) {
             
-            // Puis on redirige l'user vers la liste des SESSION
-            return $this->redirectToRoute('app_session');
+            $nbDay = filter_input(INPUT_POST, "nbDay", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $module = filter_input(INPUT_POST, "module", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($nbDay && $module) {
+
+                $moduleId = $moduleRepository->findOneById($module);
+                $programme = new Programme();
+
+                $programme->setnbDay($nbDay);
+                $programme->setModule($moduleId);
+                $programme->setSession($session);
+
+                // PREPARE PDO
+                $entityManager->persist($programme);
+                // EXECUTE PDO
+                $entityManager->flush();
+
+                // Puis on redirige l'user vers la liste des SESSION
+                return $this->redirectToRoute('show_session', ['id' => $id]);
+            } else {
+                return $this->redirectToRoute('show_session', ['id' => $id]);
+            }
             }
                     
         return $this->render('session/addModule.html.twig', [

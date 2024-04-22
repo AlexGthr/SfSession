@@ -1,5 +1,142 @@
+async function fetchAnything(url) {
 
-    const btnToggleTheme = document.getElementById("darkmode-toggle");
+    try {
+
+        const response = await fetch(url);
+
+        if (response.ok) {
+            const data = await response.json();
+
+            console.log("data = ", data);
+
+            return data;
+        }
+
+    } catch(erreur) {
+        console.error(erreur);
+    }
+
+    return null;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Je crée une function async qui utilisera la fonction FetchAnything pour fetch mes données
+    async function fetchData(url) {
+        const data = await fetchAnything(url);
+
+        if (data) {
+            return data;
+        } else {
+            return null;
+        }
+    }
+
+    // Div du formulaire pour ajouter des modules à une session
+    const formAddModuleSession = document.createElement("div");
+    formAddModuleSession.classList.add("formAddModuleSession");
+
+    // Récupérer le chemin de l'URL
+    const path = window.location.pathname;
+
+    // Extraire l'ID de l'URL
+    const sessionId = path.split('/').pop();
+
+    // Creation du formulaire
+    const myForm = document.createElement('FORM');
+            myForm.name = 'formAddModuleSession';
+            myForm.method = 'POST';
+            myForm.action = `/session/${sessionId}/addModule`;
+
+    // Label et input nombre de jour
+    const labelFormNbDay = document.createElement("label");
+    labelFormNbDay.textContent = "Nombre de jour";
+
+    const inputFormNdDay = document.createElement("input");
+    inputFormNdDay.type = "number";
+    inputFormNdDay.name = "nbDay";
+    inputFormNdDay.classList.add("form-control");
+
+    // Label et input Select module
+    const labelFormModule = document.createElement("label");
+    labelFormModule.textContent = "Choix du module";
+
+    const selectFormModule = document.createElement("select");
+    selectFormModule.name = "module"
+    const optionModule = document.createElement("option")
+    selectFormModule.classList.add("form-select");
+
+    // Input Submit
+    const inputFormSubmit = document.createElement("input");
+    inputFormSubmit.type = "submit";
+    inputFormSubmit.name = "submit";
+    inputFormSubmit.classList.add("buttonFormProgramme");
+
+    let clicked = 0;
+    // Je récupère mon formulaire et mon bouton pour ajouté le formulaire
+    const formModuleWrapper = document.getElementById("formModule");
+    const buttonAddModule = document.getElementById("buttonAddModule");
+    
+    if (buttonAddModule) {
+        // Quand l'utilisateur clique sur le bouton
+        buttonAddModule.addEventListener("click", async() => {
+            
+            if (clicked == 1) {
+                clicked = 0;
+                formModuleWrapper.removeChild(formAddModuleSession);
+                buttonAddModule.textContent = "Ajouter un module";
+            } else {
+                clicked = 1;
+            // Je récupère mon fetch dans une variable module
+            const modules = await fetchData(`/api/module/`);
+            console.log(modules);
+
+            // Je vide le formulaire avant tout, pour gérer la situation dans laquel l'utilisateur clique plusieurs fois sur le button
+            selectFormModule.innerText = '';
+            
+            // Si modules à bien récupérés mes données 
+            if (modules) {
+                
+                // Je crée une boucles pour crées mes options
+                for (i = 0; i < modules.modules.length; i++) {
+                    
+                    // Je clone l'option
+                    const option = optionModule.cloneNode();
+                    // J'ajoute mon modules ID en value
+                    option.value = modules.modules[i].id;
+                    // Je rajoute le nom du module en content
+                    option.textContent = modules.modules[i].name;
+                    // Et j'ajoute à mon select l'option
+                    selectFormModule.add(option);
+                }
+                
+                // J'appendChild tout mes éléments
+                formAddModuleSession.appendChild(myForm);
+                
+                myForm.appendChild(labelFormNbDay);
+                myForm.appendChild(inputFormNdDay);
+                
+                myForm.appendChild(labelFormModule);
+                myForm.appendChild(selectFormModule);
+                
+                myForm.appendChild(inputFormSubmit);
+                
+                // myForm.appendChild(buttonClose);
+                formModuleWrapper.appendChild(formAddModuleSession);
+                buttonAddModule.textContent = "Fermer le formulaire";
+            } else {
+                console.log("erreur");
+            }
+            }
+        })
+    }
+    
+    
+    
+    
+});
+
+const btnToggleTheme = document.getElementById("darkmode-toggle");
 
     if (!localStorage.getItem("theme")) {
         document.body.classList.add("dark-theme");

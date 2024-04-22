@@ -21,6 +21,34 @@ class ModuleRepository extends ServiceEntityRepository
         parent::__construct($registry, Module::class);
     }
 
+    public function findModuleNotUse($id) {
+        
+        // em = entityManager
+        $em = $this->getEntityManager();
+
+        // sub = SubQuery (Sous requête DQL)
+        $sub = $em->createQueryBuilder();
+
+        // QueryBuilder 
+        $qb = $sub;
+
+        $qb->select('m')
+            ->from('App\Entity\Module', 'm')
+            ->leftJoin('m.programmes', 'mp')
+            ->where('mp.session = :id');
+
+        $sub = $em->createQueryBuilder();
+
+        $sub->select('mt')
+            ->from('App\Entity\Module', 'mt')
+            ->where($sub->expr()->notIn('mt.id', $qb->getDQL()))
+
+            ->setParameter('id', $id);
+
+            $query = $sub->getQuery();
+            return $query->getResult();
+    }
+
 //    /**
 //     * @return Module[] Returns an array of Module objects
 //     */

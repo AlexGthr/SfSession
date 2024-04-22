@@ -4,6 +4,8 @@
 
 {% block titlePage %} <h1> SESSION </h1> {% endblock %}
 
+{% block meta_description %} Detail d'une session {% endblock %}
+
 
 
 {% block body %}
@@ -44,7 +46,8 @@
             {% endfor %}
 
             {% if session.getSessionStart() > 0 %}
-                <a href="{{ path('new_Modulesession', {id: session.id}) }}">Ajouter des modules</a> 
+                <button id="buttonAddModule" class="addModule">Ajouter des modules</button>
+                    <div id="formModule"> </div>
             {% else %}
                 <p><span class="red"> La formation à commencée, l'ajout de Module n'est plus possible.</span></p>
                 {% endif %}
@@ -60,7 +63,12 @@
     <div class="tableStagiaire">
         <p class="nbPlace">Nombre de place : <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
 
+        {% if session.closed == 0 %}
+        <button id="buttonAddStagiaire" class="addStagiaire">Ajouter un stagiaire</button>
+        <div id="formStagiaire"> </div>
+        {% else %}
         <a href="#" class="addStagiaire"> Pas de formation en cours </a>
+        {% endif %}
 
         <table class="table table-striped">
             <thead>

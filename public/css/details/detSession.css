@@ -105,7 +105,23 @@
     gap: 15px;
 }
 
+.addModule {
+    border: none;
+    padding: 10px 10px;
+    background-color: var(--btn-color);
+    color: var(--second-color);
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.addModule:hover {
+    filter: opacity(0.9);
+    transition: all 0.5s;
+}
+
 .addStagiaire {
+    border: none;
     padding: 10px 10px;
     background-color: var(--btn-color);
     color: var(--second-color);
@@ -117,6 +133,30 @@
 .addStagiaire:hover {
     filter: opacity(0.9);
     transition: all 0.5s;
+}
+
+#formModule {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#formModule label {
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--first-color);
+}
+
+#formModule input[type=number], 
+#formModule select {
+    width: 500px;
+    border: 1px solid black;
+    font-weight: 600;
+}
+
+#formModule input[type=submit] {
+    margin-top: 30px;
 }
 
 .table {
