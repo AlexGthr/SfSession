@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 clicked = 1;
             // Je récupère mon fetch dans une variable module
-            const modules = await fetchData(`/api/module/`);
+            const modules = await fetchData(`/api/module/${sessionId}`);
             console.log(modules);
 
             // Je vide le formulaire avant tout, pour gérer la situation dans laquel l'utilisateur clique plusieurs fois sur le button
@@ -131,9 +131,77 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
     
+    // Div du formulaire pour ajouter des stagiaires à une session
+    const formAddStagiaireSession = document.createElement("div");
+    formAddStagiaireSession.classList.add("formAddStagiaireSession");
+
+    // Creation du formulaire
+    const myFormStagiaire = document.createElement('FORM');
+    myFormStagiaire.name = 'formAddStagiaireSession';
+    myFormStagiaire.method = 'POST';
+    myFormStagiaire.action = `/session/${sessionId}/addStagiaire`;
+
+    // Label et input choix du stagiaire
+    const labelFormName = document.createElement("label");
+    labelFormName.textContent = "Choix du stagiaire";
+
+    // Label et input Select stagiaire
+    const selectFormStagiaire = document.createElement("select");
+    selectFormStagiaire.name = "stagiaire"
+    const optionStagiaire = document.createElement("option")
+    optionStagiaire.classList.add("form-select");
+
+    // Input Submit
+    const inputFormSubmitStagiaire = document.createElement("input");
+    inputFormSubmitStagiaire.type = "submit";
+    inputFormSubmitStagiaire.name = "submit";
+    inputFormSubmitStagiaire.classList.add("buttonFormProgramme");
     
-    
-    
+
+    // Je récupère ma div qui contiendra le formulaire et mon bouton pour ajouté le formulaire
+    const formStagiaireWrapper = document.getElementById("formStagiaire");
+    const buttonAddStagiaire = document.getElementById("buttonAddStagiaire");
+
+    if (buttonAddStagiaire) {
+
+        buttonAddStagiaire.addEventListener("click", async () => {
+
+
+                const stagiaires = await fetchData(`/api/stagiaires/${sessionId}`);
+                console.log(stagiaires);
+
+                // selectFormStagiaire.innerText = '';
+
+                if (stagiaires) {
+
+                // Je crée une boucles pour crées mes options
+                for (i = 0; i < stagiaires.stagiaires.length; i++) {
+
+                    // Je clone l'option
+                    const option = optionStagiaire.cloneNode();
+                    // J'ajoute mon modules ID en value
+                    option.value = stagiaires.stagiaires[i].id;
+                    // Je rajoute le nom du module en content
+                    option.textContent = stagiaires.stagiaires[i].lastName.toUpperCase() + " "  + stagiaires.stagiaires[i].name;
+                    // Et j'ajoute à mon select l'option
+                    selectFormStagiaire.add(option);
+                }
+
+                // J'appendChild tout mes éléments
+                formAddStagiaireSession.appendChild(myFormStagiaire);
+                
+                myFormStagiaire.appendChild(labelFormName);
+                myFormStagiaire.appendChild(selectFormStagiaire);
+                
+                myFormStagiaire.appendChild(inputFormSubmitStagiaire);
+                
+
+                formStagiaireWrapper.appendChild(formAddStagiaireSession);
+                buttonAddModule.textContent = "Fermer le formulaire";
+                }
+             
+        })
+    };    
 });
 
 const btnToggleTheme = document.getElementById("darkmode-toggle");

@@ -21,6 +21,35 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
+    public function findStagaireNonInscrit($id) {
+        
+        // em = entityManager
+        $em = $this->getEntityManager();
+
+        // sub = SubQuery (Sous requête DQL)
+        $sub = $em->createQueryBuilder();
+
+        // QueryBuilder 
+        $qb = $sub;
+
+        $qb->select('s')
+            ->from('App\Entity\Student', 's')
+            ->leftJoin('s.sessions', 'se')
+            ->where('se.id = :id');
+
+        $sub = $em->createQueryBuilder();
+
+        $sub->select('st')
+            ->from('App\Entity\Student', 'st')
+            ->where($sub->expr()->notIn('st.id', $qb->getDQL()))
+
+            ->setParameter('id', $id)
+            ->orderBy('st.name');
+
+            $query = $sub->getQuery();
+            return $query->getResult();
+    }
+
     //    /**
     //     * @return Session[] Returns an array of Session objects
     //     */

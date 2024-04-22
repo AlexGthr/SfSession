@@ -8,6 +8,7 @@ use App\Form\SessionType;
 use App\Form\AddModuleType;
 use App\Repository\ModuleRepository;
 use App\Repository\SessionRepository;
+use App\Repository\StudentRepository;
 use App\Repository\ProgrammeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -118,6 +119,50 @@ class SessionController extends AbstractController
             ]);
     }
 
+    #[Route('/session/{id}/addStagiaire', name: 'new_stagiaireSession')]
+    public function new_AddStudentSession(SessionRepository $sessionRepository, Session $session = null, StudentRepository $studentRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    {
+        // Si il n'y a pas de SESSION,
+        if (!$session) {
+            // On redirige vers la liste des sessions
+            return $this->redirectToRoute('app_session');
+        } else {
+            $session = $sessionRepository->find($id);
+        }
+            
+
+
+        // Si le formulaire est submit
+        if ($_POST['submit']) {
+            
+            $stagiaire = filter_input(INPUT_POST, "stagiaire", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($stagiaire) {
+
+            $stagiaireId = $studentRepository->findOneById($stagiaire);
+
+            // Définissez la session et le stagiaire pour cette instance
+            $session->addInscription($stagiaireId);
+
+            // Enregistrez cette nouvelle instance dans la base de données
+            $entityManager->persist($session);
+            $entityManager->flush();
+
+    
+             // Puis on redirige l'utilisateur vers la liste des SESSION
+            return $this->redirectToRoute('show_session', ['id' => $id]);
+            } else {
+                return $this->redirectToRoute('show_session', ['id' => $id]);
+            }
+            }
+                    
+        return $this->render('session/addModule.html.twig', [
+            'formAddModuleSession' => $form,
+            'session' => $session,
+            'programme' => $programme
+            ]);
+    }
+
     // Method pour afficher le detail d'une session
     #[Route('/session/{id}', name: 'show_session')]
     public function showSession(Session $session = null, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
@@ -128,11 +173,13 @@ class SessionController extends AbstractController
 
             // Je récupère le programme de la session
             $programmes = $programmeRepository->findBy(['session' => $id]);
+            $stagiaireNonInscrit = $sessionRepository->findStagaireNonInscrit($id);
         
             // Et je renvoi sur le detail de la session non commencés
             return $this->render('session/showSession.html.twig', [
                 'session' => $session,
-                'programmes' => $programmes
+                'programmes' => $programmes,
+                'stagiaireNonInscrit' => $stagiaireNonInscrit
             ]);
 
             } else {
