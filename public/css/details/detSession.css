@@ -191,6 +191,21 @@
     margin-top: 30px;
 }
 
+.formAddStagiaireSession form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px
+}
+
+#formStagiaire select {
+    width: 300px;
+}
+
+#formStagiaire input {
+    width: 150px;
+}
+
 .table {
     width: 90%;
     border: solid 1px rgba(0, 0, 0, 0.363);

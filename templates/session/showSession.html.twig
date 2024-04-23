@@ -55,11 +55,12 @@
     {% else %}
 
         <p> Aucun module actuellement. </p>
-        <a href="{{ path('new_Modulesession', {id: session.id}) }}">Ajouter des modules</a>
+        <button id="buttonAddModule" class="addModule">Ajouter des modules</button>
+        <div id="formModule"> </div>
 
     {% endif %}
 
-    <p class="nbDay">Durée de la formation : du <u>{{ session.startDate|date("d/m/Y") }}</u> au <u>{{ session.endDate|date("d/m/Y") }}</u> </p>
+        <p class="nbDay">Durée de la formation : du <u>{{ session.startDate|date("d/m/Y") }}</u> au <u>{{ session.endDate|date("d/m/Y") }}</u> </p>
     
     <div class="tableStagiaire">
         <p class="nbPlace">Nombre de place : <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>

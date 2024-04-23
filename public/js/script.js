@@ -162,44 +162,55 @@ document.addEventListener("DOMContentLoaded", function () {
     const formStagiaireWrapper = document.getElementById("formStagiaire");
     const buttonAddStagiaire = document.getElementById("buttonAddStagiaire");
 
+    let stagiaireClicked = 0;
+
     if (buttonAddStagiaire) {
 
         buttonAddStagiaire.addEventListener("click", async () => {
-
-
+        
+            if (stagiaireClicked == 1) {
+                
+                formStagiaireWrapper.removeChild(formAddStagiaireSession);
+                buttonAddStagiaire.textContent = "Ajouter un stagiaire";
+                
+                stagiaireClicked = 0;
+                
+            } else {
+                
                 const stagiaires = await fetchData(`/api/stagiaires/${sessionId}`);
-                console.log(stagiaires);
+    
+                selectFormStagiaire.innerText = '';
 
-                // selectFormStagiaire.innerText = '';
+                stagiaireClicked = 1;
 
                 if (stagiaires) {
 
-                // Je crée une boucles pour crées mes options
-                for (i = 0; i < stagiaires.stagiaires.length; i++) {
+                    // Je crée une boucles pour crées mes options
+                    for (i = 0; i < stagiaires.stagiaires.length; i++) {
 
-                    // Je clone l'option
-                    const option = optionStagiaire.cloneNode();
-                    // J'ajoute mon modules ID en value
-                    option.value = stagiaires.stagiaires[i].id;
-                    // Je rajoute le nom du module en content
-                    option.textContent = stagiaires.stagiaires[i].lastName.toUpperCase() + " "  + stagiaires.stagiaires[i].name;
-                    // Et j'ajoute à mon select l'option
-                    selectFormStagiaire.add(option);
+                        // Je clone l'option
+                        const option = optionStagiaire.cloneNode();
+                        // J'ajoute mon modules ID en value
+                        option.value = stagiaires.stagiaires[i].id;
+                        // Je rajoute le nom du module en content
+                        option.textContent = stagiaires.stagiaires[i].lastName.toUpperCase() + " "  + stagiaires.stagiaires[i].name;
+                        // Et j'ajoute à mon select l'option
+                        selectFormStagiaire.add(option);
+                    }
+
+                    // J'appendChild tout mes éléments
+                    formAddStagiaireSession.appendChild(myFormStagiaire);
+                    
+                    myFormStagiaire.appendChild(labelFormName);
+                    myFormStagiaire.appendChild(selectFormStagiaire);
+                    
+                    myFormStagiaire.appendChild(inputFormSubmitStagiaire);
+                    
+
+                    formStagiaireWrapper.appendChild(formAddStagiaireSession);
+                    buttonAddStagiaire.textContent = "Fermer le formulaire";
+                    }
                 }
-
-                // J'appendChild tout mes éléments
-                formAddStagiaireSession.appendChild(myFormStagiaire);
-                
-                myFormStagiaire.appendChild(labelFormName);
-                myFormStagiaire.appendChild(selectFormStagiaire);
-                
-                myFormStagiaire.appendChild(inputFormSubmitStagiaire);
-                
-
-                formStagiaireWrapper.appendChild(formAddStagiaireSession);
-                buttonAddModule.textContent = "Fermer le formulaire";
-                }
-             
         })
     };    
 });

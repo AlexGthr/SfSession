@@ -63,6 +63,11 @@ body.dark-theme {
     font-weight: 700;
 }
 
+.champObligatoire {
+    text-align: center;
+    color: var(--first-color);
+}
+
 
 /* *********************************************
 ********************TEMPLATE*******************

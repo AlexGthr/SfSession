@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\ModuleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,5 +65,30 @@ class CategoryController extends AbstractController
             'category' => $category,
             'edit' => $category->getId()
         ]);
+    }
+
+    // Method pour supprimer une catégorie
+    #[Route('/category/{id}/delete', name: 'del_category')]
+        public function deleteCateg(Category $category = null, ModuleRepository $moduleRepository,EntityManagerInterface $entityManager, $id = null): Response
+    {
+        if (!$category) {
+            return $this->redirectToRoute('app_category');
+        }
+
+        $moduleHaveCateg = $moduleRepository->findOneBy(['category' => $id]);
+
+        if ($moduleHaveCateg) {
+
+            return $this->redirectToRoute('app_category');
+
+        } else {
+            // Permet la suppression d'une catégorie (delete from)
+            $entityManager->remove($category);
+            $entityManager->flush();
+
+            // Puis on redirige l'user vers la liste des catégories
+            return $this->redirectToRoute('app_category');
+        }
+
     }
 }

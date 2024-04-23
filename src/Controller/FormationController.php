@@ -124,6 +124,31 @@ class FormationController extends AbstractController
             ]);
     }
 
+    // Method pour supprimer une formation
+    #[Route('/formation/{id}/delete', name: 'del_formation')]
+        public function deleteCateg(Formation $formation = null, SessionRepository $sessionRepository, EntityManagerInterface $entityManager, $id = null): Response
+    {
+        if (!$formation) {
+            return $this->redirectToRoute('app_formation');
+        }
+
+        $sessionHaveFormation = $sessionRepository->findOneBy(['formation' => $id]);
+
+        if ($sessionHaveFormation) {
+
+            return $this->redirectToRoute('app_formation');
+
+        } else {
+            // Permet la suppression d'une formation (delete from)
+            $entityManager->remove($formation);
+            $entityManager->flush();
+
+            // Puis on redirige l'user vers la liste des formation
+            return $this->redirectToRoute('app_formation');
+        }
+
+    }
+
     // Method pour afficher le detail d'une formation
     #[Route('/formation/{id}', name: 'show_formation')]
     public function showFormation(Formation $formation = null, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository): Response 

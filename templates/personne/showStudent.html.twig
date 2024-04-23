@@ -20,7 +20,7 @@
             <h3><u><strong>Information</strong></u></h3>
             <div class="actionStudent">
                 <a href="{{ path('edit_student', {id: student.id}) }}" class="editStudent"> Edit </a>
-                <a href="#" class="deleteStudent"> Delete </a>
+                <a href="{{ path('delete_student', {id: student.id}) }}" class="deleteStudent"> Delete </a>
             </div>
         </div>
 

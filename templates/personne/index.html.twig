@@ -36,7 +36,7 @@
                     <td>{{ student.city }}</td>
                     <td>{{ student.email }}</td>
                     <td>{{ student.phoneNumber }}</td>
-                    <td><i class="fa-solid fa-x red"></i></td>
+                    <td><a href="{{ path('delete_student', {id: student.id}) }}" title="Delete Stagiaire"><i class="fa-solid fa-x red"></i></a></td>
                 </tr>
             {% endfor %}
         

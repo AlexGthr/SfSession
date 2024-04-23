@@ -69,6 +69,18 @@ class ModuleController extends AbstractController
             ]);
     }
 
+    // Method pour supprimer un module
+    #[Route('/module/{id}/delete', name: 'delete_module')]
+    public function delete(Module $module, EntityManagerInterface $entityManager)
+    {
+        // Permet la suppression d'un module (delete from)
+        $entityManager->remove($module);
+        $entityManager->flush();
+
+        // Puis on redirige l'user vers la liste des modules
+        return $this->redirectToRoute('app_module');
+    }
+
      // Method pour afficher le detail d'un module
      #[Route('/module/{id}', name: 'show_module')]
      public function showModule(ModuleRepository $moduleRepository, $id): Response 

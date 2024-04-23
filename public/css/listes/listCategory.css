@@ -98,6 +98,13 @@
     color: white;
 }
 
+.cantDelListCateg {
+    background-color: rgb(119, 119, 119);
+    border: solid 2px rgb(255, 255, 255);
+    color: white;
+    cursor: not-allowed;
+}
+
 .center {
     margin-top: 30px;
     display: flex;

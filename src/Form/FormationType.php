@@ -17,6 +17,7 @@ class FormationType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => 'Nom de la formation*',
                 'attr' => [
                     'class' => 'form-control'
                 ]

@@ -67,6 +67,18 @@ class PersonneController extends AbstractController
         ]);
     }
 
+    // Method pour supprimer un stagiaire
+    #[Route('/student/{id}/delete', name: 'delete_student')]
+    public function delete(Student $student, EntityManagerInterface $entityManager)
+    {
+        // Permet la suppression d'un stagiaire (delete from)
+        $entityManager->remove($student);
+        $entityManager->flush();
+
+        // Puis on redirige l'user vers la liste des stagiaire
+        return $this->redirectToRoute('app_personne');
+    }
+
     // Method pour afficher le detail d'une personne
     #[Route('/student/{id}', name: 'show_student')]
     public function showFormation(StudentRepository $studentRepository, $id): Response 

@@ -21,8 +21,8 @@
             <p><strong>Catégorie : </strong> {{ module.category }} </p>
 
             <div class="actionListModule">
-                <a href="#" class="editListModule"> Edit </a>
-                <a href="#" class="deleteListModule"> Delete </a>
+                <a href="{{ path('edit_module', {id: module.id}) }}" class="editListModule"> Edit </a>
+                <a href="{{ path('delete_module', {id: module.id}) }}" class="deleteListModule"> Delete </a>
             </div>
         </div>
         {% endfor %}

@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<div class="contentCategory">
+<section class="contentCategory">
 
     {% if edit %}
         <div class="title_page">
@@ -24,14 +24,16 @@
         <div class="boxFormCategory">
             <h1><span class="blue">CATÉGORIE</span></h1>
 
-    {{ form_start(formAddCategory) }}
+            {{ form_start(formAddCategory) }}
 
-        {{ form_row(formAddCategory.name) }}
-        {{ form_row(formAddCategory.valider) }}
+                    {{ form_row(formAddCategory.name) }}
+                    {{ form_row(formAddCategory.valider) }}
 
-{{ form_end(formAddCategory) }}
+            {{ form_end(formAddCategory) }}
+
         </div>
     </div>
-</div>
+    <p class="champObligatoire">* Champ obligatoire</p>
+</section>
 
 {% endblock %}

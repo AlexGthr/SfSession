@@ -44,12 +44,13 @@ class SessionController extends AbstractController
         } else {
             $session = $sessionRepository->find($id);
         }
-            
-            
+        
+        
         // On crée le formulaire pour la SESSION
         $form = $this->createForm(SessionType::class, $session);
-                    
+
         $form->handleRequest($request);
+
                     
             
         // Si le formulaire est submit
@@ -57,6 +58,10 @@ class SessionController extends AbstractController
                         
             // On recupère les données du formulaire
             $session = $form->getData();
+
+            if ($session->isClosed() == true) {
+                $session->setClosed(0);
+            }
             
             // PREPARE PDO
             $entityManager->persist($session);
@@ -72,6 +77,27 @@ class SessionController extends AbstractController
             'session' => $session,
             'edit' => $session->getId()
             ]);
+    }
+
+    #[Route('/closeSession/{id}/', name: 'close_session')]
+    public function open_session(Session $session, SessionRepository $sessionRepository, EntityManagerInterface $entityManager, $id = null): Response
+    {
+        // Si il n'y a pas de SESSION,
+        if (!$session) {
+            // On redirige vers la liste des sessions
+            return $this->redirectToRoute('app_session');
+        } else {
+            $session = $sessionRepository->findOneById($id);
+
+            $session->setClosed(1);
+            
+            // PREPARE PDO
+            $entityManager->persist($session);
+            // EXECUTE PDO
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_session', ['id' => $id]);
+        }
     }
 
     #[Route('/session/{id}/addModule', name: 'new_Modulesession')]

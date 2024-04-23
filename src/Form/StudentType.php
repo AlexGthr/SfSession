@@ -23,32 +23,32 @@ class StudentType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'Prénom*',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom*',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('birthday', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'Date de naissance',
+                'label' => 'Date de naissance*',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('city', TextType::class, [
-                'label' => 'Ville',
+                'label' => 'Ville*',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('sexe', ChoiceType::class, [
-                'label' => 'Genre',
+                'label' => 'Genre*',
                 'choices' => [
                     'M' => 'M',
                     'F' => 'F'
@@ -58,13 +58,13 @@ class StudentType extends AbstractType
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'E-mail',
+                'label' => 'E-mail*',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('phoneNumber', TextType::class, [
-                'label' => 'Numéro de téléphone',
+                'label' => 'Numéro de téléphone*',
                 'constraints' => [
                     new Regex('/^[0-9]*$/'),
                     new Length([

@@ -46,9 +46,12 @@
 
                     <div class="actionListCateg">
                         <a href="{{ path('edit_category', {id: categ.id}) }}" class="editListCateg"> Edit </a>
-                        <a href="#" class="deleteListCateg"> Delete </a>
+                        {% if categ.modules|length > 0 %}
+                            <a href="#" class="cantDelListCateg"> Delete </a>
+                        {% else %}
+                            <a href="{{ path('del_category', {id: categ.id}) }}" class="deleteListCateg"> Delete </a>
+                        {% endif %}
                     </div>
-
                 </div>
             </div>
             

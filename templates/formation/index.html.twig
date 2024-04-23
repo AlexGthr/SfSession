@@ -36,7 +36,11 @@
 
             <div class="actionModule">
                 <a href="{{ path('edit_formation', {id: formation.id}) }}" class="editModule"> Edit </a>
-                <a href="#" class="deleteModule"> Delete </a>
+                {% if formation.getSessions()|length > 0 %}
+                    <a href="#" class="cantDelListCateg"> Delete </a>
+                {% else %}
+                    <a href="{{ path('del_formation', {id: formation.id}) }}" class="deleteListCateg"> Delete </a>                 
+                {% endif %}
             </div>
     </div>
     {% endfor %}
