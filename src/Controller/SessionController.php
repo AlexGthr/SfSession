@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
 use App\Entity\Session;
+use App\Entity\Student;
 use App\Entity\Programme;
 use App\Form\SessionType;
 use App\Form\AddModuleType;
@@ -186,5 +188,55 @@ class SessionController extends AbstractController
             return $this->redirectToRoute('app_session');
         }
 
-    }    
+    }
+
+    // Method pour supprimée un stagiaire d'une session
+    #[Route('/session/{sessionId}/stagiaire/{studentId}/delete', name: 'del_StudentSession')]
+    public function delStudentSession(Session $session = null, SessionRepository $sessionRepository, Student $student = null, StudentRepository $studentRepository, $sessionId = null, $studentId = null, EntityManagerInterface $entityManager): Response 
+    {
+
+        $session = $sessionRepository->findOneById($sessionId);
+        $student = $studentRepository->findOneById($studentId);
+
+        if ($session && $student) {
+
+            // Je récupère le programme de la session
+            
+            $delete = $session->removeInscription($student);
+
+            $entityManager->persist($delete);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('show_session', ['id' => $sessionId]);
+
+            } else {
+            return $this->redirectToRoute('app_session');
+        }
+
+    }
+    
+        // Method pour supprimée un stagiaire d'une session
+        #[Route('/session/{sessionId}/programme/{programmeId}/delete', name: 'del_ModuleSession')]
+        public function delModuleSession(Session $session = null, SessionRepository $sessionRepository, Programme $programme = null, ProgrammeRepository $programmeRepository, $sessionId = null, $programmeId = null, EntityManagerInterface $entityManager): Response 
+        {
+    
+            $session = $sessionRepository->findOneById($sessionId);
+            $programme = $programmeRepository->findOneById($programmeId);
+    
+            if ($session && $programme) {
+    
+                // Je récupère le programme de la session
+                
+                $delete = $session->removeProgramme($programme);
+    
+                $entityManager->persist($delete);
+                $entityManager->flush();
+            
+                return $this->redirectToRoute('show_session', ['id' => $sessionId]);
+    
+                } else {
+                return $this->redirectToRoute('app_session');
+            }
+    
+        } 
 }

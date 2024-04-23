@@ -310,6 +310,35 @@ body.dark-theme {
     color: #bbb4b4;
 }
 
+#searchBarTop {
+    position: relative;
+}
+
+#searchBarTop input {
+    border-radius: 25px;
+    padding: 0 10px;
+    height: 30px;
+    background-color: var(--bg-input);
+    border: solid 1px black;
+    position: relative;
+}
+
+#searchBarTop button {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+}
+
+#searchBarTop button i{
+    color: black;
+}
+
+.fa-mobile:before {
+    content: '';
+}
+
 
 @media only screen and (max-height: 800px) {
     .dashbord_liste li {

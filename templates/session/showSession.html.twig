@@ -29,8 +29,8 @@
 
                 <div class="joursArrow">
 
-                    <p> {{ programme.nbDay }} jours</p>
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <p> {{ programme.nbDay }} jours </p>
+                    <i class="arrowModule fa-solid fa-arrow-right"></i>
 
                 </div>
             </div>
@@ -40,6 +40,7 @@
 
                     <p><strong>Categorie :</strong> {{ programme.module.category }}</p>
                     <p> {{ programme.module.description|replace({'<strong>' : '<strong>', '</strong>' : '</strong>', '<list>' : '•', '<br>' : '<br>'})|raw }} </p>
+                    <a href="{{ path('del_ModuleSession', {sessionId: session.id, programmeId: programme.id}) }}" title="Delete Module">Supprimer le module de la session</a>
 
                 </div>
             </div>
@@ -90,7 +91,7 @@
                             <td>{{ student.city }}</td>
                             <td>{{ student.email }}</td>
                             <td>{{ student.phoneNumber }}</td>
-                            <td><i class="fa-solid fa-x red"></i></td>
+                            <td><a href="{{ path('del_StudentSession', {sessionId: session.id, studentId: student.id}) }}"><i class="fa-solid fa-x red"></i></a></td>
                         </tr>
                     {% endfor %}
                 {% endif %}

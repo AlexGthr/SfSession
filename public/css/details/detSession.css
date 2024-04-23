@@ -19,7 +19,7 @@
     cursor: pointer;
 }
 
-.cardModule:hover i {
+.cardModule:hover .arrowModule {
     transform: translateX(5px);
     transition: all 0.5s;
 }
@@ -46,6 +46,13 @@
     font-weight: 300;
     font-size: 1.2em;
     color: var(--first-color);
+    display: flex;
+    gap: 30px;
+}
+
+.joursArrow a {
+    color: red;
+    text-decoration: none;
 }
 
 .joursArrow i {
@@ -76,6 +83,11 @@
 
 .descriptionModule p {
     line-height: 2;
+}
+
+.descriptionModule a {
+  color: red;
+  text-align: center;
 }
 
 .nbPlace {
