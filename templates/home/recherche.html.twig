@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block titlePage %} <h1> Recherche </h1> {% endblock %}
+
+{% block body %}
+
+
+<div class="contentListModule">
+
+    <div class="title_page">
+        <h1> Recherche </h1>
+        <hr class="after_title" />
+    </div>
+
+        {% if categories %}  
+            <h1>Catégorie : </h1>
+
+                {% for categ in categories %}
+                    <p><a href="#"> {{ categ.name }} </a></p>
+                {% endfor %}
+
+        {% endif %}
+
+        {% if formateurs %}  
+        <h1>Formateurs : </h1>
+        
+            {% for formateur in formateurs %}
+                <p><a href="#"> {{ formateur.identite }} </a></p>
+            {% endfor %}
+
+        {% endif %}
+
+        {% if formations %}  
+            <h1>Formations : </h1>
+        
+            {% for formation in formations %}
+                <p><a href="#"> {{ formation.name }} </a></p>
+            {% endfor %}
+
+        {% endif %}
+
+        {% if modules %}  
+            <h1>Modules : </h1>
+
+                {% for module in modules %}
+                    <p><a href="#"> {{ module.name }} </a></p>
+                {% endfor %}
+
+        {% endif %}
+
+        {% if sessions %}  
+            <h1>Sessions : </h1>
+
+                {% for session in sessions %}
+                    <p><a href="#"> {{ session.name }} </a></p>
+                {% endfor %}
+
+        {% endif %}
+
+        {% if students %}  
+            <h1>Stagiaires : </h1>
+
+                {% for student in students %}
+                    <p><a href="#"> {{ student.lastName }} {{ student.name }} </a></p>
+                {% endfor %}
+
+        {% endif %}
+
+</div>
+
+
+{% endblock %}

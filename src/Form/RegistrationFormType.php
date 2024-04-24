@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -22,25 +23,29 @@ class RegistrationFormType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, [
+            'label' => 'Prénom',
             'attr' => [
                 'class' => 'form-control'
             ] 
         ])
         ->add('lastName', TextType::class, [
+            'label' => 'Nom',
             'attr' => [
                 'class' => 'form-control'
             ] 
         ])
             ->add('email', EmailType::class, [
+                'label' => 'Votre E-mail',
                 'attr' => [
                     'class' => 'form-control'
                 ] 
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => "Condition d'utilisation",
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions.',
                     ]),
                 ],
             ])
@@ -50,8 +55,8 @@ class RegistrationFormType extends AbstractType
                 'invalid_message' => 'Les mots de passes sont différent',
                 'options' => ['attr' => ['class' => 'password-field', 'class' => 'form-control']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmer le mot de passe'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -62,6 +67,12 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                     ]),
                 ],              
+            ])
+            ->add('valider', SubmitType::class, [
+                'label' => 'Valider',
+                'attr' => [
+                    'class' => 'buttonFormModule'
+                ] 
             ])
         ;
     }

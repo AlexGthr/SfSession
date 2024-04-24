@@ -16,6 +16,9 @@ class ModuleController extends AbstractController
     #[Route('/module', name: 'app_module')]
     public function index(ModuleRepository $moduleRepository): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
 
         $modules = $moduleRepository->findBy([], ['name' => 'ASC']);
 
@@ -23,6 +26,11 @@ class ModuleController extends AbstractController
             'controller_name' => 'ModuleController',
             'modules' => $modules
         ]);
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
    
@@ -32,6 +40,10 @@ class ModuleController extends AbstractController
     #[Route('/module/{id}/edit', name: 'edit_module')]
     public function new_editModule(ModuleRepository $moduleRepository, Module $module = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
+
+        $user = $this->getUser();
+
+        if ($user) {
 
         // Si il n'y a pas MODULE,
         if (!$module) {
@@ -67,24 +79,44 @@ class ModuleController extends AbstractController
             'module' => $module,
             'edit' => $module->getId()
             ]);
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     // Method pour supprimer un module
     #[Route('/module/{id}/delete', name: 'delete_module')]
     public function delete(Module $module, EntityManagerInterface $entityManager)
     {
+
+        $user = $this->getUser();
+
+        if ($user) {
+
         // Permet la suppression d'un module (delete from)
         $entityManager->remove($module);
         $entityManager->flush();
 
         // Puis on redirige l'user vers la liste des modules
         return $this->redirectToRoute('app_module');
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
      // Method pour afficher le detail d'un module
      #[Route('/module/{id}', name: 'show_module')]
      public function showModule(ModuleRepository $moduleRepository, $id): Response 
      {
+
+        $user = $this->getUser();
+
+        if ($user) {
+            
          $module = $moduleRepository->find($id);
  
          if ($module) {
@@ -96,5 +128,11 @@ class ModuleController extends AbstractController
          } else {
              return $this->redirectToRoute('app_module');
      }
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
+
      }
 }

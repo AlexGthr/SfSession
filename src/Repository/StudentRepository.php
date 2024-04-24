@@ -21,6 +21,24 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
+    public function findByWord($key) {
+        $em = $this->getEntityManager();
+
+        // sub = SubQuery (Sous requête DQL)
+        $sub = $em->createQueryBuilder();
+
+        // QueryBuilder 
+        $qb = $sub;
+
+        $qb->select('m')
+            ->from('App\Entity\Student', 'm')
+            ->where('m.name LIKE :key')->orWhere('m.lastName LIKE :key')
+            ->setParameter('key', '%'.$key.'%');
+
+            $query = $sub->getQuery();
+            return $query->getResult();
+    }
+
 //    /**
 //     * @return Student[] Returns an array of Student objects
 //     */

@@ -23,6 +23,9 @@ class SessionController extends AbstractController
     #[Route('/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
 
         $sessions = $sessionRepository->findBy([], ['id' => 'ASC']);
 
@@ -30,6 +33,11 @@ class SessionController extends AbstractController
             'controller_name' => 'SessionController',
             'sessions' => $sessions
         ]);
+        
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     // Method pour AJOUTER ou EDIT une SESSION
@@ -37,6 +45,9 @@ class SessionController extends AbstractController
     #[Route('/session/{id}/edit', name: 'edit_session')]
     public function new_EditSession(SessionRepository $sessionRepository, Session $session = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
+        $user = $this->getUser();
+
+        if ($user) {
         // Si il n'y a pas de SESSION,
         if (!$session) {
             // On crée un nouvel objet SESSION
@@ -59,10 +70,18 @@ class SessionController extends AbstractController
             // On recupère les données du formulaire
             $session = $form->getData();
 
-            if ($session->isClosed() == true) {
-                $session->setClosed(0);
+            $session->setClosed(0);
+
+            if (!$session->getVerifDate($session->getStartDate(), $session->getEndDate())) {
+                
+                $this->addFlash('erreur', 'Les dates ne sont pas correct.');
+                return $this->render('session/newSession.html.twig', [
+                    'formAddSession' => $form,
+                    'session' => $session,
+                    'edit' => $session->getId()
+                    ]);
+
             }
-            
             // PREPARE PDO
             $entityManager->persist($session);
             // EXECUTE PDO
@@ -70,18 +89,28 @@ class SessionController extends AbstractController
             
             // Puis on redirige l'user vers la liste des SESSION
             return $this->redirectToRoute('app_session');
-            }
-                    
+
+            
+        }
+
         return $this->render('session/newSession.html.twig', [
             'formAddSession' => $form,
             'session' => $session,
             'edit' => $session->getId()
             ]);
+                    
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     #[Route('/closeSession/{id}/', name: 'close_session')]
     public function open_session(Session $session, SessionRepository $sessionRepository, EntityManagerInterface $entityManager, $id = null): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
         // Si il n'y a pas de SESSION,
         if (!$session) {
             // On redirige vers la liste des sessions
@@ -98,11 +127,18 @@ class SessionController extends AbstractController
 
             return $this->redirectToRoute('show_session', ['id' => $id]);
         }
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     #[Route('/session/{id}/addModule', name: 'new_Modulesession')]
     public function new_AddModuleSession(SessionRepository $sessionRepository, Session $session = null, ModuleRepository $moduleRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
+        $user = $this->getUser();
+
+        if ($user) {
         // Si il n'y a pas de SESSION,
         if (!$session) {
             // On redirige vers la liste des sessions
@@ -145,11 +181,18 @@ class SessionController extends AbstractController
             'session' => $session,
             'programme' => $programme
             ]);
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     #[Route('/session/{id}/addStagiaire', name: 'new_stagiaireSession')]
     public function new_AddStudentSession(SessionRepository $sessionRepository, Session $session = null, StudentRepository $studentRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
+        $user = $this->getUser();
+
+        if ($user) {
         // Si il n'y a pas de SESSION,
         if (!$session) {
             // On redirige vers la liste des sessions
@@ -189,12 +232,19 @@ class SessionController extends AbstractController
             'session' => $session,
             'programme' => $programme
             ]);
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     // Method pour afficher le detail d'une session
     #[Route('/session/{id}', name: 'show_session')]
     public function showSession(Session $session = null, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository, $id): Response 
     {
+        $user = $this->getUser();
+
+        if ($user) {
 
         // Si la session existe, je passe à la suite, sinon je redirige sur l'index
         if ($session) {
@@ -213,6 +263,10 @@ class SessionController extends AbstractController
             } else {
             return $this->redirectToRoute('app_session');
         }
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
 
     }
 
@@ -220,6 +274,9 @@ class SessionController extends AbstractController
     #[Route('/session/{sessionId}/stagiaire/{studentId}/delete', name: 'del_StudentSession')]
     public function delStudentSession(Session $session = null, SessionRepository $sessionRepository, Student $student = null, StudentRepository $studentRepository, $sessionId = null, $studentId = null, EntityManagerInterface $entityManager): Response 
     {
+        $user = $this->getUser();
+
+        if ($user) {
 
         $session = $sessionRepository->findOneById($sessionId);
         $student = $studentRepository->findOneById($studentId);
@@ -238,31 +295,45 @@ class SessionController extends AbstractController
             } else {
             return $this->redirectToRoute('app_session');
         }
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
 
     }
     
-        // Method pour supprimée un stagiaire d'une session
-        #[Route('/session/{sessionId}/programme/{programmeId}/delete', name: 'del_ModuleSession')]
-        public function delModuleSession(Session $session = null, SessionRepository $sessionRepository, Programme $programme = null, ProgrammeRepository $programmeRepository, $sessionId = null, $programmeId = null, EntityManagerInterface $entityManager): Response 
-        {
+    // Method pour supprimée un stagiaire d'une session
+    #[Route('/session/{sessionId}/programme/{programmeId}/delete', name: 'del_ModuleSession')]
+    public function delModuleSession(Session $session = null, SessionRepository $sessionRepository, Programme $programme = null, ProgrammeRepository $programmeRepository, $sessionId = null, $programmeId = null, EntityManagerInterface $entityManager): Response 
+    {
+        $user = $this->getUser();
+
+        if ($user) {
     
-            $session = $sessionRepository->findOneById($sessionId);
-            $programme = $programmeRepository->findOneById($programmeId);
+        $session = $sessionRepository->findOneById($sessionId);
+        $programme = $programmeRepository->findOneById($programmeId);
     
-            if ($session && $programme) {
+        if ($session && $programme) {
     
-                // Je récupère le programme de la session
+            // Je récupère le programme de la session
                 
-                $delete = $session->removeProgramme($programme);
+            $delete = $session->removeProgramme($programme);
     
-                $entityManager->persist($delete);
-                $entityManager->flush();
+            $entityManager->persist($delete);
+            $entityManager->flush();
             
-                return $this->redirectToRoute('show_session', ['id' => $sessionId]);
+            return $this->redirectToRoute('show_session', ['id' => $sessionId]);
     
-                } else {
-                return $this->redirectToRoute('app_session');
-            }
+        } else {
+
+            return $this->redirectToRoute('app_session');
+
+        }
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     
         } 
 }

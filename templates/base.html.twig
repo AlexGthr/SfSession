@@ -15,6 +15,7 @@
 
         {# **************** LINK CSS **************** #}
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
 
         <link rel="stylesheet" href="{{ asset('css/listes/listFormation.css') }}">
@@ -45,7 +46,7 @@
 
             <div class="wrapper">
                 <div class="nav">
-                    <h1>Session</h1>
+                    <h1><a href="{{ path('app_home') }}" class="linkHome">Session</a></h1>
                     <span class="button"><a href="#">Crée Formation</a></span>
 
                     <div class="menu_nav">
@@ -62,7 +63,8 @@
                                 <li><a href="{{ path('app_session') }}">• Session</a></li>
                                 <li><a href="{{ path('app_module') }}">• Module</a></li>
                                 <li><a href="{{ path('app_category') }}">• Catégorie</a></li>
-                                <li><a href="{{ path('app_personne') }}">• Stagiaire</a></li>
+                                <li><a href="{{ path('app_personne') }}">• Stagiaire </a></li>
+                                <li><a href="{{ path('app_formateur') }}">• Formateur</a></li>
                             </ul>
                         </div>
 
@@ -80,6 +82,7 @@
                                 <li><a href="{{ path('new_programme') }}">• Programme</a></li>
                                 <li><a href="{{ path('new_category') }}">• Catégorie</a></li>
                                 <li><a href="{{ path('new_student') }}">• Stagiaire</a></li>
+                                <li><a href="{{ path('new_formateur') }}">• Formateur</a></li>
                             </ul>
                         </div>
 
@@ -101,7 +104,7 @@
 
                         <div class="searchBar">
 
-                            <form id="searchBarTop" action="#" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
+                            <form id="searchBarTop" action="{{ path('app_recherche')}}" method="GET" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
     
                                 <input type="search" class="research" name="research" placeholder="Research">

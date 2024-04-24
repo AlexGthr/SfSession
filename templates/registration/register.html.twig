@@ -5,13 +5,31 @@
 {% block titlePage %} <h1> REGISTRATION </h1> {% endblock %}
 
 {% block body %}
-<h1>Register</h1>
+
+<section class="contentFormFormation">
+
+    <div class="title_page">
+        <h1> Inscription </h1>
+        <hr class="after_title" />
+    </div>
+
+    <div class="formStudent">
+        <div class="boxFormStudent">
+            <h1><span class="blue">INSCRIPTION</span></h1>
 
 {{ form_errors(registrationForm) }}
 
 {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.name) }}
-    {{ form_row(registrationForm.lastName) }}
+
+<div class="row">
+    <div class="col-sm">
+        {{ form_row(registrationForm.name) }}
+    </div>
+    <div class="col-sm">
+        {{ form_row(registrationForm.lastName) }}
+    </div>
+</div>
+
     {{ form_row(registrationForm.email) }}
     {{ form_row(registrationForm.plainPassword, {
         label: 'Password',
@@ -19,6 +37,10 @@
     }) }}
     {{ form_row(registrationForm.agreeTerms) }}
 
-    <button type="submit" class="btn btn-success">Register</button>
+    {{ form_row(registrationForm.valider) }}
 {{ form_end(registrationForm) }}
+
+        </div></div>
+
+</section>
 {% endblock %}

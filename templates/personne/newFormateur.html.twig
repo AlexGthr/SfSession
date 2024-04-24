@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Student{% endblock %}
+
+{% block titlePage %} <h1> STAGIAIRE </h1> {% endblock %}
+
+{% block body %}
+
+<section class="contentFormStudent">
+
+
+    {% if edit %}
+    <div class="title_page">
+        <h1> Edit {{ formateur }} </h1>
+        <hr class="after_title" />
+    </div>
+    {% else %}
+    <div class="title_page">
+        <h1> Ajout formateur</h1>
+        <hr class="after_title" />
+    </div>
+    {% endif %}
+
+    <div class="formStudent">
+        <div class="boxFormStudent">
+            <h1><span class="blue">FORMATEUR</span></h1>
+    {{ form_start(formAddFormateur) }}
+
+
+        <div class="row">
+            <div class="col-sm">
+                {{ form_row(formAddFormateur.name) }}
+            </div>
+            <div class="col-sm">
+                {{ form_row(formAddFormateur.lastName) }}
+            </div>
+        </div>
+
+        {{ form_row(formAddFormateur.valider) }}
+        </div>
+    </div>
+
+{{ form_end(formAddFormateur) }}
+
+<p class="champObligatoire">* Champ obligatoire</p>
+</section>
+{% endblock %}

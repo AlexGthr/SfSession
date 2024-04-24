@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Detail Stagiaire{% endblock %}
+{% block title %}Detail Formateur{% endblock %}
 
-{% block titlePage %} <h1> STAGIAIRE </h1> {% endblock %}
+{% block titlePage %} <h1> FORMATEUR </h1> {% endblock %}
 
 {% block body %}
 
 <div class="contentDetStudent">
 
 <div class="title_page">
-    <h1> {{ student.lastName|upper }} {{ student.name }} </h1>
+    <h1> {{ formateur.lastName|upper }} {{ formateur.name }} </h1>
     <hr class="after_title" />
 </div>
 
@@ -19,37 +19,34 @@
         <div class="title">
             <h3><u><strong>Information</strong></u></h3>
             <div class="actionStudent">
-                <a href="{{ path('edit_student', {id: student.id}) }}" class="editStudent"> Edit </a>
-                <a href="{{ path('delete_student', {id: student.id}) }}" class="deleteStudent"> Delete </a>
+                <a href="{{ path('edit_formateur', {id: formateur.id}) }}" class="editStudent"> Edit </a>
+                <a href="{{ path('delete_formateur', {id: formateur.id}) }}" class="deleteStudent"> Delete </a>
             </div>
         </div>
 
         <div class="infoStudent">
-            <p><strong>Sexe : </strong> {{ student.sexe }} </p>
-            <p><strong>Date de naissance : </strong> {{ student.birthday|date("d/m/Y") }} ({{ student.Age }} ans)</p>
-            <p><strong>Ville : </strong> {{ student.city }} </p>
-            <p><strong>Email : </strong> {{ student.email }} </p>
-            <p><strong>Téléphone : </strong> {{ student.phoneNumber }} </p>
+            <p><strong>Nom : </strong> {{ formateur.lastName|upper }} </p>
+            <p><strong>Prénom : </strong> {{ formateur.name }}</p>
 
-            <h3><u><strong>Formation prévues / en cours</strong></u></h3>
+            <h3><u><strong>Référent formation :</strong></u></h3>
 
             <ul>
-                {% for session in student.Sessions %}
+                {% for session in formateur.getReferent() %}
                     <li>
                         <a href="{{ path('show_formation', {id: session.id}) }}">
-                            
                             {{ session.formation.name }} 
-
                         </a><br> 
                         <span class="dateFormation">
                             (du {{ session.startDate|date('Y-m-d') }} au {{ session.endDate|date('Y-m-d') }})
+
                                 {% if session.enCours %}
                                     <strong>> En cours</strong>
-                                    {% elseif session.prochainement %}
+                                {% elseif session.prochainement %}
                                     <strong>> Non commencée</strong>
-                                    {% else %}
+                                {% else %}
                                     <strong>> Terminée</strong>
                                 {% endif %}
+                                
                         </span>
                     </li><br>
                 {% endfor %}

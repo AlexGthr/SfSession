@@ -3,5 +3,99 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<p> Hello every one! welcome!</p>
+
+<section class="contentHome">
+    <div class="title_page">
+        <h1> Sessions en cours </h1>
+        <hr class="after_title" />
+    </div>
+
+    <div class="listHomeSession">
+        {% for session in sessions %}
+            {% if session.enCours %}
+            <a href="{{ path('show_session', {id: session.id}) }}">
+                <div class="displayCardHome">
+
+                    <div class="cardHomeSession">
+                        <div class="nameHomeSession">
+            
+                        <p> {{ session.name}} </p>
+            
+                        </div>
+            
+                        <div class="dateArrow">
+            
+                            <p> Du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} </p>
+                            <i class="arrowModule fa-solid fa-arrow-right"></i>
+            
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="title_page">
+        <h1> Prochaine sessions </h1>
+        <hr class="after_title" />
+    </div>
+
+    <div class="listHomeSession">
+        {% for session in sessions %}
+            {% if session.prochainement %}
+            <a href="{{ path('show_session', {id: session.id}) }}">
+                <div class="displayCardHome">
+
+                    <div class="cardHomeSession">
+                        <div class="nameHomeSession">
+            
+                        <p> {{ session.name}} </p>
+            
+                        </div>
+            
+                        <div class="dateArrow">
+            
+                            <p> Du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} </p>
+                            <i class="arrowModule fa-solid fa-arrow-right"></i>
+            
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="title_page">
+        <h1> Sessions terminée </h1>
+        <hr class="after_title" />
+    </div>
+
+    <div class="listHomeSession">
+        {% for session in sessions %}
+            {% if session.terminer %}
+            <a href="{{ path('show_session', {id: session.id}) }}">
+                <div class="displayCardHome">
+
+                    <div class="cardHomeSession">
+                        <div class="nameHomeSession">
+            
+                        <p> {{ session.name}} </p>
+            
+                        </div>
+            
+                        <div class="dateArrow">
+            
+                            <p> Du {{ session.startDate|date("d/m/Y") }} au {{ session.endDate|date("d/m/Y") }} </p>
+                            <i class="arrowModule fa-solid fa-arrow-right"></i>
+            
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

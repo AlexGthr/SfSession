@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Stagiaires{% endblock %}
+
+{% block titlePage %} <h1> FORMATEUR </h1> {% endblock %}
+
+
+{% block body %}
+
+{% if formateurs %}
+    
+
+<div class="contentListStudent">
+
+    <div class="title_page">
+        <h1> Liste des formateurs </h1>
+        <hr class="after_title" />
+    </div>
+
+<div class="boxListStudent">
+    <div class="tableFormateur">
+        <h2>Formateur</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nom - Prénom</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for formateur in formateurs %}
+                        <tr>
+                            <td scope="row"><a href="{{ path('show_formateur', {id: formateur.id})}}"> {{ formateur.lastName|upper }} {{ formateur.name }} </a> </td>
+                            <td><a href="{{ path('delete_formateur', {id: formateur.id})}}" title="Delete Stagiaire"><i class="fa-solid fa-x red"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                    </tr>
+        
+            </tbody>
+        </table>
+
+        <a href="{{ path('new_formateur') }}" class="addStudent"> Ajouter un formateur </a>
+    </div>
+</div>
+
+{% else %}
+
+<p> no formateurs currently</p>
+{% endif %}
+
+
+{% endblock %}

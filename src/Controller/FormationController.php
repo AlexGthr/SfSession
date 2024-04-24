@@ -32,14 +32,23 @@ class FormationController extends AbstractController
     #[Route('/formation', name: 'app_formation')]
     public function index(FormationRepository $formationRepository): Response
     {
+        $user = $this->getUser();
 
-        $formation = $formationRepository->findBy([], ['id' => 'ASC']);
+        if ($user) {
 
+            $formation = $formationRepository->findBy([], ['id' => 'ASC']);
+    
+    
+            return $this->render('formation/index.html.twig', [
+                'controller_name' => 'FormationController',
+                'formations' => $formation
+            ]);
 
-        return $this->render('formation/index.html.twig', [
-            'controller_name' => 'FormationController',
-            'formations' => $formation
-        ]);
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
+
     }
 
 
@@ -48,6 +57,9 @@ class FormationController extends AbstractController
     #[Route('/formation/{id}/edit', name: 'edit_formation')]
     public function new_editFormation(FormationRepository $formationRepository, Formation $formation = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
+        $user = $this->getUser();
+
+        if ($user) {
         // Si il n'y a pas de FORMATION,
         if (!$formation) {
             // On crée un nouvel objet FORMATION
@@ -83,6 +95,11 @@ class FormationController extends AbstractController
             'formation' => $formation,
             'edit' => $formation->getId()
             ]);
+        
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     // Method pour AJOUTER ou EDIT un PROGRAMME
@@ -90,6 +107,10 @@ class FormationController extends AbstractController
     #[Route('/programme/{id}/edit', name: 'edit_programme')]
     public function new_editProgramme(Programme $programme = null, Request $request, EntityManagerInterface $entityManager): Response 
     {
+
+        $user = $this->getUser();
+
+        if ($user) {
         // Si il n'y a pas de PROGRAMME,
         if (!$programme) {
             // On crée un nouvel objet PROGRAMME
@@ -122,12 +143,22 @@ class FormationController extends AbstractController
             'formAddProgramme' => $form,
             'edit' => $programme->getId()
             ]);
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     // Method pour supprimer une formation
     #[Route('/formation/{id}/delete', name: 'del_formation')]
         public function deleteCateg(Formation $formation = null, SessionRepository $sessionRepository, EntityManagerInterface $entityManager, $id = null): Response
     {
+
+        $user = $this->getUser();
+
+        if ($user) {
+
         if (!$formation) {
             return $this->redirectToRoute('app_formation');
         }
@@ -147,12 +178,20 @@ class FormationController extends AbstractController
             return $this->redirectToRoute('app_formation');
         }
 
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
+
     }
 
     // Method pour afficher le detail d'une formation
     #[Route('/formation/{id}', name: 'show_formation')]
     public function showFormation(Formation $formation = null, SessionRepository $sessionRepository, ProgrammeRepository $programmeRepository): Response 
     {
+        $user = $this->getUser();
+
+        if ($user) {
 
         if ($formation) {
 
@@ -165,6 +204,11 @@ class FormationController extends AbstractController
 
         } else {
             return $this->redirectToRoute('app_formation');
+        }
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
         }
 
     }

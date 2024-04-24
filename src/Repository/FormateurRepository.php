@@ -2,23 +2,23 @@
 
 namespace App\Repository;
 
-use App\Entity\Category;
+use App\Entity\Formateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Category>
+ * @extends ServiceEntityRepository<Formateur>
  *
- * @method Category|null find($id, $lockMode = null, $lockVersion = null)
- * @method Category|null findOneBy(array $criteria, array $orderBy = null)
- * @method Category[]    findAll()
- * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Formateur|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Formateur|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Formateur[]    findAll()
+ * @method Formateur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CategoryRepository extends ServiceEntityRepository
+class FormateurRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Category::class);
+        parent::__construct($registry, Formateur::class);
     }
 
     public function findByWord($key) {
@@ -31,8 +31,8 @@ class CategoryRepository extends ServiceEntityRepository
         $qb = $sub;
 
         $qb->select('m')
-            ->from('App\Entity\Category', 'm')
-            ->where('m.name LIKE :key')
+            ->from('App\Entity\Formateur', 'm')
+            ->where('m.name LIKE :key')->orWhere('m.lastName LIKE :key')
             ->setParameter('key', '%'.$key.'%');
 
             $query = $sub->getQuery();
@@ -40,24 +40,24 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return Category[] Returns an array of Category objects
+    //     * @return Formateur[] Returns an array of Formateur objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
+    //        return $this->createQueryBuilder('f')
+    //            ->andWhere('f.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
+    //            ->orderBy('f.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Category
+    //    public function findOneBySomeField($value): ?Formateur
     //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
+    //        return $this->createQueryBuilder('f')
+    //            ->andWhere('f.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

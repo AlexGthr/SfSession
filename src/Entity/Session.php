@@ -46,6 +46,9 @@ class Session
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     private ?Formation $formation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'referent')]
+    private ?Formateur $formateur = null;
+
 
     public function __construct()
     {
@@ -205,5 +208,61 @@ class Session
         $now = new \DateTime();
         $interval = $this->startDate->diff($now);
         return $interval->format("%Y%m%d");
+    }
+
+    public function getVerifDate($startDate, $endDate) {
+        $now = new \DateTime();
+
+        if ($now < $startDate) {
+            if ($startDate < $endDate) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function getEnCours() {
+        $now = new \DateTime();
+
+        if ($now > $this->startDate && $now < $this->endDate) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getProchainement() {
+        $now = new \DateTime();
+
+        if ($now < $this->startDate) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getTerminer() {
+        $now = new \DateTime();
+
+        if ($now > $this->endDate) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getFormateur(): ?Formateur
+    {
+        return $this->formateur;
+    }
+
+    public function setFormateur(?Formateur $formateur): static
+    {
+        $this->formateur = $formateur;
+
+        return $this;
     }
 }

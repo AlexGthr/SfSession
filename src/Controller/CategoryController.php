@@ -17,6 +17,9 @@ class CategoryController extends AbstractController
     #[Route('/category', name: 'app_category')]
     public function index(CategoryRepository $categoryRepository): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
 
         $categorys = $categoryRepository->findBy([], ['name' => 'ASC']);
 
@@ -24,6 +27,11 @@ class CategoryController extends AbstractController
             'controller_name' => 'CategoryController',
             'categorys' => $categorys
         ]);
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     // Method pour AJOUTER ou EDIT une CATEGORIE
@@ -31,6 +39,10 @@ class CategoryController extends AbstractController
     #[Route('/category/{id}/edit', name: 'edit_category')]
     public function new_editCategory(CategoryRepository $categoryRepository, Category $category = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
+
+        $user = $this->getUser();
+
+        if ($user) {
         // Si il n'y a pas CATEGORIE,
         if (!$category) {
             // On crée un nouvel objet CATEGORIE
@@ -65,12 +77,22 @@ class CategoryController extends AbstractController
             'category' => $category,
             'edit' => $category->getId()
         ]);
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 
     // Method pour supprimer une catégorie
     #[Route('/category/{id}/delete', name: 'del_category')]
         public function deleteCateg(Category $category = null, ModuleRepository $moduleRepository,EntityManagerInterface $entityManager, $id = null): Response
     {
+        
+        $user = $this->getUser();
+
+        if ($user) {
+
         if (!$category) {
             return $this->redirectToRoute('app_category');
         }
@@ -88,6 +110,11 @@ class CategoryController extends AbstractController
 
             // Puis on redirige l'user vers la liste des catégories
             return $this->redirectToRoute('app_category');
+        }
+
+        }
+        else {
+            return $this->redirectToRoute('app_login');
         }
 
     }

@@ -19,6 +19,14 @@ table i {
 
 .tableStudent {
     width: 90%;
+}
+
+.tableFormateur {
+    width: 50%;
+}
+
+.tableStudent,
+.tableFormateur {
     padding: 10px 0;
     display: flex;
     flex-direction: column;
@@ -29,7 +37,8 @@ table i {
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
 }
 
-.tableStudent h2 {
+.tableStudent h2,
+.tableFormateur h2 {
     text-align: center;
     margin-bottom: 20px;
     font-weight: 600;
@@ -53,4 +62,8 @@ table i {
     border: solid 1px var(--second-color);
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
     transition: all 0.5s;
+}
+
+.separatorTable {
+    border: solid 2px black;
 }

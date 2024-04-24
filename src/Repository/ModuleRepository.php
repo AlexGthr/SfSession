@@ -49,6 +49,24 @@ class ModuleRepository extends ServiceEntityRepository
             return $query->getResult();
     }
 
+    public function findByWord($key) {
+        $em = $this->getEntityManager();
+
+        // sub = SubQuery (Sous requête DQL)
+        $sub = $em->createQueryBuilder();
+
+        // QueryBuilder 
+        $qb = $sub;
+
+        $qb->select('m')
+            ->from('App\Entity\Module', 'm')
+            ->where('m.name LIKE :key')
+            ->setParameter('key', '%'.$key.'%');
+
+            $query = $sub->getQuery();
+            return $query->getResult();
+    }
+
 //    /**
 //     * @return Module[] Returns an array of Module objects
 //     */

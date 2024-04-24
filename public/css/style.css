@@ -113,7 +113,8 @@ body.dark-theme {
     top: 0px;
 }
 
-.nav h1{
+.linkHome {
+    text-decoration: none;
     color: var(--first-color);
 }
 

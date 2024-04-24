@@ -21,6 +21,24 @@ class FormationRepository extends ServiceEntityRepository
         parent::__construct($registry, Formation::class);
     }
 
+    public function findByWord($key) {
+        $em = $this->getEntityManager();
+
+        // sub = SubQuery (Sous requête DQL)
+        $sub = $em->createQueryBuilder();
+
+        // QueryBuilder 
+        $qb = $sub;
+
+        $qb->select('m')
+            ->from('App\Entity\Formation', 'm')
+            ->where('m.name LIKE :key')
+            ->setParameter('key', '%'.$key.'%');
+
+            $query = $sub->getQuery();
+            return $query->getResult();
+    }
+
     //    /**
     //     * @return Formation[] Returns an array of Formation objects
     //     */

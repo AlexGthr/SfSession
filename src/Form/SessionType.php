@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Session;
 use App\Entity\Student;
+use App\Entity\Formateur;
 use App\Entity\Formation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -61,6 +62,14 @@ class SessionType extends AbstractType
                 'label' => 'Formation*',
                 'class' => Formation::class,
                 'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('formateur', EntityType::class, [
+                'label' => 'Formateur Référent*',
+                'class' => Formateur::class,
+                'choice_label' => 'identite',
                 'attr' => [
                     'class' => 'form-select'
                 ]
