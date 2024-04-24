@@ -17,7 +17,12 @@
         <hr class="after_title" />
     </div>
 
-    <p> <strong>Formateur Référent : </strong><a href="{{ path('show_formateur', {id: session.formateur.id}) }}">{{ session.formateur.lastName|upper }} {{ session.formateur.name }} </a> </p>
+    <p> <strong>Formateur Référent :
+            {% if session.formateur %}
+                <a href="{{ path('show_formateur', {id: session.formateur.id}) }}">{{ session.formateur.lastName|upper }} {{ session.formateur.name }} </a><br>
+            {% else %}
+                A définir
+            {% endif %} </p>
 
     {% if programmes %}
         {% for programme in programmes %}

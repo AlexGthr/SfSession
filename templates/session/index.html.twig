@@ -17,7 +17,17 @@
         <div class="listSession">
             <h2><a href="{{ path('show_session', {id: session.id}) }}">{{ session }}</a></h2>
         
-            <p> <strong>Formateur Référent :</strong> <a href="{{ path('show_formateur', {id: session.formateur.id}) }}">{{ session.formateur.lastName|upper }} {{ session.formateur.name }} </a><br>
+            <p> <strong>Formateur Référent :</strong>
+                
+                {% if session.formateur %}
+
+                    <a href="{{ path('show_formateur', {id: session.formateur.id}) }}">{{ session.formateur.lastName|upper }} {{ session.formateur.name }} </a><br>
+
+                    {% else %}
+
+                    A définir <br>
+
+                {% endif %}
                 
                 <strong>Nombre de module :</strong> {{ session.programmes|length }}<br>
                 
