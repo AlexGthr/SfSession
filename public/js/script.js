@@ -251,16 +251,19 @@ $(document).ready(function() {
     })
 });
 
-let button = document.querySelector(".deleteListCateg")
+let button = document.querySelectorAll(".deleteListCateg")
 
 if (button) {
-    
-    button.addEventListener("click", () => {
-        let id = button.dataset.id;
-        let entity = button.dataset.entity;
+
+for (let i = 0; i < button.length; i++) {
+
+    button[i].addEventListener("click", () => {
+        let id = button[i].dataset.id;
+        let entity = button[i].dataset.entity;
         console.log(id, entity)
         deleteModal(id, entity)
     })
+}
 
 }
 

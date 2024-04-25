@@ -36,7 +36,10 @@
                     <td>{{ student.city }}</td>
                     <td>{{ student.email }}</td>
                     <td>{{ student.phoneNumber }}</td>
-                    <td><a href="{{ path('delete_student', {id: student.id}) }}" title="Delete Stagiaire"><i class="fa-solid fa-x red"></i></a></td>
+                    <td><button type="button" id="buttonModal" class="deleteListCateg" data-id="{{ student.id }}" data-entity="student" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        DEL
+                      </button>
+                        </td>
                 </tr>
             {% endfor %}
         
