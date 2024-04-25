@@ -85,7 +85,10 @@
     line-height: 2;
 }
 
-.descriptionModule a {
+.editModuleSession {
+    color: rgb(222, 149, 14);
+}
+.delModuleSession {
   color: red;
   text-align: center;
 }
@@ -118,6 +121,8 @@
 }
 
 .addModule {
+    display: block;
+    width: 100%;
     border: none;
     padding: 10px 10px;
     background-color: var(--btn-color);
@@ -132,7 +137,8 @@
     transition: all 0.5s;
 }
 
-.addStagiaire {
+.addStagiaire,
+.addStagiaireComplet {
     border: none;
     padding: 10px 10px;
     background-color: var(--btn-color);
@@ -140,6 +146,14 @@
     text-decoration: none;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.addStagiaireComplet {
+    background-color: red;
+}
+
+.addStagiaireComplet:hover {
+    cursor: not-allowed;
 }
 
 .addStagiaire:hover {

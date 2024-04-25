@@ -22,7 +22,9 @@
 
     <div class="actionModule">
         <a href="{{ path('edit_module', {id: module.id}) }}" class="editModule"> Edit </a>
-        <a href="{{ path('delete_module', {id: module.id}) }}" class="deleteModule"> Delete </a>
+        <button type="button" id="buttonModal" class="deleteListCateg" data-id="{{ module.id }}" data-entity="module" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Delete
+          </button>
     </div>
 
 

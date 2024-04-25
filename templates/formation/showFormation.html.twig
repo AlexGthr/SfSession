@@ -20,6 +20,7 @@
             <div class="listDetFormation">
 
                 <a href="{{ path('show_session', {id: session.id}) }}"> <h2>{{ session }}</h2> </a>
+                
                 <p><u>Date de début :</u> <span class="blue"> {{ session.startDate|date("d/m/Y") }} </span></p>
                 <p><u>Date de fin :</u> <span class="blue"> {{ session.endDate|date("d/m/Y") }} </span></p>
             
@@ -69,7 +70,7 @@
                         {% endfor %}
                     </ul>
 
-                    <span class="detailBtnModule"><a href="{{ path('show_formation', {id: session.id}) }}">Détails des modules</a></span>
+                    <span class="detailBtnModule"><a href="{{ path('show_session', {id: session.id}) }}">Détails de la session</a></span>
                 </div>
             </div>
         {% endfor %}

@@ -187,6 +187,7 @@ class SessionController extends AbstractController
         }
     }
 
+    // Ajouter un stagiaire dans la session
     #[Route('/session/{id}/addStagiaire', name: 'new_stagiaireSession')]
     public function new_AddStudentSession(SessionRepository $sessionRepository, Session $session = null, StudentRepository $studentRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
     {
@@ -210,22 +211,28 @@ class SessionController extends AbstractController
 
             if ($stagiaire) {
 
-            $stagiaireId = $studentRepository->findOneById($stagiaire);
+                $stagiaireId = $studentRepository->findOneById($stagiaire);
 
-            // Définissez la session et le stagiaire pour cette instance
-            $session->addInscription($stagiaireId);
+                // je vérifie si il y a toujours de la place dans ma session
+                if ($session->NbAvailable() == 0) {
+                    return $this->redirectToRoute('show_session', ['id' => $id]);
+                } else {
 
-            // Enregistrez cette nouvelle instance dans la base de données
-            $entityManager->persist($session);
-            $entityManager->flush();
+                // je défini la session et le stagiaire pour cette instance
+                $session->addInscription($stagiaireId);
 
-    
-             // Puis on redirige l'utilisateur vers la liste des SESSION
-            return $this->redirectToRoute('show_session', ['id' => $id]);
+                // Enregistrez cette nouvelle instance dans la base de données
+                $entityManager->persist($session);
+                $entityManager->flush();
+
+        
+                // Puis on redirige l'utilisateur vers la liste des SESSION
+                return $this->redirectToRoute('show_session', ['id' => $id]);
+                }
             } else {
                 return $this->redirectToRoute('show_session', ['id' => $id]);
             }
-            }
+        }
                     
         return $this->render('session/addModule.html.twig', [
             'formAddModuleSession' => $form,
@@ -271,8 +278,8 @@ class SessionController extends AbstractController
     }
 
     // Method pour supprimée un stagiaire d'une session
-    #[Route('/session/{sessionId}/stagiaire/{studentId}/delete', name: 'del_StudentSession')]
-    public function delStudentSession(Session $session = null, SessionRepository $sessionRepository, Student $student = null, StudentRepository $studentRepository, $sessionId = null, $studentId = null, EntityManagerInterface $entityManager): Response 
+    #[Route('/session/{sessionId}/stagiaire/{studentId}/delete/{returnStudent}', name: 'del_StudentSession')]
+    public function delStudentSession(Session $session = null, SessionRepository $sessionRepository, Student $student = null, StudentRepository $studentRepository, $sessionId = null, $studentId = null, EntityManagerInterface $entityManager, $returnStudent = false): Response 
     {
         $user = $this->getUser();
 
@@ -290,7 +297,11 @@ class SessionController extends AbstractController
             $entityManager->persist($delete);
             $entityManager->flush();
         
-            return $this->redirectToRoute('show_session', ['id' => $sessionId]);
+            if ($returnStudent) {
+                return $this->redirectToRoute('show_student', ['id' => $studentId]);
+            } else {
+                return $this->redirectToRoute('show_session', ['id' => $sessionId]);
+            }
 
             } else {
             return $this->redirectToRoute('app_session');

@@ -20,7 +20,9 @@
             <h3><u><strong>Information</strong></u></h3>
             <div class="actionStudent">
                 <a href="{{ path('edit_student', {id: student.id}) }}" class="editStudent"> Edit </a>
-                <a href="{{ path('delete_student', {id: student.id}) }}" class="deleteStudent"> Delete </a>
+                <button type="button" id="buttonModal" class="deleteListCateg" data-id="{{ student.id }}" data-entity="student" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Delete
+                  </button>
             </div>
         </div>
 
@@ -38,11 +40,11 @@
                     <li>
                         <a href="{{ path('show_formation', {id: session.id}) }}">
                             
-                            {{ session.formation.name }} 
+                            <a href="{{ path('del_StudentSession', {sessionId: session.id, studentId: student.id, returnStudent: true}) }}" title="desinscrire Stagiaire"><i class="fa-solid fa-x red"></i></a>    {{ session.formation.name }} 
 
                         </a><br> 
                         <span class="dateFormation">
-                            (du {{ session.startDate|date('Y-m-d') }} au {{ session.endDate|date('Y-m-d') }})
+                            (du {{ session.startDate|date('d-m-Y') }} au {{ session.endDate|date('d-m-Y') }})
                                 {% if session.enCours %}
                                     <strong>> En cours</strong>
                                     {% elseif session.prochainement %}
@@ -50,6 +52,7 @@
                                     {% else %}
                                     <strong>> Terminée</strong>
                                 {% endif %}
+                                
                         </span>
                     </li><br>
                 {% endfor %}

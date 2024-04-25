@@ -47,7 +47,9 @@
 
                     <p><strong>Categorie :</strong> {{ programme.module.category }}</p>
                     <p> {{ programme.module.description|replace({'<strong>' : '<strong>', '</strong>' : '</strong>', '<list>' : '•', '<br>' : '<br>'})|raw }} </p>
-                    <a href="{{ path('del_ModuleSession', {sessionId: session.id, programmeId: programme.id}) }}" title="Delete Module">Supprimer le module de la session</a>
+
+                    <a href="{{ path('edit_module', {id: programme.module.id}) }}" title="edit Module" class="editModuleSession">Modifier le module de la session</a> <br>
+                    <a href="{{ path('del_ModuleSession', {sessionId: session.id, programmeId: programme.id}) }}" title="Delete Module" class="delModuleSession">Supprimer le module de la session</a>
 
                 </div>
             </div>
@@ -70,13 +72,18 @@
         <p class="nbDay">Durée de la formation : du <u>{{ session.startDate|date("d/m/Y") }}</u> au <u>{{ session.endDate|date("d/m/Y") }}</u> </p>
     
     <div class="tableStagiaire">
-        <p class="nbPlace">Nombre de place : <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
+        <p class="nbPlace">Nombre de place :
+            {% if session.nbAvailable == 0 %}
+            <span class="red"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
+            {% else %}
+            <span class="green"> {{ session.nbAvailable }} / {{ session.nbPlace }} </span></p>
+            {% endif %} 
 
-        {% if session.closed == 0 %}
+        {% if session.closed == 1 or session.nbAvailable == 0 %}
+        <button class="addStagiaireComplet">COMPLET</button>
+        {% else %}
         <button id="buttonAddStagiaire" class="addStagiaire">Ajouter un stagiaire</button>
         <div id="formStagiaire"> </div>
-        {% else %}
-        <a href="#" class="addStagiaire"> Pas de formation en cours </a>
         {% endif %}
 
         {# <div class="tableau"> #}
@@ -103,7 +110,12 @@
                         </tr>
                     {% endfor %}
                 {% endif %}
-                
+
+                {% if session.nbAvailable == 0 %}
+            </tbody>
+        </table>
+                {% else %}
+
                 {% for i in 1..(session.nbPlace - session.inscription|length) %}
                     <tr>
                         <td scope="row"></td>
@@ -115,6 +127,8 @@
                 {% endfor %}
             </tbody>
         </table>
+                {% endif %}
+
 
         {# <table class="table table-striped">
             <thead>

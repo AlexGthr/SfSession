@@ -39,7 +39,9 @@
                 {% if formation.getSessions()|length > 0 %}
                     <a href="#" class="cantDelListCateg"> Delete </a>
                 {% else %}
-                    <a href="{{ path('del_formation', {id: formation.id}) }}" class="deleteListCateg"> Delete </a>                 
+                    <button type="button" id="buttonModal" class="deleteListCateg" data-id="{{ formation.id }}" data-entity="formation" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Delete
+                      </button>
                 {% endif %}
             </div>
     </div>

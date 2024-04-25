@@ -67,3 +67,8 @@ table i {
 .separatorTable {
     border: solid 2px black;
 }
+
+.modalListStudent {
+    border: none;
+    background-color: transparent;
+}

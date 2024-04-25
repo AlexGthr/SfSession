@@ -250,3 +250,21 @@ $(document).ready(function() {
         $(this).find('.description').slideToggle(); // Trouve la description à l'intérieur de la cardModule cliquée et fait le slideToggle
     })
 });
+
+let button = document.querySelector(".deleteListCateg")
+
+if (button) {
+    
+    button.addEventListener("click", () => {
+        let id = button.dataset.id;
+        let entity = button.dataset.entity;
+        console.log(id, entity)
+        deleteModal(id, entity)
+    })
+
+}
+
+function deleteModal(id, entity) {
+    let delBtn = document.querySelector(".delBtnTest")
+    delBtn.href = `/${entity}/${id}/delete`
+}
