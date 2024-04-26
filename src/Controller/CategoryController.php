@@ -8,6 +8,7 @@ use App\Repository\ModuleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,7 +38,7 @@ class CategoryController extends AbstractController
     // Method pour AJOUTER ou EDIT une CATEGORIE
     #[Route('/category/new', name: 'new_category')]
     #[Route('/category/{id}/edit', name: 'edit_category')]
-    public function new_editCategory(CategoryRepository $categoryRepository, Category $category = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_editCategory(CategoryRepository $categoryRepository, Category $category = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response 
     {
 
         $user = $this->getUser();
@@ -69,7 +70,7 @@ class CategoryController extends AbstractController
             $entityManager->flush();
 
             // Puis on redirige l'user vers la liste des CATEGORIE
-            $flashy->info("Formulaire validée.", "");
+        $flashy->info("Formulaire validé avec succès ✓", "");
             return $this->redirectToRoute('app_category');
         }
         
@@ -87,7 +88,7 @@ class CategoryController extends AbstractController
 
     // Method pour supprimer une catégorie
     #[Route('/category/{id}/delete', name: 'del_category')]
-        public function deleteCateg(Category $category = null, ModuleRepository $moduleRepository,EntityManagerInterface $entityManager, $id = null): Response
+        public function deleteCateg(Category $category = null, ModuleRepository $moduleRepository,EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response
     {
         
         $user = $this->getUser();
@@ -110,6 +111,7 @@ class CategoryController extends AbstractController
             $entityManager->flush();
 
             // Puis on redirige l'user vers la liste des catégories
+            $flashy->info("Catégorie supprimée avec succès ✓", "");
             return $this->redirectToRoute('app_category');
         }
 

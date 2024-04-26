@@ -38,6 +38,7 @@ class PersonneController extends AbstractController
         }
     }
 
+    // Method pour l'affichage des formateurs
     #[Route('/formateur', name: 'app_formateur')]
     public function listeFormateurs(FormateurRepository $formateurRepository): Response
     {
@@ -62,7 +63,7 @@ class PersonneController extends AbstractController
     // Method pour AJOUTER ou EDIT un STAGIAIRE
     #[Route('/personne/new', name: 'new_student')]
     #[Route('/personne/{id}/edit', name: 'edit_student')]
-    public function new_editStudent(StudentRepository $studentRepository, Student $student = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_editStudent(StudentRepository $studentRepository, Student $student = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response 
     {
 
         $user = $this->getUser();
@@ -96,7 +97,7 @@ class PersonneController extends AbstractController
             $entityManager->flush();
         
             // Puis on redirige l'user vers la liste des STAGIAIRE
-            $flashy->info("Formulaire validée.", "");
+            $flashy->info("Formulaire validé avec succès ✓", "");
             return $this->redirectToRoute('app_personne');
         }
                 
@@ -149,7 +150,7 @@ class PersonneController extends AbstractController
             $entityManager->flush();
         
             // Puis on redirige l'user vers la liste des FORMATEUR
-            $flashy->info("Formulaire validée ✓", "");
+            $flashy->info("Formulaire validé avec succès ✓", "");
             return $this->redirectToRoute('app_formateur');
         }
                 
@@ -177,6 +178,7 @@ class PersonneController extends AbstractController
         $entityManager->flush();
 
         // Puis on redirige l'user vers la liste des stagiaire
+        $flashy->info("Stagiaire supprimé avec succès ✓", "");
         return $this->redirectToRoute('app_personne');
 
         }

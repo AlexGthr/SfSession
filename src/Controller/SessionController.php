@@ -14,12 +14,14 @@ use App\Repository\StudentRepository;
 use App\Repository\ProgrammeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SessionController extends AbstractController
 {
+    // Method pour l'affichage des sessions
     #[Route('/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository): Response
     {
@@ -43,7 +45,7 @@ class SessionController extends AbstractController
     // Method pour AJOUTER ou EDIT une SESSION
     #[Route('/session/new', name: 'new_session')]
     #[Route('/session/{id}/edit', name: 'edit_session')]
-    public function new_EditSession(SessionRepository $sessionRepository, Session $session = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_EditSession(SessionRepository $sessionRepository, Session $session = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response 
     {
         $user = $this->getUser();
 
@@ -88,6 +90,7 @@ class SessionController extends AbstractController
             $entityManager->flush();
             
             // Puis on redirige l'user vers la liste des SESSION
+            $flashy->info("Formulaire validé avec succès ✓", "");
             return $this->redirectToRoute('app_session');
 
             
@@ -134,7 +137,7 @@ class SessionController extends AbstractController
     }
 
     #[Route('/session/{id}/addModule', name: 'new_Modulesession')]
-    public function new_AddModuleSession(SessionRepository $sessionRepository, Session $session = null, ModuleRepository $moduleRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_AddModuleSession(SessionRepository $sessionRepository, Session $session = null, ModuleRepository $moduleRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response 
     {
         $user = $this->getUser();
 
@@ -170,17 +173,14 @@ class SessionController extends AbstractController
                 $entityManager->flush();
 
                 // Puis on redirige l'user vers la liste des SESSION
+                $flashy->info("Module ajouté avec succès ✓", "");
                 return $this->redirectToRoute('show_session', ['id' => $id]);
             } else {
                 return $this->redirectToRoute('show_session', ['id' => $id]);
             }
             }
                     
-        return $this->render('session/addModule.html.twig', [
-            'formAddModuleSession' => $form,
-            'session' => $session,
-            'programme' => $programme
-            ]);
+            return $this->redirectToRoute('show_session', ['id' => $id]);
         }
         else {
             return $this->redirectToRoute('app_login');
@@ -189,7 +189,7 @@ class SessionController extends AbstractController
 
     // Ajouter un stagiaire dans la session
     #[Route('/session/{id}/addStagiaire', name: 'new_stagiaireSession')]
-    public function new_AddStudentSession(SessionRepository $sessionRepository, Session $session = null, StudentRepository $studentRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_AddStudentSession(SessionRepository $sessionRepository, Session $session = null, StudentRepository $studentRepository, Programme $programme = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response 
     {
         $user = $this->getUser();
 
@@ -227,6 +227,7 @@ class SessionController extends AbstractController
 
         
                 // Puis on redirige l'utilisateur vers la liste des SESSION
+                $flashy->info("Stagiaire ajouté avec succès ✓", "");
                 return $this->redirectToRoute('show_session', ['id' => $id]);
                 }
             } else {
@@ -234,11 +235,8 @@ class SessionController extends AbstractController
             }
         }
                     
-        return $this->render('session/addModule.html.twig', [
-            'formAddModuleSession' => $form,
-            'session' => $session,
-            'programme' => $programme
-            ]);
+        return $this->redirectToRoute('show_session', ['id' => $id]);
+
         }
         else {
             return $this->redirectToRoute('app_login');
@@ -279,7 +277,7 @@ class SessionController extends AbstractController
 
     // Method pour supprimée un stagiaire d'une session
     #[Route('/session/{sessionId}/stagiaire/{studentId}/delete/{returnStudent}', name: 'del_StudentSession')]
-    public function delStudentSession(Session $session = null, SessionRepository $sessionRepository, Student $student = null, StudentRepository $studentRepository, $sessionId = null, $studentId = null, EntityManagerInterface $entityManager, $returnStudent = false): Response 
+    public function delStudentSession(Session $session = null, SessionRepository $sessionRepository, Student $student = null, StudentRepository $studentRepository, $sessionId = null, $studentId = null, EntityManagerInterface $entityManager, $returnStudent = false, FlashyNotifier $flashy): Response 
     {
         $user = $this->getUser();
 
@@ -298,8 +296,10 @@ class SessionController extends AbstractController
             $entityManager->flush();
         
             if ($returnStudent) {
+                $flashy->info("Stagiaire retiré avec succès ✓", "");
                 return $this->redirectToRoute('show_student', ['id' => $studentId]);
             } else {
+                $flashy->info("Stagiaire retiré avec succès ✓", "");
                 return $this->redirectToRoute('show_session', ['id' => $sessionId]);
             }
 
@@ -315,7 +315,7 @@ class SessionController extends AbstractController
     
     // Method pour supprimée un programme d'une session
     #[Route('/session/{sessionId}/programme/{programmeId}/delete', name: 'del_ModuleSession')]
-    public function delModuleSession(Session $session = null, SessionRepository $sessionRepository, Programme $programme = null, ProgrammeRepository $programmeRepository, $sessionId = null, $programmeId = null, EntityManagerInterface $entityManager): Response 
+    public function delModuleSession(Session $session = null, SessionRepository $sessionRepository, Programme $programme = null, ProgrammeRepository $programmeRepository, $sessionId = null, $programmeId = null, EntityManagerInterface $entityManager, FlashyNotifier $flashy): Response 
     {
         $user = $this->getUser();
 
@@ -333,6 +333,7 @@ class SessionController extends AbstractController
             $entityManager->persist($delete);
             $entityManager->flush();
             
+            $flashy->info("Module retiré avec succès ✓", "");
             return $this->redirectToRoute('show_session', ['id' => $sessionId]);
     
         } else {

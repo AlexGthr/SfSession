@@ -31,7 +31,7 @@ class SecurityController extends AbstractController
     }
 
         // LISTE DES STAGIAIRE
-    #[Route('/formation', name: 'app_notfound')]
+    #[Route('/notfound', name: 'app_notfound')]
     public function notFound(): Response
     {
 

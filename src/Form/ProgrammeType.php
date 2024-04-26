@@ -35,7 +35,7 @@ class ProgrammeType extends AbstractType
             ->add('session', EntityType::class, [
                 'label' => 'Choix de la session*',
                 'class' => Session::class,
-                'choice_label' => 'formation',
+                'choice_label' => 'name',
                 'attr' => [
                     'class' => 'form-select'
                 ]

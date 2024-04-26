@@ -7,6 +7,7 @@ use App\Form\ModuleType;
 use App\Repository\ModuleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,7 +39,7 @@ class ModuleController extends AbstractController
     // Method pour AJOUTER ou EDIT un MODULE
     #[Route('/module/new', name: 'new_module')]
     #[Route('/module/{id}/edit', name: 'edit_module')]
-    public function new_editModule(ModuleRepository $moduleRepository, Module $module = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_editModule(ModuleRepository $moduleRepository, Module $module = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response 
     {
 
         $user = $this->getUser();
@@ -71,6 +72,7 @@ class ModuleController extends AbstractController
             $entityManager->flush();
             
             // Puis on redirige l'user vers la liste des MODULE
+            $flashy->info("Formulaire validé avec succès ✓", "");
             return $this->redirectToRoute('app_module');
             }
                     
@@ -88,7 +90,7 @@ class ModuleController extends AbstractController
 
     // Method pour supprimer un module
     #[Route('/module/{id}/delete', name: 'delete_module')]
-    public function delete(Module $module, EntityManagerInterface $entityManager)
+    public function delete(Module $module, EntityManagerInterface $entityManager, FlashyNotifier $flashy)
     {
 
         $user = $this->getUser();
@@ -100,6 +102,7 @@ class ModuleController extends AbstractController
         $entityManager->flush();
 
         // Puis on redirige l'user vers la liste des modules
+        $flashy->info("Module supprimé avec succès ✓", "");
         return $this->redirectToRoute('app_module');
 
         }

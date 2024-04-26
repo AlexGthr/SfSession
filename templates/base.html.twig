@@ -47,10 +47,9 @@
 
             <div class="wrapper">
                 <div class="nav">
-                    <h1><a href="{{ path('app_home') }}" class="linkHome">Session</a></h1>
-                    <span class="button"><a href="#">Crée Formation</a></span>
-
+                    
                     <div class="menu_nav">
+                        <h1><a href="{{ path('app_home') }}" class="linkHome">Session</a></h1>
 
                         <div class="dashboard">
                             <i class="fa-solid fa-chart-line"></i>
@@ -98,6 +97,7 @@
                     </div>
 
                 </div>
+                    <div class="navMobile"></div>
                 <div class="content">
 
                     <div class="topScreen">
@@ -109,7 +109,7 @@
 
     
                                 <input type="search" class="research" name="research" placeholder="Research">
-                                <button type="submit" name="submit" class="fa-mobile"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                <button aria-label="boutton recherche" type="submit" name="submit" class="fa-mobile"><i class="fa-solid fa-magnifying-glass"></i></button>
 
                             </form>
 

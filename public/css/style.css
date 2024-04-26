@@ -113,6 +113,14 @@ body.dark-theme {
     top: 0px;
 }
 
+.nav h1 {
+    margin-bottom: 50px;
+}
+
+.navMobile {
+    display: none;
+}
+
 .linkHome {
     text-decoration: none;
     color: var(--first-color);

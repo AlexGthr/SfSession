@@ -22,6 +22,7 @@ use App\Repository\FormationRepository;
 use App\Repository\ProgrammeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,7 +56,7 @@ class FormationController extends AbstractController
     // Method pour AJOUTER ou EDIT une FORMATION
     #[Route('/formation/new', name: 'new_formation')]
     #[Route('/formation/{id}/edit', name: 'edit_formation')]
-    public function new_editFormation(FormationRepository $formationRepository, Formation $formation = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_editFormation(FormationRepository $formationRepository, Formation $formation = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response 
     {
         $user = $this->getUser();
 
@@ -87,6 +88,7 @@ class FormationController extends AbstractController
             $entityManager->flush();
             
             // Puis on redirige l'user vers la liste des FORMATION
+            $flashy->info("Formulaire validé avec succès ✓", "");
             return $this->redirectToRoute('app_formation');
             }
                     
@@ -105,7 +107,7 @@ class FormationController extends AbstractController
     // Method pour AJOUTER ou EDIT un PROGRAMME
     #[Route('/programme/new', name: 'new_programme')]
     #[Route('/programme/{id}/edit', name: 'edit_programme')]
-    public function new_editProgramme(Programme $programme = null, Request $request, EntityManagerInterface $entityManager): Response 
+    public function new_editProgramme(Programme $programme = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy): Response 
     {
 
         $user = $this->getUser();
@@ -136,6 +138,7 @@ class FormationController extends AbstractController
             $entityManager->flush();
             
             // Puis on redirige l'user vers la création d'un PROGRAMME
+            $flashy->info("Formulaire validé avec succès ✓", "");
             return $this->redirectToRoute('new_programme');
             }
                     
@@ -152,7 +155,7 @@ class FormationController extends AbstractController
 
     // Method pour supprimer une formation
     #[Route('/formation/{id}/delete', name: 'del_formation')]
-        public function deleteCateg(Formation $formation = null, SessionRepository $sessionRepository, EntityManagerInterface $entityManager, $id = null): Response
+        public function deleteCateg(Formation $formation = null, SessionRepository $sessionRepository, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response
     {
 
         $user = $this->getUser();
@@ -175,6 +178,7 @@ class FormationController extends AbstractController
             $entityManager->flush();
 
             // Puis on redirige l'user vers la liste des formation
+            $flashy->info("Formation supprimé avec succès ✓", "");
             return $this->redirectToRoute('app_formation');
         }
 
