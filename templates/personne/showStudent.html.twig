@@ -20,7 +20,7 @@
             <h3><u><strong>Information</strong></u></h3>
             <div class="actionStudent">
                 <a href="{{ path('edit_student', {id: student.id}) }}" class="editStudent"> Edit </a>
-                <button type="button" id="buttonModal" class="deleteListCateg" data-id="{{ student.id }}" data-entity="student" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="buttonModal deleteListModule" data-id="{{ student.id }}" data-entity="student" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Delete
                   </button>
             </div>
@@ -38,10 +38,15 @@
             <ul>
                 {% for session in student.Sessions %}
                     <li>
+                        
+                        <button type="button"  class="buttonModalDelStagiaire deleteListStudent" data-idsession="{{ session.id }}" data-idstudent="{{ student.id }}" data-entity="session" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            DEL
+                          </button>
                         <a href="{{ path('show_formation', {id: session.id}) }}">
                             
-                            <a href="{{ path('del_StudentSession', {sessionId: session.id, studentId: student.id, returnStudent: true}) }}" title="desinscrire Stagiaire"><i class="fa-solid fa-x red"></i></a>    {{ session.formation.name }} 
+                            {# <a href="{{ path('del_StudentSession', {sessionId: session.id, studentId: student.id, returnStudent: true}) }}" title="desinscrire Stagiaire"><i class="fa-solid fa-x red"></i></a>  #}
 
+                              {{ session.formation.name }}
                         </a><br> 
                         <span class="dateFormation">
                             (du {{ session.startDate|date('d-m-Y') }} au {{ session.endDate|date('d-m-Y') }})

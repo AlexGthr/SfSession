@@ -251,9 +251,9 @@ $(document).ready(function() {
     })
 });
 
-let button = document.querySelectorAll(".deleteListCateg")
+let button = document.querySelectorAll(".buttonModal")
 
-if (button) {
+if (button) { 
 
 for (let i = 0; i < button.length; i++) {
 
@@ -264,10 +264,33 @@ for (let i = 0; i < button.length; i++) {
         deleteModal(id, entity)
     })
 }
+}
 
+let buttonStudentSession = document.querySelectorAll(".buttonModalDelStagiaire")
+
+if (buttonStudentSession) {
+
+for (let index = 0; index < buttonStudentSession.length; index++) {
+
+    buttonStudentSession[index].addEventListener("click", () => {
+        let idSession = buttonStudentSession[index].dataset.idsession;
+        let idStudent = buttonStudentSession[index].dataset.idstudent;
+        let entity = buttonStudentSession[index].dataset.entity;
+        console.log(idSession, idStudent, entity)
+        deleteModalStudent(idSession, idStudent, entity)
+    })
+}
+}
+
+function deleteModalStudent(idSession, idStudent, entity) {
+    let delBtn = document.querySelector(".delBtnTest")
+    delBtn.href = `/${entity}/${idSession}/stagiaire/${idStudent}/delete/true`
 }
 
 function deleteModal(id, entity) {
     let delBtn = document.querySelector(".delBtnTest")
     delBtn.href = `/${entity}/${id}/delete`
 }
+
+
+// <button type="button"  class="buttonModalDelStagiaire deleteListStudent" data-idSession="{{ session.id }}" data-idStudent="{{ student.id }}" data-returnStudent=true data-entity="session" data-bs-toggle="modal" data-bs-target="#staticBackdrop">

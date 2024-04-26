@@ -10,6 +10,7 @@ use App\Repository\StudentRepository;
 use App\Repository\FormateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -95,6 +96,7 @@ class PersonneController extends AbstractController
             $entityManager->flush();
         
             // Puis on redirige l'user vers la liste des STAGIAIRE
+            $flashy->info("Formulaire validée.", "");
             return $this->redirectToRoute('app_personne');
         }
                 
@@ -184,7 +186,7 @@ class PersonneController extends AbstractController
 
     // Method pour supprimer un formateur
     #[Route('/formateur/{id}/delete', name: 'delete_formateur')]
-    public function deleteFormateur(Formateur $formateur, EntityManagerInterface $entityManager)
+    public function deleteFormateur(Formateur $formateur, EntityManagerInterface $entityManager, FlashyNotifier $flashy)
     {
         $user = $this->getUser();
 
@@ -193,6 +195,7 @@ class PersonneController extends AbstractController
         $entityManager->remove($formateur);
         $entityManager->flush();
 
+        $flashy->info("Formateur supprimé avec succès.", "");
         // Puis on redirige l'user vers la liste des formateurs
         return $this->redirectToRoute('app_formateur');
 

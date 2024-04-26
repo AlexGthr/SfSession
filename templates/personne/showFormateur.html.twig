@@ -20,8 +20,9 @@
             <h3><u><strong>Information</strong></u></h3>
             <div class="actionStudent">
                 <a href="{{ path('edit_formateur', {id: formateur.id}) }}" class="editStudent"> Edit </a>
-                <a href="{{ path('delete_formateur', {id: formateur.id}) }}" class="deleteStudent"> Delete </a>
-            </div>
+                <button type="button"  class="buttonModal deleteListModule" data-id="{{ formateur.id }}" data-entity="formateur" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    DEL
+                  </button>            </div>
         </div>
 
         <div class="infoStudent">

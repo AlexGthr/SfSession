@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste Stagiaires{% endblock %}
+{% block title %}Liste Formateur{% endblock %}
 
 {% block titlePage %} <h1> FORMATEUR </h1> {% endblock %}
 
@@ -31,7 +31,9 @@
                     {% for formateur in formateurs %}
                         <tr>
                             <td scope="row"><a href="{{ path('show_formateur', {id: formateur.id})}}"> {{ formateur.lastName|upper }} {{ formateur.name }} </a> </td>
-                            <td><a href="{{ path('delete_formateur', {id: formateur.id})}}" title="Delete Stagiaire"><i class="fa-solid fa-x red"></i></a></td>
+                                <td><button type="button"  class="buttonModal deleteListStudent" data-id="{{ formateur.id }}" data-entity="formateur" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    DEL
+                                  </button></td>
                         </tr>
                     {% endfor %}
                 

@@ -49,7 +49,7 @@
                         {% if categ.modules|length > 0 %}
                             <a href="#" class="cantDelListCateg"> Delete </a>
                         {% else %}
-                        <button type="button" id="buttonModal" class="deleteListCateg" data-id="{{ categ.id }}" data-entity="category" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="button" class="buttonModal deleteListCateg" data-id="{{ categ.id }}" data-entity="category" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Delete
                           </button>
                         {% endif %}

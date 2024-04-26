@@ -61,6 +61,8 @@
 }
 
 .deleteListModule {
+    width: 100px;
+    border-radius: 25px;
     background-color: red;
     border: solid 2px rgb(255, 255, 255);
     color: white;

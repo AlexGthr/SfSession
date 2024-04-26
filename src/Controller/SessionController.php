@@ -313,7 +313,7 @@ class SessionController extends AbstractController
 
     }
     
-    // Method pour supprimée un stagiaire d'une session
+    // Method pour supprimée un programme d'une session
     #[Route('/session/{sessionId}/programme/{programmeId}/delete', name: 'del_ModuleSession')]
     public function delModuleSession(Session $session = null, SessionRepository $sessionRepository, Programme $programme = null, ProgrammeRepository $programmeRepository, $sessionId = null, $programmeId = null, EntityManagerInterface $entityManager): Response 
     {

@@ -64,6 +64,14 @@ table i {
     transition: all 0.5s;
 }
 
+.deleteListStudent {
+    width: 60px;
+    border-radius: 25px;
+    background-color: red;
+    border: solid 2px rgb(255, 255, 255);
+    color: white;
+}
+
 .separatorTable {
     border: solid 2px black;
 }

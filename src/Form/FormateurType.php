@@ -14,13 +14,13 @@ class FormateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lastName', TextType::class, [
+            ->add('name', TextType::class, [
                 'label' => "Prénom",
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add('name', TextType::class, [
+            ->add('lastName', TextType::class, [
                 'label' => "Nom",
                 'attr' => [
                     'class' => 'form-control'

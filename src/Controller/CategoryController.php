@@ -69,6 +69,7 @@ class CategoryController extends AbstractController
             $entityManager->flush();
 
             // Puis on redirige l'user vers la liste des CATEGORIE
+            $flashy->info("Formulaire validée.", "");
             return $this->redirectToRoute('app_category');
         }
         
