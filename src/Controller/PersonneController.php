@@ -115,7 +115,7 @@ class PersonneController extends AbstractController
     // Method pour ajoutés un formateur ou pour l'EDIT
     #[Route('/formateur/new', name: 'new_formateur')]
     #[Route('/formateur/{id}/edit', name: 'edit_formateur')]
-    public function new_editFormateur(FormateurRepository $formateurRepository, Formateur $formateur = null, Request $request, EntityManagerInterface $entityManager, $id = null): Response 
+    public function new_editFormateur(FormateurRepository $formateurRepository, Formateur $formateur = null, Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy, $id = null): Response 
     {
 
         $user = $this->getUser();
@@ -149,6 +149,7 @@ class PersonneController extends AbstractController
             $entityManager->flush();
         
             // Puis on redirige l'user vers la liste des FORMATEUR
+            $flashy->info("Formulaire validée ✓", "");
             return $this->redirectToRoute('app_formateur');
         }
                 
@@ -166,7 +167,7 @@ class PersonneController extends AbstractController
 
     // Method pour supprimer un stagiaire
     #[Route('/student/{id}/delete', name: 'delete_student')]
-    public function delete(Student $student, EntityManagerInterface $entityManager)
+    public function delete(Student $student, EntityManagerInterface $entityManager, FlashyNotifier $flashy)
     {
         $user = $this->getUser();
 
@@ -195,7 +196,7 @@ class PersonneController extends AbstractController
         $entityManager->remove($formateur);
         $entityManager->flush();
 
-        $flashy->info("Formateur supprimé avec succès.", "");
+        $flashy->info("Formateur supprimé avec succès ✓", "");
         // Puis on redirige l'user vers la liste des formateurs
         return $this->redirectToRoute('app_formateur');
 

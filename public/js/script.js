@@ -292,5 +292,26 @@ function deleteModal(id, entity) {
     delBtn.href = `/${entity}/${id}/delete`
 }
 
-
-// <button type="button"  class="buttonModalDelStagiaire deleteListStudent" data-idSession="{{ session.id }}" data-idStudent="{{ student.id }}" data-returnStudent=true data-entity="session" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+function flashy(message, link) {
+    var template = $($('#flashy-template').html())
+    $('.flashy').remove()
+    template
+        .find('.flashy__body')
+        .html(message)
+        .attr('href', link || '#')
+        .end()
+        .appendTo('body')
+        .hide()
+        .fadeIn(300)
+        .delay(2800)
+        .animate(
+            {
+                marginBottom: '-100%'
+            },
+            300,
+            'swing',
+            function() {
+                $(this).remove()
+            }
+        )
+}

@@ -1,0 +1,71 @@
+/* **************************
+**************************
+******** FLASHY **********
+**************************
+************************** */
+
+.flashy {
+    font-family: "Lexend", sans-serif;
+    padding: 11px 30px;
+    border-radius: 4px;
+    font-weight: 400;
+    height: 50px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.flashy--success {
+    background-color: #99c93d;
+    color: #fff;
+}
+
+.flashy--info a,
+.flashy--primary-dark a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.flashy--error {
+    background: #d14130;
+    color: #fff;
+}
+
+.flashy--info {
+    background: #0F7CB9;
+}
+
+.flashy > ul {
+    padding-left: 15px;
+}
+
+.flashy > p:only-of-type {
+    margin-bottom: 0;
+}
+
+.flashy i {
+    margin-right: 8px;
+    position: relative;
+    top: 6px;
+}
+
+.flashy .flashy__body {
+    color: inherit;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 1050px) {
+    .flashy {
+        text-align: center;
+        right: 0;
+        left: 50%;
+        width: 300px;
+        margin-left: -150px;
+    }
+}
