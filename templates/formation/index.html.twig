@@ -13,6 +13,12 @@
         <hr class="after_title" />
     </div>
 
+    <div class="addSomething">
+        <div class="buttonAdd">
+            <a href="{{ path('new_formation') }}" title="Ajoutez élément">Ajouter une formation</a>
+        </div>
+    </div>
+
     {% if formations %}
     
     {% for formation in formations %}

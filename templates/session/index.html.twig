@@ -9,8 +9,14 @@
 <div class="contentListSession">
 
     <div class="title_page">
-        <h1> Liste des sessions </h1>
+        <h1> Liste des sessions <span class="orange"><i class="fa-solid fa-plus"></i></span> </h1>
         <hr class="after_title" />
+    </div>
+
+    <div class="addSomething">
+        <div class="buttonAdd">
+            <a href="{{ path('new_session') }}" title="Ajoutez élément">Ajouter une session</a>
+        </div>
     </div>
         
         {% for session in sessions %}

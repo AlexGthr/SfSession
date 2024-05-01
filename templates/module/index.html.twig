@@ -13,6 +13,12 @@
         <h1> Liste des modules </h1>
         <hr class="after_title" />
     </div>
+
+    <div class="addSomething">
+        <div class="buttonAdd">
+            <a href="{{ path('new_module') }}" title="Ajoutez élément">Ajouter un module</a>
+        </div>
+    </div>
         
         {% for module in modules %}
         <div class="listModule">

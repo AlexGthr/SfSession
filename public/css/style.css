@@ -63,10 +63,38 @@ body.dark-theme {
     font-weight: 700;
 }
 
+.addSomething {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.buttonAdd {
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: solid 1px var(--btn-color);
+    background-color: var(--second-color);
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 5px;
+    cursor: pointer;
+}
+
+.buttonAdd a {
+    color: var(--btn-color);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.buttonAdd:hover {
+    background-color: rgb(204, 204, 204);
+    transition: all 1s;
+}
+
 .champObligatoire {
     text-align: center;
     color: var(--first-color);
 }
+
 
 
 /* *********************************************
