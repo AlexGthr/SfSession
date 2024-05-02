@@ -33,12 +33,13 @@
     justify-content: space-between; 
     align-items: center;
     text-decoration: none;
+    border-bottom: solid 5px transparent;
     cursor: pointer;
 }
 
 .cardHomeSession:hover {
-    border-bottom: solid 5px black;
-    transition: all 0.2s;
+    border-bottom: solid 5px var(--btn-color);
+    transition: all 0.3s ease;
 }
 
 .cardHomeSession:hover .arrowModule {

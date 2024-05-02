@@ -16,7 +16,8 @@
         <h1> Detail {{ session }} </h1>
         <hr class="after_title" />
     </div>
-
+    
+    <span class="editSessionShow"><a href="{{ path('edit_session', {id: session.id}) }}" class="editListModule"> Editer la session </a></span>
     <p> <strong>Formateur Référent :
             {% if session.formateur %}
                 <a href="{{ path('show_formateur', {id: session.formateur.id}) }}">{{ session.formateur.lastName|upper }} {{ session.formateur.name }} </a><br>

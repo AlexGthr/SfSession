@@ -205,7 +205,7 @@ class SessionController extends AbstractController
 
 
         // Si le formulaire est submit
-        if ($_POST['submit']) {
+        if (isset($_POST['submit'])) {
             
             $stagiaire = filter_input(INPUT_POST, "stagiaire", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -233,6 +233,8 @@ class SessionController extends AbstractController
             } else {
                 return $this->redirectToRoute('show_session', ['id' => $id]);
             }
+        } else {
+            return $this->redirectToRoute('show_session', ['id' => $id]);
         }
                     
         return $this->redirectToRoute('show_session', ['id' => $id]);
@@ -286,6 +288,7 @@ class SessionController extends AbstractController
         $session = $sessionRepository->findOneById($sessionId);
         $student = $studentRepository->findOneById($studentId);
 
+        $studentName = $student;
         if ($session && $student) {
 
             // Je récupère le programme de la session
@@ -299,7 +302,7 @@ class SessionController extends AbstractController
                 $flashy->info("Stagiaire retiré avec succès ✓", "");
                 return $this->redirectToRoute('show_student', ['id' => $studentId]);
             } else {
-                $flashy->info("Stagiaire retiré avec succès ✓", "");
+                $flashy->info($studentName . " retiré avec succès ✓", "");
                 return $this->redirectToRoute('show_session', ['id' => $sessionId]);
             }
 
