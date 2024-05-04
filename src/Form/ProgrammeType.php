@@ -9,6 +9,8 @@ use App\Entity\Programme;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -20,6 +22,16 @@ class ProgrammeType extends AbstractType
         $builder
             ->add('nbDay', IntegerType::class, [
                 'label' => 'Nombre de jours*',
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[0-9]+$/',
+                        'message' => 'Le nombre de jours ne peux contenir que des chiffres'
+                    ]),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Le formulaire ne peux être vide.',
+                    ])
+                    ],
                 'attr' => [
                     'class' => 'form-control'
                 ]

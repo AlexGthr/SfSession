@@ -26,7 +26,7 @@
             <h1><span class="blue">STAGIAIRE</span></h1>
     {{ form_start(formAddStudent) }}
 
-
+    <div class="formsError">
         <div class="row">
             <div class="col-sm">
                 {{ form_row(formAddStudent.name) }}
@@ -59,7 +59,8 @@
         {{ form_row(formAddStudent.valider) }}
         </div>
     </div>
-
+    </div>
+    
 {{ form_end(formAddStudent) }}
 
 <p class="champObligatoire">* Champ obligatoire</p>

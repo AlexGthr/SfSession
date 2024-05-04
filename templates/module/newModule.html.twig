@@ -26,12 +26,13 @@
 
     {{ form_start(formAddModule) }}
 
+    <div class="formsError">
         {{ form_row(formAddModule.name) }}
         {{ form_row(formAddModule.description) }}
         <p>Balise autorisé : &lt;strong&gt; / &lt;list&gt;  (•) / &lt;br&gt; </p>
         {{ form_row(formAddModule.category) }}
         {{ form_row(formAddModule.valider) }}
-
+    </div>
     {{ form_end(formAddModule) }}
         </div>
     </div>

@@ -7,6 +7,8 @@ use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,6 +21,16 @@ class ModuleType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom du module*',
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[A-Za-z0-9]+$/',
+                        'message' => 'Le nom du module ne peux contenir que des lettres et des chiffres'
+                    ]),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Le formulaire ne peux être vide.',
+                    ])
+                    ],
                 'attr' => [
                     'class' => 'form-control'
                 ]

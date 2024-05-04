@@ -25,9 +25,10 @@
             <h1><span class="blue">CATÉGORIE</span></h1>
 
             {{ form_start(formAddCategory) }}
-
+                <div class="formsError">
                     {{ form_row(formAddCategory.name) }}
                     {{ form_row(formAddCategory.valider) }}
+                </div>
 
             {{ form_end(formAddCategory) }}
 

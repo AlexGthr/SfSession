@@ -26,11 +26,13 @@
 
     {{ form_start(formAddProgramme) }}
 
+    <div class="formsError">
         {{ form_row(formAddProgramme.nbDay) }}
         {{ form_row(formAddProgramme.session) }}
         {{ form_row(formAddProgramme.module) }}
         {{ form_row(formAddProgramme.valider) }}
-
+    </div>
+    
     {{ form_end(formAddProgramme) }}
 
         </div>

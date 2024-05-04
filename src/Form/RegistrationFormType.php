@@ -24,18 +24,48 @@ class RegistrationFormType extends AbstractType
         $builder
         ->add('name', TextType::class, [
             'label' => 'Prénom',
+            'constraints' => [
+                new Regex([
+                    'pattern' => '/^[A-Za]+$/',
+                    'message' => 'Votre prénom ne peux contenir que des lettres'
+                ]),
+                new Length([
+                    'min' => 1,
+                    'minMessage' => 'Le formulaire ne peux être vide.',
+                ])
+                ],
             'attr' => [
                 'class' => 'form-control'
             ] 
         ])
         ->add('lastName', TextType::class, [
             'label' => 'Nom',
+            'constraints' => [
+                new Regex([
+                    'pattern' => '/^[A-Za]+$/',
+                    'message' => 'Votre nom ne peux contenir que des lettres'
+                ]),
+                new Length([
+                    'min' => 1,
+                    'minMessage' => 'Le formulaire ne peux être vide.',
+                ])
+                ],
             'attr' => [
                 'class' => 'form-control'
             ] 
         ])
             ->add('email', EmailType::class, [
                 'label' => 'Votre E-mail',
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+                        'message' => 'Email incorrect.'
+                    ]),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Le formulaire ne peux être vide.',
+                    ])
+                    ],
                 'attr' => [
                     'class' => 'form-control'
                 ] 

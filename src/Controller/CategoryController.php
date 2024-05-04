@@ -63,7 +63,6 @@ class CategoryController extends AbstractController
             
             // On recupère les données du formulaire
             $category = $form->getData();
-
             // PREPARE PDO
             $entityManager->persist($category);
             // EXECUTE PDO
