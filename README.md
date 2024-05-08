@@ -13,6 +13,8 @@ Laragon : https://laragon.org/download/index.html <br>
 Symfony <br>
 Un système de gestion de base de données (SGBD) (MySQL / HeidiSQL)
 
+Installer dépendence : composer install
+
 ****************
 
 <h1> Création d'un site Session </h1>
