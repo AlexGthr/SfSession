@@ -26,7 +26,7 @@
 
     {{ form_start(formAddSession) }}
 
-
+    <div class="formsError">
         {{ form_row(formAddSession.name) }}
         {{ form_row(formAddSession.startDate) }}
         {{ form_row(formAddSession.endDate) }}
@@ -39,7 +39,8 @@
         {{ form_row(formAddSession.formation) }}
         {{ form_row(formAddSession.formateur) }}
         {{ form_row(formAddSession.valider) }}
-
+    </div>
+    
 {{ form_end(formAddSession) }}
 
         </div>

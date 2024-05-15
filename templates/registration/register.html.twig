@@ -20,7 +20,7 @@
 {{ form_errors(registrationForm) }}
 
 {{ form_start(registrationForm) }}
-
+<div class="formsError">
 <div class="row">
     <div class="col-sm">
         {{ form_row(registrationForm.name) }}
@@ -38,6 +38,7 @@
     {{ form_row(registrationForm.agreeTerms) }}
 
     {{ form_row(registrationForm.valider) }}
+</div>
 {{ form_end(registrationForm) }}
 
         </div></div>
